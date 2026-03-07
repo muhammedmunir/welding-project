@@ -1,0 +1,21 @@
+{
+  "name": "Majlis Perkahwinan Syarah & Munir 2026",
+  "short_name": "Syarah & Munir",
+  "description": "Jemputan digital majlis perkahwinan Zulfatul Syarah & Muhammed Munir",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef4fb",
+  "theme_color": "#c084be",
+  "orientation": "portrait",
+  "lang": "ms",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["lifestyle", "social"]
+}

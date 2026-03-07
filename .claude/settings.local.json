@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install qrcode)",
+      "Bash(npm install --save-dev @types/qrcode)",
+      "Bash(npm run build)",
+      "WebFetch(domain:invitez.my)"
+    ]
+  }
+}

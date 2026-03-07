@@ -1,0 +1,97 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/* ===== Design Tokens ===== */
+@theme {
+	/* Fairytale theme (perempuan) */
+	--color-fairy-primary: #c084be;
+	--color-fairy-secondary: #7eb8d6;
+	--color-fairy-accent: #f9c4d9;
+	--color-fairy-gold: #d4af37;
+	--color-fairy-bg: #eef4fb;
+	--color-fairy-text: #4a3060;
+	--color-fairy-muted: #8a7aa0;
+
+	/* Melayu theme (lelaki) */
+	--color-malay-primary: #c9a227;
+	--color-malay-secondary: #8b6914;
+	--color-malay-accent: #f5e6c0;
+	--color-malay-bg: #fdf8ec;
+	--color-malay-text: #3d2b00;
+	--color-malay-muted: #7a6030;
+
+	/* Fonts */
+	--font-playfair: 'Playfair Display', Georgia, serif;
+	--font-amiri: 'Amiri', 'Times New Roman', serif;
+	--font-lato: 'Lato', system-ui, sans-serif;
+	--font-noto: 'Noto Serif', Georgia, serif;
+}
+
+/* ===== Global base styles ===== */
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 0;
+	background: #000;
+	color: #fff;
+	padding: 8px 16px;
+	z-index: 100;
+	transition: top 0.2s;
+	font-size: 0.875rem;
+}
+
+.skip-link:focus {
+	top: 0;
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+	0%, 100% { transform: translateY(0px) rotate(0deg); }
+	33% { transform: translateY(-12px) rotate(2deg); }
+	66% { transform: translateY(-6px) rotate(-2deg); }
+}
+
+@keyframes fadeInUp {
+	from { opacity: 0; transform: translateY(30px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+	0% { background-position: -200% center; }
+	100% { background-position: 200% center; }
+}
+
+@keyframes pulse-glow {
+	0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+	50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.7); }
+}
+
+@keyframes sway {
+	0%, 100% { transform: rotate(-3deg); }
+	50% { transform: rotate(3deg); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease forwards; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-sway { animation: sway 3s ease-in-out infinite; }
+
+/* ===== Print styles ===== */
+@media print {
+	.no-print { display: none !important; }
+	body { background: white !important; }
+}
+
+/* ===== Bismillah calligraphy text ===== */
+.bismillah {
+	font-family: var(--font-amiri);
+	font-size: clamp(1.5rem, 4vw, 2.5rem);
+	text-align: center;
+	direction: rtl;
+	unicode-bidi: embed;
+}
