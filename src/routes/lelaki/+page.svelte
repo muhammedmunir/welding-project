@@ -24,11 +24,13 @@
 	];
 
 	const navSections = [
+		{ id: 'hero',     label: 'Utama',    icon: '🏠' },
 		{ id: 'aturcara', label: 'Aturcara', icon: '📋' },
 		{ id: 'lokasi',   label: 'Lokasi',   icon: '📍' },
 		{ id: 'rsvp',     label: 'RSVP',     icon: '✉️' },
 		{ id: 'ucapan',   label: 'Ucapan',   icon: '💬' },
-		{ id: 'hubungi',  label: 'Hubungi',  icon: '📞' }
+		{ id: 'hubungi',  label: 'Hubungi',  icon: '📞' },
+		{ id: 'kongsi',   label: 'QR',       icon: '📱' }
 	];
 
 	const pageUrl = browser ? window.location.origin + '/lelaki' : '';
@@ -61,7 +63,7 @@
 <main id="main-content">
 
 	<!-- ══════════════════════════════════ HERO ══ -->
-	<section class="hero">
+	<section id="hero" class="hero">
 		<a href="/" class="back-link" aria-label="Kembali">← Kembali</a>
 
 		<!-- Islamic geometric top border -->
@@ -377,7 +379,7 @@
 	</section>
 
 	<!-- ════════════════════ KONGSI ══ -->
-	<section class="section bg-soft" aria-labelledby="kongsi-title">
+	<section id="kongsi" class="section bg-soft" aria-labelledby="kongsi-title">
 		<div class="inner center-text">
 			<p class="section-tag" id="kongsi-title">Kongsi Jemputan</p>
 			<div class="section-rule" aria-hidden="true"></div>

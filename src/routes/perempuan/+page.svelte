@@ -24,11 +24,13 @@
 	];
 
 	const navSections = [
+		{ id: 'hero',     label: 'Utama',    icon: '🏠' },
 		{ id: 'aturcara', label: 'Aturcara', icon: '📋' },
 		{ id: 'lokasi',   label: 'Lokasi',   icon: '📍' },
 		{ id: 'rsvp',     label: 'RSVP',     icon: '✉️' },
 		{ id: 'ucapan',   label: 'Ucapan',   icon: '💬' },
-		{ id: 'hubungi',  label: 'Hubungi',  icon: '📞' }
+		{ id: 'hubungi',  label: 'Hubungi',  icon: '📞' },
+		{ id: 'kongsi',   label: 'QR',       icon: '📱' }
 	];
 
 	const pageUrl = browser ? window.location.origin + '/perempuan' : '';
@@ -61,7 +63,7 @@
 <main id="main-content">
 
 	<!-- ══════════════════════════════════ HERO ══ -->
-	<section class="hero">
+	<section id="hero" class="hero">
 		<a href="/" class="back-link" aria-label="Kembali">← Kembali</a>
 
 		<!-- Sudut ornamen -->
@@ -363,7 +365,7 @@
 	</section>
 
 	<!-- ════════════════════ KONGSI ══ -->
-	<section class="section bg-soft" aria-labelledby="kongsi-title">
+	<section id="kongsi" class="section bg-soft" aria-labelledby="kongsi-title">
 		<div class="inner center-text">
 			<p class="section-tag" id="kongsi-title">Kongsi Jemputan</p>
 			<div class="section-rule" aria-hidden="true"></div>
@@ -407,14 +409,14 @@
 		--text: #2a1f2a;
 		--muted: #8a7a8a;
 		--bg: #ffffff;
-		--bg-soft: #faf7fb;
+		--bg-soft: #f3edf8;
 	}
 
 	/* ── Hero ── */
 	.hero {
 		min-height: 100vh;
 		scroll-snap-align: start;
-		background: linear-gradient(160deg, #f5eef5 0%, #eef0f8 50%, #f3eef5 100%);
+		background: linear-gradient(160deg, #e6d4f0 0%, #d4ddf5 50%, #e0cef0 100%);
 		display: flex;
 		align-items: center;
 		justify-content: center;
