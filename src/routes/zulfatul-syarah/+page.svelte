@@ -61,7 +61,7 @@
 	}
 
 	function waLink(phone: string) {
-		return `https://wa.me/6${phone.replace(/[-\s]/g,'').replace(/^0/,'')}`;
+		return `https://wa.me/60${phone.replace(/[-\s]/g,'').replace(/^0/,'')}`;
 	}
 
 	// ─── Custom Forms → Google Sheets ────────────────────────────
