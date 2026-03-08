@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 	import { wedding } from '$lib/data/wedding';
 	import { generateIcs } from '$lib/utils/ics';
 	import Countdown from '$lib/components/Countdown.svelte';
@@ -15,13 +16,27 @@
 	const MAP_EMBED_URL   = 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3966.8789885865967!2d102.283512!3d6.1469510000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMDgnNDkuMCJOIDEwMsKwMTcnMDAuNiJF!5e0!3m2!1sen!2smy!4v1772928415085!5m2!1sen!2smy';
 	// ─────────────────────────────────────────────────────────────
 
-	// Sample ucapan — ganti dengan data dari Google Sheets selepas majlis
-	const sampleUcapan = [
-		{ name: 'Ahmad Fadzillah', msg: 'Tahniah buat Munir & Syarah! Semoga menjadi pasangan yang sakinah mawaddah warahmah. Amin.' },
-		{ name: 'Ustaz Hisham', msg: 'Alhamdulillah. Semoga perkahwinan ini diberkati Allah dan dikurniakan zuriat yang soleh dan solehah.' },
-		{ name: 'Keluarga Pak Long', msg: 'Selamat pengantin baru! Doakan kami kekal bahagia dan menjadi keluarga yang harmoni.' },
-		{ name: 'Rakan-rakan IPT', msg: 'Syabas Munir! Akhirnya tiba juga hari bahagia ini. Semoga bahagia ke akhir hayat bersama Syarah.' }
-	];
+	type UcapanItem = { nama: string; msg: string };
+	let ucapanList = $state<UcapanItem[]>([]);
+	let ucapanLoading = $state(true);
+
+	async function fetchUcapan() {
+		try {
+			const res = await fetch(`${SCRIPT_URL}?action=getUcapan&jenis=Ucapan%20Lelaki&t=${Date.now()}`);
+			const data = await res.json();
+			ucapanList = data;
+		} catch {
+			ucapanList = [];
+		} finally {
+			ucapanLoading = false;
+		}
+	}
+
+	onMount(() => {
+		fetchUcapan();
+		const interval = setInterval(fetchUcapan, 30000);
+		return () => clearInterval(interval);
+	});
 
 	const navSections = [
 		{ id: 'hero',     label: 'Utama',    icon: '🏠' },
@@ -52,7 +67,7 @@
 	}
 
 	// ─── Custom Forms → Google Sheets ────────────────────────────
-	const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLK9TMtqKnaG0MbkKFv43-aTO8uynzvYS4micTlo48Hn08mxIcPyQ2jser-RbQGBS2/exec';
+	const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw63LbFxa30ujG2oMUjjrQbYf65EtjyPd6mKe54QBJPiMohYsV9aCStHvzluGpBA583/exec';
 
 	let rsvp = $state({ nama: '', bil: '2', telefon: '', catatan: '' });
 	let rsvpStatus = $state<'idle'|'loading'|'ok'|'err'>('idle');
@@ -61,11 +76,14 @@
 		e.preventDefault();
 		rsvpStatus = 'loading';
 		try {
-			await fetch(SCRIPT_URL, {
-				method: 'POST',
-				mode: 'no-cors',
-				body: new URLSearchParams({ jenis: 'RSVP - Lelaki', ...rsvp })
+			const params = new URLSearchParams({
+				jenis: 'RSVP Lelaki',
+				nama: rsvp.nama,
+				bil: rsvp.bil,
+				telefon: rsvp.telefon,
+				mesej: rsvp.catatan
 			});
+			await fetch(`${SCRIPT_URL}?${params}`, { mode: 'no-cors' });
 			rsvpStatus = 'ok';
 			rsvp = { nama: '', bil: '2', telefon: '', catatan: '' };
 		} catch {
@@ -80,13 +98,15 @@
 		e.preventDefault();
 		ucapanStatus = 'loading';
 		try {
-			await fetch(SCRIPT_URL, {
-				method: 'POST',
-				mode: 'no-cors',
-				body: new URLSearchParams({ jenis: 'Ucapan - Lelaki', ...ucapanForm })
+			const params = new URLSearchParams({
+				jenis: 'Ucapan Lelaki',
+				nama: ucapanForm.nama,
+				mesej: ucapanForm.ucapan
 			});
+			await fetch(`${SCRIPT_URL}?${params}`, { mode: 'no-cors' });
 			ucapanStatus = 'ok';
 			ucapanForm = { nama: '', ucapan: '' };
+			await fetchUcapan();
 		} catch {
 			ucapanStatus = 'err';
 		}
@@ -410,21 +430,25 @@
 			{/if}
 
 			<!-- Paparan ucapan tetamu -->
-			<div class="ucapan-grid">
-				{#each sampleUcapan as u}
-					<div class="ucapan-card">
-						<div class="ucapan-avatar" aria-hidden="true">
-							{u.name.charAt(0).toUpperCase()}
+			{#if ucapanLoading}
+				<p class="ucapan-note">Memuatkan ucapan…</p>
+			{:else if ucapanList.length === 0}
+				<p class="ucapan-note">Belum ada ucapan lagi. Jadilah yang pertama!</p>
+			{:else}
+				<div class="ucapan-grid">
+					{#each ucapanList as u}
+						<div class="ucapan-card">
+							<div class="ucapan-avatar" aria-hidden="true">
+								{u.nama.charAt(0).toUpperCase()}
+							</div>
+							<div class="ucapan-body">
+								<p class="ucapan-name">{u.nama}</p>
+								<p class="ucapan-msg">"{u.msg}"</p>
+							</div>
 						</div>
-						<div class="ucapan-body">
-							<p class="ucapan-name">{u.name}</p>
-							<p class="ucapan-msg">"{u.msg}"</p>
-						</div>
-					</div>
-				{/each}
-			</div>
-
-			<p class="ucapan-note">* Ucapan di atas adalah contoh. Ganti dengan ucapan sebenar dari Google Sheets selepas majlis.</p>
+					{/each}
+				</div>
+			{/if}
 		</div>
 	</section>
 
