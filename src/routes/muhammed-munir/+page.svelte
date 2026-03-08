@@ -39,13 +39,11 @@
 	});
 
 	const navSections = [
-		{ id: 'hero',     label: 'Utama',    icon: '🏠' },
-		{ id: 'aturcara', label: 'Aturcara', icon: '📋' },
-		{ id: 'lokasi',   label: 'Lokasi',   icon: '📍' },
-		{ id: 'rsvp',     label: 'RSVP',     icon: '✉️' },
-		{ id: 'ucapan',   label: 'Ucapan',   icon: '💬' },
-		{ id: 'hubungi',  label: 'Hubungi',  icon: '📞' },
-		{ id: 'kongsi',   label: 'QR',       icon: '📱' }
+		{ id: 'hero',    label: 'Utama',   icon: '🏠' },
+		{ id: 'lokasi',  label: 'Lokasi',  icon: '📍' },
+		{ id: 'rsvp',    label: 'RSVP',    icon: '✉️' },
+		{ id: 'ucapan',  label: 'Ucapan',  icon: '💬' },
+		{ id: 'hubungi', label: 'Hubungi', icon: '📞' }
 	];
 
 	const pageUrl = browser ? window.location.origin + '/muhammed-munir' : '';
@@ -231,10 +229,52 @@
 	<!-- ════════════════════════ IBU BAPA ══ -->
 	<section class="section bg-soft" aria-label="Ibu bapa pengantin">
 		<div class="inner center-text">
-			<p class="label-sm">Daripada</p>
-			<p class="parents-name">{wedding.groom.parentsDisplay}</p>
-			<p class="label-sm" style="margin-top:0.5rem">dan</p>
-			<p class="parents-name">{wedding.bride.parentsDisplay}</p>
+
+			<div class="geo-rule" aria-hidden="true">
+				<svg viewBox="0 0 300 12" xmlns="http://www.w3.org/2000/svg">
+					<line x1="0" y1="6" x2="115" y2="6" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+					<path d="M124 6 Q130 1 136 6 Q142 11 148 6 Q154 1 160 6 Q166 11 172 6 Q178 1 184 6" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+					<line x1="193" y1="6" x2="300" y2="6" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+				</svg>
+			</div>
+
+			<p class="parents-intro">Dengan segala hormat dan penuh kerendahan hati,<br>kami yang berbahagia</p>
+
+			<div class="parents-block">
+				<p class="parents-role">Pihak Pengantin Lelaki</p>
+				<p class="parents-name">{wedding.groom.father}</p>
+				<p class="parents-amp">&amp;</p>
+				<p class="parents-name">{wedding.groom.mother}</p>
+			</div>
+
+			<div class="parents-dan">
+				<span class="dan-line"></span>
+				<span class="dan-text">bersama</span>
+				<span class="dan-line"></span>
+			</div>
+
+			<div class="parents-block">
+				<p class="parents-role">Pihak Pengantin Perempuan</p>
+				<p class="parents-name">{wedding.bride.father}</p>
+				<p class="parents-amp">&amp;</p>
+				<p class="parents-name">{wedding.bride.mother}</p>
+			</div>
+
+			<div class="parents-pantun">
+				<p>Melati putih berseri indah,</p>
+				<p>Harum mewangi sepanjang masa.</p>
+				<p>Dengan hati yang tulus dan penuh kasih sayang,</p>
+				<p>Kami menjemput ke majlis yang penuh berkat ini.</p>
+			</div>
+
+			<div class="geo-rule" aria-hidden="true">
+				<svg viewBox="0 0 300 12" xmlns="http://www.w3.org/2000/svg">
+					<line x1="0" y1="6" x2="115" y2="6" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+					<path d="M124 6 Q130 1 136 6 Q142 11 148 6 Q154 1 160 6 Q166 11 172 6 Q178 1 184 6" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+					<line x1="193" y1="6" x2="300" y2="6" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+				</svg>
+			</div>
+
 		</div>
 	</section>
 
@@ -505,7 +545,6 @@
 		<p class="footer-aya" lang="ar">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا</p>
 		<p class="footer-aya-ref">Surah Ar-Rum: 21</p>
 		<p class="footer-hashtag">{wedding.hashtag}</p>
-		<a href="/" class="footer-back">← Halaman Utama</a>
 	</footer>
 </main>
 
@@ -748,6 +787,74 @@
 
 	.bg-soft {
 		background: var(--bg-soft);
+	}
+
+	.parents-intro {
+		font-size: 0.82rem;
+		color: var(--muted);
+		line-height: 1.8;
+		margin: 0 0 1.5rem;
+	}
+
+	.parents-block {
+		margin-bottom: 0.5rem;
+	}
+
+	.parents-role {
+		font-size: 0.65rem;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		color: var(--p);
+		margin: 0 0 0.4rem;
+	}
+
+	.parents-name {
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: var(--text);
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	.parents-amp {
+		font-size: 0.85rem;
+		color: var(--muted);
+		margin: 0.1rem 0;
+	}
+
+	.parents-dan {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin: 1rem 0;
+	}
+
+	.dan-line {
+		flex: 1;
+		height: 1px;
+		background: var(--p-rule);
+	}
+
+	.dan-text {
+		font-size: 0.72rem;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	.parents-pantun {
+		margin-top: 1.5rem;
+		padding: 1rem 1.2rem;
+		border-left: 2px solid var(--p-rule);
+		text-align: left;
+	}
+
+	.parents-pantun p {
+		font-size: 0.82rem;
+		font-style: italic;
+		color: var(--muted);
+		line-height: 1.9;
+		margin: 0;
 	}
 
 	.inner {
@@ -1318,14 +1425,4 @@
 		margin: 0.25rem 0;
 	}
 
-	.footer-back {
-		font-size: 0.75rem;
-		letter-spacing: 0.1em;
-		color: var(--muted);
-		text-decoration: none;
-		border-bottom: 1px solid transparent;
-		transition: border-color 0.2s;
-	}
-
-	.footer-back:hover { border-bottom-color: var(--muted); }
 </style>
