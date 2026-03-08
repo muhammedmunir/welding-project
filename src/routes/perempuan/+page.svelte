@@ -494,7 +494,7 @@
 
 	/* ── Hero ── */
 	.hero {
-		min-height: 100vh;
+		min-height: 100dvh;
 		scroll-snap-align: start;
 		background: linear-gradient(160deg, #e6d4f0 0%, #d4ddf5 50%, #e0cef0 100%);
 		display: flex;
@@ -693,7 +693,7 @@
 	/* ── Sections ── */
 	.section {
 		padding: 4rem 1.5rem;
-		min-height: 100vh;
+		min-height: 100dvh;
 		scroll-snap-align: start;
 		display: flex;
 		flex-direction: column;
@@ -705,6 +705,7 @@
 	}
 
 	.inner {
+		width: 100%;
 		max-width: 580px;
 		margin: 0 auto;
 		display: flex;
@@ -1013,6 +1014,7 @@
 	/* ── Custom Form ── */
 	.custom-form {
 		width: 100%;
+		align-self: stretch;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
@@ -1232,7 +1234,7 @@
 	/* ── Footer ── */
 	.page-footer {
 		scroll-snap-align: start;
-		min-height: 100vh;
+		min-height: 100dvh;
 		padding: 3.5rem 1.5rem;
 		background: var(--bg-soft);
 		border-top: 1px solid var(--p-rule);

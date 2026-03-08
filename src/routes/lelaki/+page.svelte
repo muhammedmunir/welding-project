@@ -335,7 +335,7 @@
 			<div class="section-rule" aria-hidden="true"></div>
 
 			<p class="body-text">
-				Untuk membantu kami membuat persiapan, sila sahkan kehadiran anda sebelum <strong>20 Mei 2026</strong>.
+				Sila sahkan kehadiran anda sebelum <strong>20 Mei 2026</strong>.
 			</p>
 
 			{#if rsvpStatus === 'ok'}
@@ -508,7 +508,7 @@
 
 	/* ── Hero ── */
 	.hero {
-		min-height: 100vh;
+		min-height: 100dvh;
 		scroll-snap-align: start;
 		background: linear-gradient(160deg, #fef9e4 0%, #fdf4c8 35%, #fdf8ec 70%, #fffdf4 100%);
 		display: flex;
@@ -728,7 +728,7 @@
 	/* ── Sections ── */
 	.section {
 		padding: 4rem 1.5rem;
-		min-height: 100vh;
+		min-height: 100dvh;
 		scroll-snap-align: start;
 		display: flex;
 		flex-direction: column;
@@ -740,6 +740,7 @@
 	}
 
 	.inner {
+		width: 100%;
 		max-width: 580px;
 		margin: 0 auto;
 		display: flex;
@@ -1048,6 +1049,7 @@
 	/* ── Custom Form ── */
 	.custom-form {
 		width: 100%;
+		align-self: stretch;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
@@ -1267,7 +1269,7 @@
 	/* ── Footer ── */
 	.page-footer {
 		scroll-snap-align: start;
-		min-height: 100vh;
+		min-height: 100dvh;
 		padding: 3.5rem 1.5rem;
 		background: var(--bg-soft);
 		border-top: 1px solid var(--p-rule);
