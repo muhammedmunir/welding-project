@@ -10,9 +10,9 @@
 	const ev = wedding.events.lelaki;
 
 	// ─── ISI MAKLUMAT INI ────────────────────────────────────────
-	const RSVP_FORM_URL   = '';  // Pautan Google Form RSVP anda
-	const UCAPAN_FORM_URL = '';  // Pautan Google Form Ucapan anda
-	const MAP_EMBED_URL   = '';  // Pautan embed Google Maps
+	const RSVP_FORM_URL   = 'https://forms.gle/49E3MWMCRHPfbyie6';
+	const UCAPAN_FORM_URL = 'https://forms.gle/bQTKA5Ax5A6bUJpx7';
+	const MAP_EMBED_URL   = 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3966.8789885865967!2d102.283512!3d6.1469510000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMDgnNDkuMCJOIDEwMsKwMTcnMDAuNiJF!5e0!3m2!1sen!2smy!4v1772928415085!5m2!1sen!2smy';
 	// ─────────────────────────────────────────────────────────────
 
 	// Sample ucapan — ganti dengan data dari Google Sheets selepas majlis
@@ -50,6 +50,48 @@
 	function waLink(phone: string) {
 		return `https://wa.me/6${phone.replace(/[-\s]/g,'').replace(/^0/,'')}`;
 	}
+
+	// ─── Custom Forms → Google Sheets ────────────────────────────
+	const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLK9TMtqKnaG0MbkKFv43-aTO8uynzvYS4micTlo48Hn08mxIcPyQ2jser-RbQGBS2/exec';
+
+	let rsvp = $state({ nama: '', bil: '2', telefon: '', catatan: '' });
+	let rsvpStatus = $state<'idle'|'loading'|'ok'|'err'>('idle');
+
+	async function submitRsvp(e: Event) {
+		e.preventDefault();
+		rsvpStatus = 'loading';
+		try {
+			await fetch(SCRIPT_URL, {
+				method: 'POST',
+				mode: 'no-cors',
+				body: new URLSearchParams({ jenis: 'RSVP - Lelaki', ...rsvp })
+			});
+			rsvpStatus = 'ok';
+			rsvp = { nama: '', bil: '2', telefon: '', catatan: '' };
+		} catch {
+			rsvpStatus = 'err';
+		}
+	}
+
+	let ucapanForm = $state({ nama: '', ucapan: '' });
+	let ucapanStatus = $state<'idle'|'loading'|'ok'|'err'>('idle');
+
+	async function submitUcapan(e: Event) {
+		e.preventDefault();
+		ucapanStatus = 'loading';
+		try {
+			await fetch(SCRIPT_URL, {
+				method: 'POST',
+				mode: 'no-cors',
+				body: new URLSearchParams({ jenis: 'Ucapan - Lelaki', ...ucapanForm })
+			});
+			ucapanStatus = 'ok';
+			ucapanForm = { nama: '', ucapan: '' };
+		} catch {
+			ucapanStatus = 'err';
+		}
+	}
+	// ─────────────────────────────────────────────────────────────
 </script>
 
 <svelte:head>
@@ -296,14 +338,39 @@
 				Untuk membantu kami membuat persiapan, sila sahkan kehadiran anda sebelum <strong>20 Mei 2026</strong>.
 			</p>
 
-			{#if RSVP_FORM_URL}
-				<a href={RSVP_FORM_URL} target="_blank" rel="noopener noreferrer" class="btn-primary">
-					Sahkan Kehadiran Saya
-				</a>
-			{:else}
-				<div class="form-hint">
-					<p>Isi <code>RSVP_FORM_URL</code> dengan pautan Google Form anda.</p>
+			{#if rsvpStatus === 'ok'}
+				<div class="form-success">
+					<p>✓ Terima kasih! Kehadiran anda telah direkodkan.</p>
 				</div>
+			{:else}
+				<form class="custom-form" onsubmit={submitRsvp}>
+					<div class="field">
+						<label for="rsvp-nama">Nama penuh</label>
+						<input id="rsvp-nama" type="text" bind:value={rsvp.nama} placeholder="Nama anda" required />
+					</div>
+					<div class="field">
+						<label for="rsvp-bil">Bilangan hadir</label>
+						<select id="rsvp-bil" bind:value={rsvp.bil}>
+							{#each ['1','2','3','4','5','6','7','8','9','10'] as n}
+								<option value={n}>{n} orang</option>
+							{/each}
+						</select>
+					</div>
+					<div class="field">
+						<label for="rsvp-tel">Nombor telefon</label>
+						<input id="rsvp-tel" type="tel" bind:value={rsvp.telefon} placeholder="01X-XXXXXXX" />
+					</div>
+					<div class="field">
+						<label for="rsvp-catatan">Catatan <span class="optional">(pilihan)</span></label>
+						<textarea id="rsvp-catatan" bind:value={rsvp.catatan} rows="2" placeholder="Alahan makanan, dll."></textarea>
+					</div>
+					{#if rsvpStatus === 'err'}
+						<p class="form-error">Ralat berlaku. Cuba semula.</p>
+					{/if}
+					<button type="submit" class="btn-primary" disabled={rsvpStatus === 'loading'}>
+						{rsvpStatus === 'loading' ? 'Menghantar…' : 'Sahkan Kehadiran'}
+					</button>
+				</form>
 			{/if}
 
 			<button onclick={downloadIcs} class="btn-ghost">
@@ -319,14 +386,27 @@
 			<p class="section-tag" id="ucapan-title">Ucapan &amp; Doa</p>
 			<div class="section-rule" aria-hidden="true"></div>
 
-			{#if UCAPAN_FORM_URL}
-				<a href={UCAPAN_FORM_URL} target="_blank" rel="noopener noreferrer" class="btn-primary">
-					Tulis Ucapan &amp; Doa
-				</a>
-			{:else}
-				<div class="form-hint">
-					<p>Isi <code>UCAPAN_FORM_URL</code> dengan pautan Google Form ucapan anda.</p>
+			{#if ucapanStatus === 'ok'}
+				<div class="form-success">
+					<p>✓ Ucapan anda telah dihantar. Terima kasih!</p>
 				</div>
+			{:else}
+				<form class="custom-form" onsubmit={submitUcapan}>
+					<div class="field">
+						<label for="ucapan-nama">Nama anda</label>
+						<input id="ucapan-nama" type="text" bind:value={ucapanForm.nama} placeholder="Nama anda" required />
+					</div>
+					<div class="field">
+						<label for="ucapan-msg">Ucapan &amp; Doa</label>
+						<textarea id="ucapan-msg" bind:value={ucapanForm.ucapan} rows="4" placeholder="Tulis ucapan atau doa untuk pengantin…" required></textarea>
+					</div>
+					{#if ucapanStatus === 'err'}
+						<p class="form-error">Ralat berlaku. Cuba semula.</p>
+					{/if}
+					<button type="submit" class="btn-primary" disabled={ucapanStatus === 'loading'}>
+						{ucapanStatus === 'loading' ? 'Menghantar…' : 'Hantar Ucapan'}
+					</button>
+				</form>
 			{/if}
 
 			<!-- Paparan ucapan tetamu -->
@@ -963,6 +1043,73 @@
 		background: rgba(0,0,0,0.06);
 		padding: 1px 6px;
 		border-radius: 3px;
+	}
+
+	/* ── Custom Form ── */
+	.custom-form {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		text-align: left;
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+	}
+
+	.field label {
+		font-size: 0.78rem;
+		font-weight: 600;
+		color: var(--text);
+		letter-spacing: 0.04em;
+	}
+
+	.optional {
+		font-weight: 400;
+		color: var(--muted);
+	}
+
+	.field input,
+	.field select,
+	.field textarea {
+		width: 100%;
+		padding: 0.65rem 0.9rem;
+		border: 1.5px solid rgba(0,0,0,0.12);
+		border-radius: 10px;
+		font-size: 0.92rem;
+		font-family: var(--font-lato);
+		color: var(--text);
+		background: #fff;
+		transition: border-color 0.2s;
+		outline: none;
+		box-sizing: border-box;
+	}
+
+	.field input:focus,
+	.field select:focus,
+	.field textarea:focus {
+		border-color: var(--p);
+	}
+
+	.field textarea { resize: vertical; }
+
+	.form-success {
+		background: #edf7ed;
+		border: 1px solid #b7dfb8;
+		border-radius: 10px;
+		padding: 1rem 1.2rem;
+		color: #2d6a2f;
+		font-size: 0.9rem;
+		text-align: center;
+	}
+
+	.form-error {
+		font-size: 0.8rem;
+		color: #c0392b;
+		margin: 0;
 	}
 
 	/* ── Ucapan ── */
