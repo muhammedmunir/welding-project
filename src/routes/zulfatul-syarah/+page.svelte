@@ -489,7 +489,6 @@
 						<div class="contact-avatar" aria-hidden="true">{c.name.charAt(0)}</div>
 						<div class="contact-info">
 							<p class="contact-name">{c.name}</p>
-							<p class="contact-phone">{c.phone}</p>
 						</div>
 						<div class="contact-actions">
 							<a href={waLink(c.phone)} target="_blank" rel="noopener noreferrer" class="contact-btn btn-wa" aria-label="WhatsApp {c.name}">
