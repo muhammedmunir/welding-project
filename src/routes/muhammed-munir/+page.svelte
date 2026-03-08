@@ -369,7 +369,7 @@
 					Google Maps
 				</a>
 				<a href={ev.wazeUrl} target="_blank" rel="noopener noreferrer" class="map-btn btn-waze">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2" stroke-linecap="round"/><circle cx="9" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg>
+					<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12.003 0C5.532 0 .269 5.236.269 11.673c0 3.83 1.856 7.35 4.959 9.605l-.663 2.312a.485.485 0 0 0 .672.577l2.553-1.213a11.463 11.463 0 0 0 4.213.793c6.47 0 11.733-5.236 11.733-11.674C23.736 5.236 18.473 0 12.003 0zm0 21.24a9.558 9.558 0 0 1-3.744-.759.485.485 0 0 0-.371-.012l-1.758.836.434-1.514a.485.485 0 0 0-.177-.524C3.786 17.587 2.176 14.71 2.176 11.673 2.176 6.286 6.59 1.9 12.003 1.9c5.413 0 9.828 4.386 9.828 9.773 0 5.386-4.415 9.567-9.828 9.567zm5.047-12.03a1.31 1.31 0 1 1-2.619 0 1.31 1.31 0 0 1 2.619 0zm-8.476 0a1.31 1.31 0 1 1-2.619 0 1.31 1.31 0 0 1 2.619 0zm7.573 3.494c-.438 2.18-2.32 3.755-4.478 3.755-2.126 0-3.98-1.534-4.45-3.664a.476.476 0 0 1 .464-.579h7.985a.476.476 0 0 1 .479.488z"/></svg>
 					Waze
 				</a>
 			</div>
@@ -885,14 +885,6 @@
 		opacity: 0.7;
 	}
 
-	.label-sm {
-		font-size: 0.68rem;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-		color: var(--muted);
-		margin: 0;
-	}
-
 	.parents-name {
 		font-family: var(--font-playfair);
 		font-size: clamp(0.9rem, 2.5vw, 1.05rem);
@@ -1147,22 +1139,6 @@
 
 	.btn-ghost:hover { background: var(--p-light); border-color: var(--p); }
 
-	.form-hint {
-		background: var(--p-light);
-		border: 1px dashed var(--p-rule);
-		border-radius: 6px;
-		padding: 1rem 1.5rem;
-		font-size: 0.82rem;
-		color: var(--muted);
-		text-align: center;
-	}
-
-	.form-hint code {
-		background: rgba(0,0,0,0.06);
-		padding: 1px 6px;
-		border-radius: 3px;
-	}
-
 	/* ── Custom Form ── */
 	.custom-form {
 		width: 100%;
@@ -1330,12 +1306,6 @@
 		font-size: 0.85rem;
 		font-weight: 600;
 		color: var(--text);
-		margin: 0;
-	}
-
-	.contact-phone {
-		font-size: 0.8rem;
-		color: var(--muted);
 		margin: 0;
 	}
 
