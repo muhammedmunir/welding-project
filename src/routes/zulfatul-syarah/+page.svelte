@@ -8,12 +8,12 @@
 	import QRCard from '$lib/components/QRCard.svelte';
 	import StickyNav from '$lib/components/StickyNav.svelte';
 
-	const ev = wedding.events.lelaki;
+	const ev = wedding.events.perempuan;
 
 	// ─── ISI MAKLUMAT INI ────────────────────────────────────────
-	const RSVP_FORM_URL   = 'https://forms.gle/49E3MWMCRHPfbyie6';
-	const UCAPAN_FORM_URL = 'https://forms.gle/bQTKA5Ax5A6bUJpx7';
-	const MAP_EMBED_URL   = 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3966.8789885865967!2d102.283512!3d6.1469510000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMDgnNDkuMCJOIDEwMsKwMTcnMDAuNiJF!5e0!3m2!1sen!2smy!4v1772928415085!5m2!1sen!2smy';
+	const RSVP_FORM_URL   = 'https://forms.gle/1GLBcBGsTWnwM1t88';
+	const UCAPAN_FORM_URL = 'https://forms.gle/xzHER6pTgHKCUDKdA';
+	const MAP_EMBED_URL   = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.056380320236!2d102.24015159999999!3d6.1231146999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31b6afc47ea539c9%3A0x10827cb0596fc3a0!2sJubli%20Perak%20Hall!5e0!3m2!1sen!2smy!4v1772927876941!5m2!1sen!2smy';
 	// ─────────────────────────────────────────────────────────────
 
 	type UcapanItem = { nama: string; msg: string };
@@ -22,7 +22,7 @@
 
 	async function fetchUcapan() {
 		try {
-			const res = await fetch(`${SCRIPT_URL}?action=getUcapan&jenis=Ucapan%20Lelaki&t=${Date.now()}`);
+			const res = await fetch(`${SCRIPT_URL}?action=getUcapan&jenis=Ucapan%20Perempuan&t=${Date.now()}`);
 			const data = await res.json();
 			ucapanList = data;
 		} catch {
@@ -48,13 +48,13 @@
 		{ id: 'kongsi',   label: 'QR',       icon: '📱' }
 	];
 
-	const pageUrl = browser ? window.location.origin + '/lelaki' : '';
-	const waMessage = `Assalamualaikum, saya menerima jemputan ke Majlis Bertandang ${wedding.groom.name} & ${wedding.bride.name} pada ${ev.dayDisplay}, ${ev.dateDisplay} di ${ev.venue}, ${ev.venueShort}.\n\n${pageUrl}\n\n${wedding.hashtag}`;
+	const pageUrl = browser ? window.location.origin + '/zulfatul-syarah' : '';
+	const waMessage = `Assalamualaikum, saya menerima jemputan ke Majlis Perkahwinan ${wedding.bride.name} & ${wedding.groom.name} pada ${ev.dayDisplay}, ${ev.dateDisplay} di ${ev.venue}.\n\n${pageUrl}\n\n${wedding.hashtag}`;
 
 	function downloadIcs() {
 		generateIcs({
-			title: `${ev.typeShort} – ${wedding.groom.name} & ${wedding.bride.name}`,
-			description: `${ev.type}\n${ev.venue}, ${ev.venueShort}\nJamuan: ${ev.time.jamuan.display}`,
+			title: `${ev.typeShort} – ${wedding.bride.name} & ${wedding.groom.name}`,
+			description: `${ev.type}\n${ev.venue}\nJamuan: ${ev.time.jamuan.display}`,
 			location: ev.address,
 			startDate: ev.date,
 			startTime: ev.time.jamuan.start,
@@ -77,7 +77,7 @@
 		rsvpStatus = 'loading';
 		try {
 			const params = new URLSearchParams({
-				jenis: 'RSVP Lelaki',
+				jenis: 'RSVP Perempuan',
 				nama: rsvp.nama,
 				bil: rsvp.bil,
 				telefon: rsvp.telefon,
@@ -99,7 +99,7 @@
 		ucapanStatus = 'loading';
 		try {
 			const params = new URLSearchParams({
-				jenis: 'Ucapan Lelaki',
+				jenis: 'Ucapan Perempuan',
 				nama: ucapanForm.nama,
 				mesej: ucapanForm.ucapan
 			});
@@ -115,84 +115,77 @@
 </script>
 
 <svelte:head>
-	<title>{wedding.groom.nameDisplay} & {wedding.bride.nameDisplay} — Majlis Bertandang</title>
-	<meta name="description" content="Jemputan ke {ev.type} pada {ev.dayDisplay}, {ev.dateDisplay} di {ev.venue}, {ev.venueShort}." />
+	<title>{wedding.bride.nameDisplay} & {wedding.groom.nameDisplay} — Majlis Perkahwinan</title>
+	<meta name="description" content="Jemputan ke {ev.type} pada {ev.dayDisplay}, {ev.dateDisplay} di {ev.venue}." />
 </svelte:head>
 
 <!-- Sticky Navigation -->
-<StickyNav theme="malay" sections={navSections} />
+<StickyNav theme="fairy" sections={navSections} />
 
 <main id="main-content">
 
 	<!-- ══════════════════════════════════ HERO ══ -->
 	<section id="hero" class="hero">
-		<a href="/" class="back-link" aria-label="Kembali">← Kembali</a>
 
-		<!-- Islamic geometric top border -->
-		<div class="geo-border geo-top" aria-hidden="true">
-			<svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M0,10 L10,0 L20,10 L30,0 L40,10 L50,0 L60,10 L70,0 L80,10 L90,0 L100,10 L110,0 L120,10 L130,0 L140,10 L150,0 L160,10 L170,0 L180,10 L190,0 L200,10 L210,0 L220,10 L230,0 L240,10 L250,0 L260,10 L270,0 L280,10 L290,0 L300,10 L310,0 L320,10 L330,0 L340,10 L350,0 L360,10 L370,0 L380,10 L390,0 L400,10" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-				<path d="M0,10 L10,20 L20,10 L30,20 L40,10 L50,20 L60,10 L70,20 L80,10 L90,20 L100,10 L110,20 L120,10 L130,20 L140,10 L150,20 L160,10 L170,20 L180,10 L190,20 L200,10 L210,20 L220,10 L230,20 L240,10 L250,20 L260,10 L270,20 L280,10 L290,20 L300,10 L310,20 L320,10 L330,20 L340,10 L350,20 L360,10 L370,20 L380,10 L390,20 L400,10" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+		<!-- Sudut ornamen -->
+		<div class="corner-tl" aria-hidden="true">
+			<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M0 50 Q25 25 50 0" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+				<path d="M0 70 Q35 35 70 0" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+				<circle cx="4" cy="4" r="2.5" fill="currentColor" opacity="0.4"/>
 			</svg>
 		</div>
-
-		<!-- Lantern ornaments -->
-		<div class="lantern lantern-l" aria-hidden="true">
-			<svg viewBox="0 0 36 110" xmlns="http://www.w3.org/2000/svg">
-				<line x1="18" y1="0" x2="18" y2="14" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
-				<rect x="6" y="14" width="24" height="38" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
-				<path d="M6 20 Q18 16 30 20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35"/>
-				<path d="M6 42 Q18 46 30 42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35"/>
-				<line x1="12" y1="52" x2="8" y2="70" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-				<line x1="24" y1="52" x2="28" y2="70" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-				<ellipse cx="18" cy="70" rx="9" ry="4" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+		<div class="corner-tr" aria-hidden="true">
+			<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M100 50 Q75 25 50 0" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+				<path d="M100 70 Q65 35 30 0" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+				<circle cx="96" cy="4" r="2.5" fill="currentColor" opacity="0.4"/>
 			</svg>
 		</div>
-		<div class="lantern lantern-r" aria-hidden="true">
-			<svg viewBox="0 0 36 110" xmlns="http://www.w3.org/2000/svg">
-				<line x1="18" y1="0" x2="18" y2="14" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
-				<rect x="6" y="14" width="24" height="38" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
-				<path d="M6 20 Q18 16 30 20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35"/>
-				<path d="M6 42 Q18 46 30 42" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35"/>
-				<line x1="12" y1="52" x2="8" y2="70" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-				<line x1="24" y1="52" x2="28" y2="70" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-				<ellipse cx="18" cy="70" rx="9" ry="4" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+		<div class="corner-bl" aria-hidden="true">
+			<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M0 50 Q25 75 50 100" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+				<path d="M0 30 Q35 65 70 100" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+			</svg>
+		</div>
+		<div class="corner-br" aria-hidden="true">
+			<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M100 50 Q75 75 50 100" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+				<path d="M100 30 Q65 65 30 100" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
 			</svg>
 		</div>
 
 		<div class="hero-content">
 			<p class="bismillah" lang="ar">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
 
-			<div class="gold-rule" aria-hidden="true">
-				<svg viewBox="0 0 300 12" xmlns="http://www.w3.org/2000/svg">
-					<line x1="0" y1="6" x2="108" y2="6" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
-					<polygon points="118,6 128,2 138,6 128,10" fill="currentColor" opacity="0.5"/>
-					<polygon points="162,6 172,2 182,6 172,10" fill="currentColor" opacity="0.5"/>
-					<line x1="192" y1="6" x2="300" y2="6" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+			<div class="wave-rule" aria-hidden="true">
+				<svg viewBox="0 0 300 14" xmlns="http://www.w3.org/2000/svg">
+					<line x1="0" y1="7" x2="108" y2="7" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
+					<path d="M116 7 Q122 2 128 7 Q134 12 140 7 Q146 2 152 7 Q158 12 164 7 Q170 2 176 7 Q182 12 188 7" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.8"/>
+					<line x1="196" y1="7" x2="300" y2="7" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
 				</svg>
 			</div>
 
-			<p class="hero-quote">"Sejambak bunga kami hulurkan, semekar senyuman seikhlas hati."</p>
-			<p class="hero-invite">kami menjemput Tuan/Puan/Encik/Cik ke</p>
+			<p class="hero-invite">Dengan penuh kesyukuran ke hadrat Ilahi, bersama sejambak mawar setapak sirih</p>
+			<p class="hero-invite">kami hulurkan untuk mengundang Tuan/Puan ke</p>
 			<p class="hero-event">{ev.type}</p>
-			<p class="hero-putera">putera kami</p>
+			<p class="hero-putri">putri kami</p>
 
-			<h1 class="hero-groom">{wedding.groom.nameDisplay}</h1>
+			<h1 class="hero-bride">{wedding.bride.nameDisplay}</h1>
 
 			<div class="divider-row">
 				<span class="divider-line"></span>
-				<span class="divider-text">dengan pilihan hatinya</span>
+				<span class="divider-text">Dengan Pasangannya</span>
 				<span class="divider-line"></span>
 			</div>
 
-			<p class="hero-bride">{wedding.bride.nameDisplay}</p>
+			<p class="hero-groom">{wedding.groom.nameDisplay}</p>
 
-			<div class="gold-rule" aria-hidden="true">
-				<svg viewBox="0 0 300 12" xmlns="http://www.w3.org/2000/svg">
-					<line x1="0" y1="6" x2="108" y2="6" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
-					<polygon points="118,6 128,2 138,6 128,10" fill="currentColor" opacity="0.5"/>
-					<polygon points="162,6 172,2 182,6 172,10" fill="currentColor" opacity="0.5"/>
-					<line x1="192" y1="6" x2="300" y2="6" stroke="currentColor" stroke-width="0.6" opacity="0.5"/>
+			<div class="wave-rule" aria-hidden="true">
+				<svg viewBox="0 0 300 14" xmlns="http://www.w3.org/2000/svg">
+					<line x1="0" y1="7" x2="108" y2="7" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
+					<path d="M116 7 Q122 2 128 7 Q134 12 140 7 Q146 2 152 7 Q158 12 164 7 Q170 2 176 7 Q182 12 188 7" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.8"/>
+					<line x1="196" y1="7" x2="300" y2="7" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
 				</svg>
 			</div>
 
@@ -209,7 +202,7 @@
 
 			<!-- Countdown -->
 			<div class="hero-countdown">
-				<Countdown targetDate={ev.date} theme="malay" />
+				<Countdown targetDate={ev.date} theme="fairy" />
 			</div>
 
 			<!-- Scroll hint -->
@@ -219,23 +212,15 @@
 				</svg>
 			</div>
 		</div>
-
-		<!-- Bottom geometric border -->
-		<div class="geo-border geo-bottom" aria-hidden="true">
-			<svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M0,10 L10,0 L20,10 L30,0 L40,10 L50,0 L60,10 L70,0 L80,10 L90,0 L100,10 L110,0 L120,10 L130,0 L140,10 L150,0 L160,10 L170,0 L180,10 L190,0 L200,10 L210,0 L220,10 L230,0 L240,10 L250,0 L260,10 L270,0 L280,10 L290,0 L300,10 L310,0 L320,10 L330,0 L340,10 L350,0 L360,10 L370,0 L380,10 L390,0 L400,10" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-				<path d="M0,10 L10,20 L20,10 L30,20 L40,10 L50,20 L60,10 L70,20 L80,10 L90,20 L100,10 L110,20 L120,10 L130,20 L140,10 L150,20 L160,10 L170,20 L180,10 L190,20 L200,10 L210,20 L220,10 L230,20 L240,10 L250,20 L260,10 L270,20 L280,10 L290,20 L300,10 L310,20 L320,10 L330,20 L340,10 L350,20 L360,10 L370,20 L380,10 L390,20 L400,10" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-			</svg>
-		</div>
 	</section>
 
 	<!-- ════════════════════════ IBU BAPA ══ -->
 	<section class="section bg-soft" aria-label="Ibu bapa pengantin">
 		<div class="inner center-text">
 			<p class="label-sm">Daripada</p>
-			<p class="parents-name">{wedding.groom.parentsDisplay}</p>
-			<p class="label-sm" style="margin-top:0.5rem">dan</p>
 			<p class="parents-name">{wedding.bride.parentsDisplay}</p>
+			<p class="label-sm" style="margin-top:0.5rem">dan</p>
+			<p class="parents-name">{wedding.groom.parentsDisplay}</p>
 		</div>
 	</section>
 
@@ -252,7 +237,7 @@
 					</svg>
 				</div>
 				<div>
-					<p class="venue-name">{ev.venue}, {ev.venueShort}</p>
+					<p class="venue-name">{ev.venue}</p>
 					<p class="venue-addr">{ev.address}</p>
 				</div>
 			</div>
@@ -260,7 +245,7 @@
 			<ol class="timeline">
 				<li class="tl-item">
 					<div class="tl-left">
-						<span class="tl-time">11.00 pg</span>
+						<span class="tl-time">12.00 ptg</span>
 					</div>
 					<div class="tl-mid">
 						<span class="tl-dot"></span>
@@ -273,7 +258,7 @@
 				</li>
 				<li class="tl-item">
 					<div class="tl-left">
-						<span class="tl-time">12.00 tgh</span>
+						<span class="tl-time">2.30 ptg</span>
 					</div>
 					<div class="tl-mid">
 						<span class="tl-dot"></span>
@@ -320,7 +305,7 @@
 			{/if}
 
 			<div class="location-info">
-				<p class="loc-name">{ev.venue}, {ev.venueShort}</p>
+				<p class="loc-name">{ev.venue}</p>
 				<p class="loc-addr">{ev.address}</p>
 			</div>
 
@@ -338,11 +323,11 @@
 			<div class="loc-notes">
 				<div class="loc-note-row">
 					<span>Tempat Letak Kereta</span>
-					<span>Di tepi jalan sekitar kawasan</span>
+					<span>Tersedia di sekitar dewan</span>
 				</div>
 				<div class="loc-note-row">
 					<span>Jarak dari Bandar KB</span>
-					<span>± 15 minit</span>
+					<span>± 5 minit</span>
 				</div>
 			</div>
 		</div>
@@ -355,7 +340,7 @@
 			<div class="section-rule" aria-hidden="true"></div>
 
 			<p class="body-text">
-				Sila sahkan kehadiran anda sebelum <strong>20 Mei 2026</strong>.
+				Sila sahkan kehadiran anda sebelum <strong>15 Mei 2026</strong>.
 			</p>
 
 			{#if rsvpStatus === 'ok'}
@@ -489,11 +474,11 @@
 			<div class="section-rule" aria-hidden="true"></div>
 
 			<div class="share-layout">
-				<QRCard url={pageUrl} label="Imbas QR untuk buka jemputan" theme="malay" size={150} />
+				<QRCard url={pageUrl} label="Imbas QR untuk buka jemputan" theme="fairy" size={150} />
 				<div class="share-right">
 					<p class="body-text">Kongsikan jemputan ini kepada rakan dan keluarga.</p>
-					<ShareButtons url={pageUrl} message={waMessage} theme="malay" />
-					<a href="/cetak?event=lelaki" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:0.5rem">
+					<ShareButtons url={pageUrl} message={waMessage} theme="fairy" />
+					<a href="/cetak?event=perempuan" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:0.5rem">
 						Cetak / Simpan PDF
 					</a>
 				</div>
@@ -521,20 +506,20 @@
 		color: var(--text);
 		background: var(--bg);
 		/* CSS vars scoped to this page */
-		--p: #c9a227;
-		--p-light: rgba(201,162,39,0.10);
-		--p-rule: rgba(201,162,39,0.22);
-		--text: #2d1a00;
-		--muted: #7a6030;
+		--p: #b87fa8;
+		--p-light: rgba(184,127,168,0.12);
+		--p-rule: rgba(184,127,168,0.25);
+		--text: #2a1f2a;
+		--muted: #8a7a8a;
 		--bg: #ffffff;
-		--bg-soft: #fdf8ed;
+		--bg-soft: #f3edf8;
 	}
 
 	/* ── Hero ── */
 	.hero {
 		min-height: 100dvh;
 		scroll-snap-align: start;
-		background: linear-gradient(160deg, #fef9e4 0%, #fdf4c8 35%, #fdf8ec 70%, #fffdf4 100%);
+		background: linear-gradient(160deg, #e6d4f0 0%, #d4ddf5 50%, #e0cef0 100%);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -543,42 +528,18 @@
 		text-align: center;
 	}
 
-	.back-link {
-		position: absolute;
-		top: 1.5rem;
-		left: 1.5rem;
-		font-size: 0.78rem;
-		letter-spacing: 0.08em;
-		color: var(--muted);
-		text-decoration: none;
-		border-bottom: 1px solid transparent;
-		transition: color 0.2s, border-color 0.2s;
-		z-index: 5;
-	}
-	.back-link:hover { color: var(--p); border-bottom-color: var(--p); }
 
-	.geo-border {
+	.corner-tl, .corner-tr, .corner-bl, .corner-br {
 		position: absolute;
-		left: 0;
-		right: 0;
-		height: 20px;
-		color: var(--p);
-	}
-	.geo-top { top: 0; }
-	.geo-bottom { bottom: 0; }
-	.geo-border svg { width: 100%; height: 100%; display: block; }
-
-	.lantern {
-		position: absolute;
-		top: 3.5rem;
-		width: 36px;
-		height: 110px;
-		color: var(--p);
+		width: 100px;
+		height: 100px;
 		pointer-events: none;
+		color: var(--p);
 	}
-	.lantern-l { left: 1.25rem; }
-	.lantern-r { right: 1.25rem; }
-	.lantern svg { width: 100%; height: 100%; }
+	.corner-tl { top: 0; left: 0; }
+	.corner-tr { top: 0; right: 0; }
+	.corner-bl { bottom: 0; left: 0; }
+	.corner-br { bottom: 0; right: 0; }
 
 	.hero-content {
 		max-width: 500px;
@@ -598,21 +559,12 @@
 		margin: 0;
 	}
 
-	.gold-rule {
+	.wave-rule {
 		width: 100%;
 		max-width: 300px;
 		color: var(--p);
 	}
-	.gold-rule svg { width: 100%; display: block; }
-
-	.hero-quote {
-		font-family: var(--font-noto);
-		font-size: clamp(0.78rem, 2vw, 0.88rem);
-		font-style: italic;
-		color: var(--muted);
-		line-height: 1.7;
-		margin: 0;
-	}
+	.wave-rule svg { width: 100%; display: block; }
 
 	.hero-invite {
 		font-size: clamp(0.76rem, 2vw, 0.86rem);
@@ -631,14 +583,14 @@
 		margin: 0;
 	}
 
-	.hero-putera {
+	.hero-putri {
 		font-size: 0.75rem;
 		color: var(--muted);
 		font-style: italic;
 		margin: 0;
 	}
 
-	.hero-groom {
+	.hero-bride {
 		font-family: var(--font-playfair);
 		font-size: clamp(2rem, 8vw, 3.5rem);
 		font-weight: 700;
@@ -672,7 +624,7 @@
 		white-space: nowrap;
 	}
 
-	.hero-bride {
+	.hero-groom {
 		font-family: var(--font-playfair);
 		font-size: clamp(1.4rem, 5vw, 2.25rem);
 		font-weight: 400;
@@ -855,7 +807,7 @@
 
 	.tl-item {
 		display: grid;
-		grid-template-columns: 80px 24px 1fr;
+		grid-template-columns: 72px 24px 1fr;
 		gap: 0 0.75rem;
 		align-items: flex-start;
 	}
@@ -886,7 +838,7 @@
 		border-radius: 50%;
 		background: var(--p);
 		flex-shrink: 0;
-		box-shadow: 0 0 0 3px rgba(201,162,39,0.18);
+		box-shadow: 0 0 0 3px rgba(184,127,168,0.2);
 	}
 
 	.tl-bar {

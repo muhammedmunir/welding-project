@@ -103,8 +103,8 @@
 				</div>
 			</div>
 			<nav class="admin-nav" aria-label="Admin navigation">
-				<a href="/perempuan" target="_blank" rel="noopener" class="nav-link">Lihat /perempuan ↗</a>
-				<a href="/lelaki" target="_blank" rel="noopener" class="nav-link">Lihat /lelaki ↗</a>
+				<a href="/zulfatul-syarah" target="_blank" rel="noopener" class="nav-link">Lihat /zulfatul-syarah ↗</a>
+				<a href="/muhammed-munir" target="_blank" rel="noopener" class="nav-link">Lihat /muhammed-munir ↗</a>
 				<button onclick={() => authenticated = false} class="logout-btn">Log Keluar</button>
 			</nav>
 		</header>

@@ -90,8 +90,8 @@
 			<p>Foto-foto majlis akan dimuat naik selepas majlis berlangsung.</p>
 			<p>Nantikan gambar-gambar indah hari bahagia kami!</p>
 			<div class="event-links">
-				<a href="/perempuan" class="event-link fairy-link">Jemputan Perempuan 🌸</a>
-				<a href="/lelaki" class="event-link malay-link">Jemputan Lelaki 🕌</a>
+				<a href="/zulfatul-syarah" class="event-link fairy-link">Jemputan Perempuan 🌸</a>
+				<a href="/muhammed-munir" class="event-link malay-link">Jemputan Lelaki 🕌</a>
 			</div>
 		</div>
 	{:else}

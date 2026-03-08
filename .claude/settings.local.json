@@ -4,7 +4,9 @@
       "Bash(npm install qrcode)",
       "Bash(npm install --save-dev @types/qrcode)",
       "Bash(npm run build)",
-      "WebFetch(domain:invitez.my)"
+      "WebFetch(domain:invitez.my)",
+      "Bash(python3 -c \":*)",
+      "Bash(python -c \":*)"
     ]
   }
 }

@@ -83,7 +83,7 @@
 
 		<div class="cards">
 			<!-- Perempuan -->
-			<a href="/perempuan" class="card card-fairy" aria-label="Buka jemputan Majlis Perkahwinan — pihak perempuan">
+			<a href="/zulfatul-syarah" class="card card-fairy" aria-label="Buka jemputan Majlis Perkahwinan — pihak perempuan">
 				<div class="card-top card-top-fairy">
 					<svg class="card-arch" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 						<path d="M10 60 L10 30 Q10 5 100 5 Q190 5 190 30 L190 60" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
@@ -107,7 +107,7 @@
 			</a>
 
 			<!-- Lelaki -->
-			<a href="/lelaki" class="card card-malay" aria-label="Buka jemputan Majlis Bertandang — pihak lelaki">
+			<a href="/muhammed-munir" class="card card-malay" aria-label="Buka jemputan Majlis Bertandang — pihak lelaki">
 				<div class="card-top card-top-malay">
 					<svg class="card-arch" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 						<path d="M10 60 L10 30 Q10 5 100 5 Q190 5 190 30 L190 60" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>

@@ -20,8 +20,8 @@
 		'Majlis Bertandang (pihak lelaki)'
 	);
 
-	const perempuanUrl = $derived(browser ? `${window.location.origin}/perempuan` : '/perempuan');
-	const lelakiUrl = $derived(browser ? `${window.location.origin}/lelaki` : '/lelaki');
+	const perempuanUrl = $derived(browser ? `${window.location.origin}/zulfatul-syarah` : '/zulfatul-syarah');
+	const lelakiUrl = $derived(browser ? `${window.location.origin}/muhammed-munir` : '/muhammed-munir');
 	const waMsg = $derived(guest
 		? `Assalamualaikum ${guest.name},\n\nAnda dijemput ke majlis perkahwinan ${wedding.bride.name} & ${wedding.groom.name}.\n\nSila buka pautan jemputan anda:\n${browser ? window.location.href : ''}\n\n${wedding.hashtag}`
 		: ''
@@ -64,7 +64,7 @@
 
 			<div class="events-grid">
 				{#if guest.event === 'perempuan' || guest.event === 'both'}
-					<a href="/perempuan" class="event-card fairy-card" aria-label="Lihat jemputan Majlis Perkahwinan">
+					<a href="/zulfatul-syarah" class="event-card fairy-card" aria-label="Lihat jemputan Majlis Perkahwinan">
 						<span class="event-emoji" aria-hidden="true">🌸</span>
 						<div class="event-info">
 							<strong>Majlis Perkahwinan</strong>
@@ -75,7 +75,7 @@
 				{/if}
 
 				{#if guest.event === 'lelaki' || guest.event === 'both'}
-					<a href="/lelaki" class="event-card malay-card" aria-label="Lihat jemputan Majlis Bertandang">
+					<a href="/muhammed-munir" class="event-card malay-card" aria-label="Lihat jemputan Majlis Bertandang">
 						<span class="event-emoji" aria-hidden="true">🕌</span>
 						<div class="event-info">
 							<strong>Majlis Bertandang</strong>
@@ -106,8 +106,8 @@
 				<p>Kod <code>{code}</code> tidak dijumpai dalam sistem kami.</p>
 				<p>Sila semak semula kod yang diterima atau hubungi kami untuk mendapatkan bantuan.</p>
 				<div class="nf-links">
-					<a href="/perempuan" class="nf-btn fairy-nf">Majlis Perkahwinan</a>
-					<a href="/lelaki" class="nf-btn malay-nf">Majlis Bertandang</a>
+					<a href="/zulfatul-syarah" class="nf-btn fairy-nf">Majlis Perkahwinan</a>
+					<a href="/muhammed-munir" class="nf-btn malay-nf">Majlis Bertandang</a>
 				</div>
 			</div>
 		{/if}
