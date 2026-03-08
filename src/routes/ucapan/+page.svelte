@@ -78,7 +78,7 @@
 						<div>
 							<p class="nama">{u.nama}</p>
 							<span class="badge" class:badge-p={u.pihak === 'Perempuan'} class:badge-l={u.pihak === 'Lelaki'}>
-								{u.pihak === 'Perempuan' ? '♀ Perempuan' : '♂ Lelaki'}
+								{u.pihak === 'Perempuan' ? '🌸 Majlis Perempuan' : '🕌 Majlis Lelaki'}
 							</span>
 						</div>
 					</div>
