@@ -10,8 +10,8 @@ export const wedding = {
 		name: 'Muhammed Munir',
 		nameDisplay: 'MUHAMMED MUNIR',
 		father: 'Mohd Azmi bin Husain',
-		mother: 'Wan Rosnani binti Ismail',
-		parentsDisplay: 'MOHD AZMI BIN HUSAIN & WAN ROSNANI BINTI ISMAIL'
+		mother: 'Wan Rosnani binti Wan Ismail',
+		parentsDisplay: 'MOHD AZMI BIN HUSAIN & WAN ROSNANI BINTI WAN ISMAIL'
 	},
 	events: {
 		perempuan: {
