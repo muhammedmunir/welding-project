@@ -971,6 +971,7 @@
 		flex-direction: column;
 		align-items: center;
 		padding-top: 0.3rem;
+		align-self: stretch;
 	}
 
 	.tl-dot {
@@ -986,7 +987,6 @@
 		flex: 1;
 		width: 1px;
 		background: var(--p-rule);
-		min-height: 40px;
 		margin-top: 4px;
 	}
 
