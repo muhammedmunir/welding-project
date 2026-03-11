@@ -67,7 +67,7 @@
 	<!-- Partikel latar -->
 	<div class="particles" aria-hidden="true">
 		{#if isFairy}
-			{#each butterflies as bf}
+			{#each butterflies as bf (bf.left)}
 				<span class="bf-wrap" style="left:{bf.left};--du:{bf.du};--de:{bf.de};--sz:{bf.sz};color:{bf.color}">
 					<span class="bf-wing">
 						<svg viewBox="0 0 60 40" fill="currentColor">
@@ -81,7 +81,7 @@
 				</span>
 			{/each}
 		{:else}
-			{#each petals as p}
+			{#each petals as p (p.left)}
 				<span class="petal-wrap" style="left:{p.left};--du:{p.du};--de:{p.de};--sz:{p.sz};background:{p.bg}"></span>
 			{/each}
 		{/if}
@@ -142,7 +142,7 @@
 			<!-- Sparkles bila seal pecah -->
 			{#if phase !== 'idle'}
 				<div class="sparkle-ring" aria-hidden="true">
-					{#each [0,45,90,135,180,225,270,315] as deg, i}
+					{#each [0,45,90,135,180,225,270,315] as deg, i (deg)}
 						<span class="sparkle" style="--deg:{deg}deg;--i:{i}"></span>
 					{/each}
 				</div>
