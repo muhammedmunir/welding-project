@@ -641,22 +641,21 @@
 		</div>
 	</section>
 
-	<!-- ════════════════════ DOA ══ -->
-	<section class="doa-section" aria-label="Doa dan penutup">
+	<!-- ════════════════════ DOA + FOOTER ══ -->
+	<footer class="page-footer" aria-label="Doa dan penutup">
 		<p class="footer-aya" lang="ar">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا</p>
 		<p class="footer-aya-ref">Surah Ar-Rum: 21</p>
 		<p class="footer-hashtag">{wedding.hashtag}</p>
-	</section>
 
-	<!-- ════════════════════ FOOTER ══ -->
-	<footer class="page-footer">
-		<p class="footer-made">Dibuat dengan ❤️ oleh Syarah &amp; Munir</p>
-		<p class="footer-contact">
-			Berminat website jemputan sebegini?
-			<a href="https://wa.me/60135636124" target="_blank" rel="noopener noreferrer" class="footer-wa">
-				Hubungi: +60 13-5636124
-			</a>
-		</p>
+		<div class="footer-credit">
+			<p class="footer-made">Dibuat dengan ❤️ oleh Syarah &amp; Munir</p>
+			<p class="footer-contact">
+				Berminat website jemputan sebegini?
+				<a href="https://wa.me/60135636124" target="_blank" rel="noopener noreferrer" class="footer-wa">
+					Hubungi: +60 13-5636124
+				</a>
+			</p>
+		</div>
 	</footer>
 </main>
 
@@ -1551,28 +1550,31 @@
 		.contact-btn svg { width: 14px; height: 14px; }
 	}
 
-	/* ── Doa section ── */
-	.doa-section {
-		padding: 3.5rem 1.5rem 4rem;
+	/* ── Footer (doa + kredit) ── */
+	.page-footer {
+		scroll-snap-align: start;
+		min-height: 100dvh;
+		padding: 3.5rem 1.5rem 2rem;
 		background: var(--bg-soft);
 		border-top: 1px solid var(--p-rule);
 		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 		gap: 0.5rem;
+		position: relative;
 	}
 
-	/* ── Footer credit ── */
-	.page-footer {
-		padding: 1.25rem 1.5rem;
-		background: var(--bg);
-		border-top: 1px solid var(--p-rule);
-		text-align: center;
+	.footer-credit {
+		position: absolute;
+		bottom: 1.5rem;
+		left: 0; right: 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.3rem;
+		gap: 0.25rem;
+		padding: 0 1rem;
 	}
 
 	.footer-aya {
