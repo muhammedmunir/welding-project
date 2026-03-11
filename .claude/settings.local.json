@@ -11,7 +11,8 @@
       "Bash(npm install:*)",
       "Bash(node -e \"require\\(''sharp''\\)\")",
       "Bash(node scripts/gen-icons.mjs)",
-      "Bash(ls -lh static/*.png)"
+      "Bash(ls -lh static/*.png)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

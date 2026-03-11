@@ -108,15 +108,21 @@
 	].join('\n');
 
 	function downloadIcs() {
-		const url = googleCalendarUrl({
-			title: `${ev.typeShort} – ${wedding.groom.name} & ${wedding.bride.name}`,
-			description: `${ev.type}\n${ev.venue}, ${ev.venueShort}\nJamuan: ${ev.time.jamuan.display}`,
-			location: ev.address,
-			startDate: ev.date,
-			startTime: ev.time.jamuan.start,
-			endTime: ev.time.jamuan.end
-		});
-		window.open(url, '_blank', 'noopener,noreferrer');
+		const isAndroid = /Android/i.test(navigator.userAgent);
+		if (isAndroid) {
+			const url = googleCalendarUrl({
+				title: `${ev.typeShort} – ${wedding.groom.name} & ${wedding.bride.name}`,
+				description: `${ev.type}\n${ev.venue}, ${ev.venueShort}\nJamuan: ${ev.time.jamuan.display}`,
+				location: ev.address,
+				startDate: ev.date,
+				startTime: ev.time.jamuan.start,
+				endTime: ev.time.jamuan.end
+			});
+			window.open(url, '_blank', 'noopener,noreferrer');
+		} else {
+			// iOS: auto-prompts "Add to Calendar"; Desktop: downloads .ics
+			window.location.href = '/api/calendar?event=lelaki';
+		}
 	}
 
 	function waLink(phone: string) {
@@ -178,9 +184,9 @@
 	<meta property="og:url" content={$page.url.href} />
 	<meta property="og:title" content="Jemputan Majlis Bertandang: {wedding.groom.name} & {wedding.bride.name}" />
 	<meta property="og:description" content="{ev.type} — {ev.dayDisplay}, {ev.dateDisplay} @ {ev.venue}, {ev.venueShort}" />
-	<meta property="og:image" content="{$page.url.origin}/bg_munir.jpeg" />
+	<meta property="og:image" content="{$page.url.origin}/api/og?event=lelaki" />
 	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="800" />
+	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
@@ -515,10 +521,10 @@
 				</form>
 			{/if}
 
-			<a href="/api/calendar?event=lelaki" class="btn-ghost" aria-label="Tambah ke Kalendar">
+			<button onclick={downloadIcs} class="btn-ghost">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
 				Tambah ke Kalendar
-			</a>
+			</button>
 		</div>
 	</section>
 
