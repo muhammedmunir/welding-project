@@ -1,51 +1,87 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8b52c0"/>
-      <stop offset="55%" stop-color="#b060b0"/>
-      <stop offset="100%" stop-color="#c46090"/>
+    <radialGradient id="bg" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="60%" stop-color="#9d174d"/>
+      <stop offset="100%" stop-color="#6b21a8"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c9a84c"/>
+      <stop offset="40%" stop-color="#f5e07a"/>
+      <stop offset="100%" stop-color="#c9a84c"/>
     </linearGradient>
-    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#d4af37"/>
-      <stop offset="50%" stop-color="#f0d868"/>
-      <stop offset="100%" stop-color="#d4af37"/>
+    <linearGradient id="goldH" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5e07a"/>
+      <stop offset="100%" stop-color="#b8860b"/>
     </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
 
-  <!-- Latar bulatan -->
+  <!-- Background -->
   <circle cx="50" cy="50" r="50" fill="url(#bg)"/>
 
-  <!-- Gelang emas luar -->
-  <circle cx="50" cy="50" r="46" fill="none" stroke="url(#gold)" stroke-width="1.5" opacity="0.75"/>
+  <!-- Outer gold ring -->
+  <circle cx="50" cy="50" r="46.5" fill="none" stroke="url(#gold)" stroke-width="1.8" opacity="0.9"/>
 
-  <!-- Gelang putih nipis dalam -->
-  <circle cx="50" cy="50" r="41" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+  <!-- Inner subtle ring -->
+  <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="0.6"/>
 
-  <!-- Huruf S (path serif) -->
-  <text x="27" y="57"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="32" font-weight="700"
+  <!-- Top ornament dots -->
+  <circle cx="50" cy="9" r="1.2" fill="url(#gold)" opacity="0.8"/>
+  <circle cx="44" cy="10.5" r="0.8" fill="url(#gold)" opacity="0.5"/>
+  <circle cx="56" cy="10.5" r="0.8" fill="url(#gold)" opacity="0.5"/>
+
+  <!-- Large elegant heart -->
+  <path d="M50,72
+    C48,70 40,63 33,56
+    C26,49 21,42 21,35
+    C21,26 27,20 35,20
+    C40,20 45,24 50,30
+    C55,24 60,20 65,20
+    C73,20 79,26 79,35
+    C79,42 74,49 67,56
+    C60,63 52,70 50,72Z"
+    fill="url(#goldH)" filter="url(#glow)" opacity="0.95"/>
+
+  <!-- Heart inner shine -->
+  <path d="M50,34
+    C48,31 45,28 42,28
+    C39,28 37,30 37,33
+    C37,36 39,39 42,42
+    C45,45 48,48 50,50
+    C52,48 55,45 58,42
+    C61,39 63,36 63,33
+    C63,30 61,28 58,28
+    C55,28 52,31 50,34Z"
+    fill="rgba(255,255,255,0.18)"/>
+
+  <!-- S letter (left of heart) -->
+  <text x="27" y="58"
+    font-family="Georgia, serif"
+    font-size="18" font-weight="700" font-style="italic"
     fill="white" text-anchor="middle"
-    dominant-baseline="auto">S</text>
+    opacity="0.88">S</text>
 
-  <!-- Hati kecil di tengah -->
-  <path d="M50 43
-    C50 43 46.5 38.5 43 41
-    C39.5 43.5 40.5 48.5 50 55
-    C59.5 48.5 60.5 43.5 57 41
-    C53.5 38.5 50 43 50 43Z"
-    fill="url(#gold)" opacity="0.95"/>
-
-  <!-- Huruf M (path serif) -->
-  <text x="73" y="57"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="32" font-weight="700"
+  <!-- M letter (right of heart) -->
+  <text x="73" y="58"
+    font-family="Georgia, serif"
+    font-size="18" font-weight="700" font-style="italic"
     fill="white" text-anchor="middle"
-    dominant-baseline="auto">M</text>
+    opacity="0.88">M</text>
 
-  <!-- Garis ornamen bawah -->
-  <line x1="34" y1="65" x2="66" y2="65" stroke="url(#gold)" stroke-width="0.8" opacity="0.6"/>
+  <!-- Bottom ornament line -->
+  <line x1="32" y1="82" x2="68" y2="82" stroke="url(#gold)" stroke-width="0.9" opacity="0.55"/>
+  <circle cx="50" cy="82" r="1.8" fill="url(#gold)" opacity="0.7"/>
+  <circle cx="39" cy="82" r="0.9" fill="url(#gold)" opacity="0.45"/>
+  <circle cx="61" cy="82" r="0.9" fill="url(#gold)" opacity="0.45"/>
 
-  <!-- Titik tengah bawah -->
-  <circle cx="50" cy="72" r="1.5" fill="url(#gold)" opacity="0.7"/>
+  <!-- Year text -->
+  <text x="50" y="91"
+    font-family="Georgia, serif"
+    font-size="7" font-weight="400"
+    fill="rgba(255,255,255,0.55)" text-anchor="middle"
+    letter-spacing="2">2026</text>
 </svg>
