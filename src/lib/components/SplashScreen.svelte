@@ -136,8 +136,17 @@
 
 			<!-- Mohor lilin -->
 			<div class="seal" class:cracked={phase !== 'idle'} aria-hidden="true">
-				<span class="seal-text">S×M</span>
+				<span class="seal-text">{isFairy ? 'S×M' : 'M×S'}</span>
 			</div>
+
+			<!-- Sparkles bila seal pecah -->
+			{#if phase !== 'idle'}
+				<div class="sparkle-ring" aria-hidden="true">
+					{#each [0,45,90,135,180,225,270,315] as deg, i}
+						<span class="sparkle" style="--deg:{deg}deg;--i:{i}"></span>
+					{/each}
+				</div>
+			{/if}
 		</div>
 
 		<!-- Teks hint -->
@@ -460,10 +469,52 @@
 	50%     { opacity: 0.45; }
 }
 
+/* ══ Shimmer pada sampul ══════════════════════════════════ */
+.env-body::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+	background-size: 250% 100%;
+	background-position: -250% center;
+	animation: envShimmer 2.8s 0.8s ease-in-out infinite;
+	pointer-events: none;
+}
+@keyframes envShimmer {
+	0%   { background-position: -250% center; }
+	60%  { background-position: 250% center; }
+	100% { background-position: 250% center; }
+}
+
+/* ══ Sparkles ════════════════════════════════════════════ */
+.sparkle-ring {
+	position: absolute;
+	top: 48%; left: 50%;
+	width: 0; height: 0;
+	z-index: 7;
+	pointer-events: none;
+}
+.sparkle {
+	position: absolute;
+	width: 7px; height: 7px;
+	border-radius: 50%;
+	transform-origin: 0 0;
+	animation: sparkleFly 0.55s calc(var(--i) * 0.03s) ease-out both;
+}
+.fairy .sparkle:nth-child(odd)  { background: #c471a0; }
+.fairy .sparkle:nth-child(even) { background: #d4af37; }
+.malay .sparkle:nth-child(odd)  { background: #c9a227; }
+.malay .sparkle:nth-child(even) { background: #fff; }
+@keyframes sparkleFly {
+	0%   { transform: rotate(var(--deg)) translateX(0)    scale(1.2); opacity: 1; }
+	100% { transform: rotate(var(--deg)) translateX(40px) scale(0);   opacity: 0; }
+}
+
 /* ══ Floating mute ═══════════════════════════════════════ */
 .music-fab {
 	position: fixed;
-	bottom: 1.4rem; right: 1.2rem;
+	/* biar atas sticky nav (~58px) */
+	bottom: calc(58px + 0.85rem); right: 1.2rem;
 	z-index: 50;
 	width: 40px; height: 40px;
 	border-radius: 50%; border: none;

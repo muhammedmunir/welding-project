@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b52c0"/>
+      <stop offset="55%" stop-color="#b060b0"/>
+      <stop offset="100%" stop-color="#c46090"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="50%" stop-color="#f0d868"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Latar bulatan -->
+  <circle cx="50" cy="50" r="50" fill="url(#bg)"/>
+
+  <!-- Gelang emas luar -->
+  <circle cx="50" cy="50" r="46" fill="none" stroke="url(#gold)" stroke-width="1.5" opacity="0.75"/>
+
+  <!-- Gelang putih nipis dalam -->
+  <circle cx="50" cy="50" r="41" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+
+  <!-- Huruf S (path serif) -->
+  <text x="27" y="57"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="32" font-weight="700"
+    fill="white" text-anchor="middle"
+    dominant-baseline="auto">S</text>
+
+  <!-- Hati kecil di tengah -->
+  <path d="M50 43
+    C50 43 46.5 38.5 43 41
+    C39.5 43.5 40.5 48.5 50 55
+    C59.5 48.5 60.5 43.5 57 41
+    C53.5 38.5 50 43 50 43Z"
+    fill="url(#gold)" opacity="0.95"/>
+
+  <!-- Huruf M (path serif) -->
+  <text x="73" y="57"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="32" font-weight="700"
+    fill="white" text-anchor="middle"
+    dominant-baseline="auto">M</text>
+
+  <!-- Garis ornamen bawah -->
+  <line x1="34" y1="65" x2="66" y2="65" stroke="url(#gold)" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Titik tengah bawah -->
+  <circle cx="50" cy="72" r="1.5" fill="url(#gold)" opacity="0.7"/>
+</svg>

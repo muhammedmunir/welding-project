@@ -15,7 +15,7 @@ export const wedding = {
 	},
 	events: {
 		perempuan: {
-			type: 'Majlis Walimatul Urus Putri',
+			type: 'Majlis Walimatul Urus',
 			typeShort: 'Majlis Perkahwinan',
 			date: '2026-05-29',
 			dateDisplay: '29 Mei 2026',
@@ -38,7 +38,7 @@ export const wedding = {
 			wazeUrl: 'https://waze.com/ul?q=Dewan+Jubli+Perak+Kota+Bharu'
 		},
 		lelaki: {
-			type: 'Majlis Bertandang Putera',
+			type: 'Majlis Bertandang',
 			typeShort: 'Majlis Bertandang',
 			date: '2026-05-31',
 			dateDisplay: '31 Mei 2026',

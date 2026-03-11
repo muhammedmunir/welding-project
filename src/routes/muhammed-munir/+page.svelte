@@ -1405,18 +1405,32 @@
 		width: 100%;
 	}
 
-	@media (max-width: 460px) {
-		.share-layout {
-			grid-template-columns: 1fr;
-			justify-items: center;
-		}
-	}
-
 	.share-right {
 		display: flex;
 		flex-direction: column;
 		gap: 0.6rem;
 		align-items: flex-start;
+	}
+
+	@media (max-width: 460px) {
+		.share-layout {
+			grid-template-columns: 1fr;
+			justify-items: center;
+		}
+		.share-right {
+			align-items: center;
+			text-align: center;
+		}
+	}
+
+
+	@media (max-width: 360px) {
+		.contact-btn {
+			padding: 0.4rem 0.5rem;
+			font-size: 0.65rem;
+			gap: 0.2rem;
+		}
+		.contact-btn svg { width: 14px; height: 14px; }
 	}
 
 	/* ── Footer ── */
