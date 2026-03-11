@@ -106,6 +106,27 @@
 		`🔗`
 	].join('\n');
 
+	function handleCalendar() {
+		const isAndroid = /Android/i.test(navigator.userAgent);
+		if (isAndroid) {
+			const d = ev.date.replace(/-/g, '');
+			const s = ev.time.jamuan.start.replace(':', '');
+			const e = ev.time.jamuan.end.replace(':', '');
+			const params = new URLSearchParams({
+				action: 'TEMPLATE',
+				text: `${ev.typeShort} – ${wedding.groom.name} & ${wedding.bride.name}`,
+				dates: `${d}T${s}00/${d}T${e}00`,
+				details: `${ev.type}\n${ev.venue}, ${ev.venueShort}\nJamuan: ${ev.time.jamuan.display}`,
+				location: ev.address
+			});
+			const gcalWeb = `https://calendar.google.com/calendar/render?${params}`;
+			const intentUrl = `intent://calendar.google.com/calendar/render?${params}#Intent;scheme=https;package=com.google.android.calendar;S.browser_fallback_url=${encodeURIComponent(gcalWeb)};end`;
+			window.location.href = intentUrl;
+		} else {
+			window.location.href = '/api/calendar?event=lelaki';
+		}
+	}
+
 	function waLink(phone: string) {
 		return `https://wa.me/60${phone.replace(/[-\s]/g,'').replace(/^0/,'')}`;
 	}
@@ -502,10 +523,10 @@
 				</form>
 			{/if}
 
-			<a href="webcal://{$page.url.host}/api/calendar?event=lelaki" class="btn-ghost">
+			<button onclick={handleCalendar} class="btn-ghost">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
 				Tambah ke Kalendar
-			</a>
+			</button>
 		</div>
 	</section>
 
