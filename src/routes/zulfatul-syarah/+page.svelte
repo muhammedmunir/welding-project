@@ -646,6 +646,15 @@
 		<p class="footer-aya" lang="ar">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا</p>
 		<p class="footer-aya-ref">Surah Ar-Rum: 21</p>
 		<p class="footer-hashtag">{wedding.hashtag}</p>
+		<div class="footer-credit">
+			<p class="footer-made">Dibuat dengan ❤️ oleh Syarah &amp; Munir</p>
+			<p class="footer-contact">
+				Berminat website jemputan sebegini?
+				<a href="https://wa.me/60135636124" target="_blank" rel="noopener noreferrer" class="footer-wa">
+					Hubungi: +60 13-5636124
+				</a>
+			</p>
+		</div>
 	</footer>
 </main>
 
@@ -1579,6 +1588,42 @@
 		color: var(--p);
 		font-style: italic;
 		margin: 0.25rem 0;
+	}
+
+	.footer-credit {
+		margin-top: 1.5rem;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(184,127,168,0.2);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.35rem;
+	}
+
+	.footer-made {
+		font-family: var(--font-lato);
+		font-size: 0.78rem;
+		color: var(--muted);
+		margin: 0;
+	}
+
+	.footer-contact {
+		font-family: var(--font-lato);
+		font-size: 0.75rem;
+		color: var(--muted);
+		margin: 0;
+		text-align: center;
+	}
+
+	.footer-wa {
+		color: #25d366;
+		font-weight: 600;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.footer-wa:hover {
+		text-decoration: underline;
 	}
 
 </style>
