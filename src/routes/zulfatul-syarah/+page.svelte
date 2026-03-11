@@ -62,22 +62,6 @@
 		localStorage.setItem('myrx_p', JSON.stringify(my));
 	}
 
-	// ── Tinggal countdown ──────────────────────────────────────────
-	let tinggalText = $state('');
-	$effect(() => {
-		function update() {
-			const target = new Date(`${ev.date}T12:00:00+08:00`);
-			const diff = target.getTime() - Date.now();
-			if (diff <= 0) { tinggalText = '🎉 Hari yang dinantikan sudah tiba!'; return; }
-			const d = Math.floor(diff / 86400000);
-			const h = Math.floor((diff % 86400000) / 3600000);
-			const m = Math.floor((diff % 3600000) / 60000);
-			tinggalText = `${d} hari lagi`;
-		}
-		update();
-		const iv = setInterval(update, 30000);
-		return () => clearInterval(iv);
-	});
 
 	async function fetchUcapan() {
 		try {
@@ -108,7 +92,28 @@
 	];
 
 	const pageUrl = browser ? window.location.origin + '/zulfatul-syarah' : '';
-	const waMessage = `Assalamualaikum, saya menerima jemputan ke Majlis Perkahwinan ${wedding.bride.name} & ${wedding.groom.name} pada ${ev.dayDisplay}, ${ev.dateDisplay} di ${ev.venue}.\n\n${pageUrl}\n\n${wedding.hashtag}`;
+	const waMessage = [
+		`🌸 بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ 🌸`,
+		``,
+		`Dengan penuh kesyukuran ke hadrat Ilahi,`,
+		`kami menjemput Tuan/Puan hadir ke`,
+		``,
+		`💍 ${ev.type.toUpperCase()} 💍`,
+		``,
+		`🌸 ${wedding.bride.name} binti Zulhamly`,
+		`    bersama`,
+		`🌸 ${wedding.groom.name} bin Mohd Azmi`,
+		``,
+		`📅 ${ev.dayDisplay}, ${ev.dateDisplay}`,
+		`🕛 Jamuan: ${ev.time.jamuan.display}`,
+		`📍 ${ev.venue}`,
+		`    ${ev.address}`,
+		``,
+		`Kehadiran Tuan/Puan amat kami harapkan 🌺`,
+		``,
+		`${wedding.hashtag}`,
+		`🔗 Jemputan digital:`
+	].join('\n');
 
 	function downloadIcs() {
 		generateIcs({
@@ -273,10 +278,6 @@
 					<line x1="196" y1="7" x2="300" y2="7" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
 				</svg>
 			</div>
-
-			{#if tinggalText}
-				<p class="tinggal-text">{tinggalText}</p>
-			{/if}
 
 			<div class="date-box">
 				<p class="date-hijri">{ev.hijriDisplay}</p>
@@ -623,9 +624,6 @@
 				<div class="share-right">
 					<p class="body-text">Kongsikan jemputan ini kepada rakan dan keluarga.</p>
 					<ShareButtons url={pageUrl} message={waMessage} theme="fairy" />
-					<a href="/cetak?event=perempuan" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:0.5rem">
-						Cetak / Simpan PDF
-					</a>
 					<ShareCard
 						brideName={wedding.bride.nameDisplay}
 						groomName={wedding.groom.nameDisplay}
@@ -899,25 +897,7 @@
 		width: 100%;
 	}
 
-	.tinggal-text {
-		font-family: var(--font-lato);
-		font-size: 0.82rem;
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		color: rgba(74, 48, 96, 0.75);
-		background: rgba(255,255,255,0.45);
-		border: 1px solid rgba(184,127,168,0.3);
-		border-radius: 50px;
-		padding: 0.35rem 1.1rem;
-		margin: 0.6rem auto 0;
-		display: inline-block;
-		animation: tinggal-pulse 3s ease-in-out infinite;
-	}
 
-	@keyframes tinggal-pulse {
-		0%, 100% { opacity: 0.85; }
-		50% { opacity: 1; }
-	}
 
 	.scroll-hint {
 		color: var(--muted);
