@@ -1395,7 +1395,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.6rem;
-		align-items: flex-start;
+		align-items: center;
 	}
 
 	@media (max-width: 460px) {
