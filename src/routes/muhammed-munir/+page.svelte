@@ -1585,7 +1585,7 @@
 
 	.footer-credit {
 		position: absolute;
-		bottom: 1.5rem;
+		bottom: calc(58px + 1.25rem);
 		left: 0; right: 0;
 		display: flex;
 		flex-direction: column;
