@@ -74,7 +74,7 @@
 			const d = Math.floor(diff / 86400000);
 			const h = Math.floor((diff % 86400000) / 3600000);
 			const m = Math.floor((diff % 3600000) / 60000);
-			tinggalText = `Tinggal ${d} hari ${h} jam ${m} minit lagi`;
+			tinggalText = `${d} hari lagi`;
 		}
 		update();
 		const iv = setInterval(update, 30000);
@@ -272,6 +272,10 @@
 				</svg>
 			</div>
 
+			{#if tinggalText}
+				<p class="tinggal-text">{tinggalText}</p>
+			{/if}
+
 			<div class="date-box">
 				<p class="date-hijri">{ev.hijriDisplay}</p>
 				<div class="date-main">
@@ -287,11 +291,6 @@
 			<div class="hero-countdown">
 				<Countdown targetDate={ev.date} theme="malay" />
 			</div>
-
-			<!-- Tinggal text -->
-			{#if tinggalText}
-				<p class="tinggal-text">{tinggalText}</p>
-			{/if}
 
 			<!-- Scroll hint -->
 			<div class="scroll-hint" aria-hidden="true">
@@ -644,6 +643,7 @@
 						timeDisplay={ev.time.jamuan.display}
 						hashtag={wedding.hashtag}
 						theme="malay"
+						swapNames={true}
 					/>
 				</div>
 			</div>

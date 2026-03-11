@@ -9,7 +9,8 @@
 		venue,
 		timeDisplay,
 		hashtag,
-		theme = 'fairy'
+		theme = 'fairy',
+		swapNames = false
 	}: {
 		brideName: string;
 		groomName: string;
@@ -21,7 +22,11 @@
 		timeDisplay: string;
 		hashtag: string;
 		theme?: 'fairy' | 'malay';
+		swapNames?: boolean;
 	} = $props();
+
+	const firstName = $derived(swapNames ? groomName : brideName);
+	const secondName = $derived(swapNames ? brideName : groomName);
 
 	let generating = $state(false);
 
@@ -103,7 +108,7 @@
 		// ── Couple names ─────────────────────────────────────────
 		ctx.font = `italic 700 82px 'Playfair Display', Georgia, serif`;
 		ctx.fillStyle = primary;
-		ctx.fillText(brideName, W / 2, 330);
+		ctx.fillText(firstName, W / 2, 330);
 
 		// Heart
 		ctx.font = '52px serif';
@@ -112,7 +117,7 @@
 
 		ctx.font = `italic 700 82px 'Playfair Display', Georgia, serif`;
 		ctx.fillStyle = primary;
-		ctx.fillText(groomName, W / 2, 490);
+		ctx.fillText(secondName, W / 2, 490);
 
 		// ── Mid ornament line ──────────────────────────────────
 		drawOrnamentLine(ctx, W / 2, 530, 260, gold);
