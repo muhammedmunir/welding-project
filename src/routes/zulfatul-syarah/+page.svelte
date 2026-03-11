@@ -10,9 +10,16 @@
 
 	const ev = wedding.events.perempuan;
 
+	const butterflies = [
+		{ left: '6%',  du: '9s',  de: '0s',   sz: '22px', color: '#c471a0' },
+		{ left: '22%', du: '13s', de: '3.5s', sz: '16px', color: '#9b6fc4' },
+		{ left: '40%', du: '8s',  de: '1.8s', sz: '28px', color: '#d4a0c8' },
+		{ left: '58%', du: '11s', de: '5.5s', sz: '19px', color: '#b87fa8' },
+		{ left: '76%', du: '10s', de: '7s',   sz: '24px', color: '#a06dc0' },
+		{ left: '91%', du: '9s',  de: '4s',   sz: '14px', color: '#c88ad8' },
+	];
+
 	// ─── ISI MAKLUMAT INI ────────────────────────────────────────
-	const RSVP_FORM_URL   = 'https://forms.gle/1GLBcBGsTWnwM1t88';
-	const UCAPAN_FORM_URL = 'https://forms.gle/xzHER6pTgHKCUDKdA';
 	const MAP_EMBED_URL   = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.056380320236!2d102.24015159999999!3d6.1231146999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31b6afc47ea539c9%3A0x10827cb0596fc3a0!2sJubli%20Perak%20Hall!5e0!3m2!1sen!2smy!4v1772927876941!5m2!1sen!2smy';
 	// ─────────────────────────────────────────────────────────────
 
@@ -121,6 +128,23 @@
 <StickyNav theme="fairy" sections={navSections} />
 
 <main id="main-content">
+
+	<!-- Butterflies animation (all sections) -->
+	<div class="page-fx" aria-hidden="true">
+		{#each butterflies as bf}
+			<span class="bf-wrap" style="left:{bf.left};--du:{bf.du};--de:{bf.de};--sz:{bf.sz};color:{bf.color}">
+				<span class="bf-wing">
+					<svg viewBox="0 0 60 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path d="M30 20 Q15 2 2 8 Q-1 20 11 24 Q20 28 30 20Z" opacity="0.85"/>
+						<path d="M30 20 Q7 24 6 35 Q13 43 24 33 Q28 27 30 20Z" opacity="0.6"/>
+						<path d="M30 20 Q45 2 58 8 Q61 20 49 24 Q40 28 30 20Z" opacity="0.85"/>
+						<path d="M30 20 Q53 24 54 35 Q47 43 36 33 Q32 27 30 20Z" opacity="0.6"/>
+						<ellipse cx="30" cy="20" rx="2" ry="9" opacity="0.9"/>
+					</svg>
+				</span>
+			</span>
+		{/each}
+	</div>
 
 	<!-- ══════════════════════════════════ HERO ══ -->
 	<section id="hero" class="hero">
@@ -355,7 +379,7 @@
 					Google Maps
 				</a>
 				<a href={ev.wazeUrl} target="_blank" rel="noopener noreferrer" class="map-btn btn-waze">
-					<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12.003 0C5.532 0 .269 5.236.269 11.673c0 3.83 1.856 7.35 4.959 9.605l-.663 2.312a.485.485 0 0 0 .672.577l2.553-1.213a11.463 11.463 0 0 0 4.213.793c6.47 0 11.733-5.236 11.733-11.674C23.736 5.236 18.473 0 12.003 0zm0 21.24a9.558 9.558 0 0 1-3.744-.759.485.485 0 0 0-.371-.012l-1.758.836.434-1.514a.485.485 0 0 0-.177-.524C3.786 17.587 2.176 14.71 2.176 11.673 2.176 6.286 6.59 1.9 12.003 1.9c5.413 0 9.828 4.386 9.828 9.773 0 5.386-4.415 9.567-9.828 9.567zm5.047-12.03a1.31 1.31 0 1 1-2.619 0 1.31 1.31 0 0 1 2.619 0zm-8.476 0a1.31 1.31 0 1 1-2.619 0 1.31 1.31 0 0 1 2.619 0zm7.573 3.494c-.438 2.18-2.32 3.755-4.478 3.755-2.126 0-3.98-1.534-4.45-3.664a.476.476 0 0 1 .464-.579h7.985a.476.476 0 0 1 .479.488z"/></svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48"><path fill="#37474f" d="M27,38C9.1,38,5.2,33.2,3.6,31.1c-0.4-0.4-0.6-1-0.6-1.6C3,28.1,4.1,27,5.5,27C6.4,27,9,27,9,22.1 v-0.6C9,12.4,17.1,5,27,5s18,7.4,18,16.5S36.9,38,27,38z"/><path fill="#eceff1" d="M27,36c8.8,0,16-6.5,16-14.5S35.8,7,27,7s-16,6.5-16,14.5v0.6c0,6.2-3.8,6.9-5.5,6.9 C5.2,29,5,29.2,5,29.5c0,0.1,0,0.2,0.1,0.3C6.6,31.7,10,36,27,36z"/><path fill="#37474f" d="M32 16A2 2 0 1 0 32 20 2 2 0 1 0 32 16zM22 16A2 2 0 1 0 22 20 2 2 0 1 0 22 16zM27 29c-4.8 0-6.7-3.5-7-5.3-.1-.5.3-1.1.8-1.2.5-.1 1.1.3 1.2.8 0 .1.7 3.7 5 3.7 4.3 0 5-3.5 5-3.7.1-.5.6-.9 1.2-.8.5.1.9.6.8 1.1C33.7 25.5 31.8 29 27 29zM16.5 34A4.5 4.5 0 1 0 16.5 43 4.5 4.5 0 1 0 16.5 34z"/><path fill="#607d8b" d="M16.5 37A1.5 1.5 0 1 0 16.5 40A1.5 1.5 0 1 0 16.5 37Z"/><path fill="#37474f" d="M32.5 34A4.5 4.5 0 1 0 32.5 43A4.5 4.5 0 1 0 32.5 34Z"/><path fill="#607d8b" d="M32.5 37A1.5 1.5 0 1 0 32.5 40A1.5 1.5 0 1 0 32.5 37Z"/></svg>
 					Waze
 				</a>
 			</div>
@@ -557,13 +581,62 @@
 	.hero {
 		min-height: 100dvh;
 		scroll-snap-align: start;
-		background: linear-gradient(160deg, #e6d4f0 0%, #d4ddf5 50%, #e0cef0 100%);
+		background:
+			linear-gradient(to bottom, rgba(230,212,240,0.6) 0%, rgba(212,221,245,0.5) 60%, rgba(224,206,240,0.7) 100%),
+			url('/bg_syarah.jpeg') center top/cover no-repeat;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		position: relative;
 		padding: 5rem 2rem 5rem;
 		text-align: center;
+		overflow: hidden;
+	}
+
+	@media (min-width: 768px) {
+		.hero {
+			background:
+				linear-gradient(to bottom, rgba(230,212,240,0.72) 0%, rgba(212,221,245,0.65) 60%, rgba(224,206,240,0.78) 100%),
+				url('/bg_syarah.jpeg') center top/cover no-repeat;
+		}
+	}
+
+	/* ── Butterfly animation ── */
+	.page-fx {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 3;
+		overflow: hidden;
+	}
+
+	.bf-wrap {
+		position: absolute;
+		bottom: -60px;
+		width: var(--sz, 22px);
+		height: var(--sz, 22px);
+		animation: bf-rise var(--du, 9s) var(--de, 0s) ease-in-out infinite;
+	}
+
+	.bf-wing {
+		display: block;
+		width: 100%;
+		height: 100%;
+		animation: bf-flap 0.42s ease-in-out infinite alternate;
+	}
+
+	@keyframes bf-rise {
+		0%   { transform: translateY(0) translateX(0);          opacity: 0; }
+		8%   { opacity: 0.85; }
+		35%  { transform: translateY(-35vh) translateX(22px); }
+		65%  { transform: translateY(-65vh) translateX(-18px); }
+		92%  { opacity: 0.5; }
+		100% { transform: translateY(-115vh) translateX(6px);   opacity: 0; }
+	}
+
+	@keyframes bf-flap {
+		from { transform: scaleX(1); }
+		to   { transform: scaleX(0.12); }
 	}
 
 
@@ -673,13 +746,15 @@
 	}
 
 	.date-box {
-		border: 1px solid var(--p-rule);
+		border: 1px solid rgba(255,255,255,0.4);
 		padding: 1rem 2rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 0.25rem;
-		background: rgba(255,255,255,0.7);
+		background: rgba(255,255,255,0.15);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
 		border-radius: 4px;
 	}
 

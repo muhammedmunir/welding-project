@@ -11,10 +11,19 @@
 	const ev = wedding.events.lelaki;
 
 	// ─── ISI MAKLUMAT INI ────────────────────────────────────────
-	const RSVP_FORM_URL   = 'https://forms.gle/49E3MWMCRHPfbyie6';
-	const UCAPAN_FORM_URL = 'https://forms.gle/bQTKA5Ax5A6bUJpx7';
 	const MAP_EMBED_URL   = 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3966.8789885865967!2d102.283512!3d6.1469510000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMDgnNDkuMCJOIDEwMsKwMTcnMDAuNiJF!5e0!3m2!1sen!2smy!4v1772928415085!5m2!1sen!2smy';
 	// ─────────────────────────────────────────────────────────────
+
+	const petals = [
+		{ left: '5%',  du: '8s',  de: '0s',   sz: '12px', bg: '#c9a227' },
+		{ left: '16%', du: '11s', de: '2.2s', sz: '16px', bg: '#e8c84a' },
+		{ left: '29%', du: '9s',  de: '4.1s', sz: '10px', bg: '#f0d870' },
+		{ left: '43%', du: '13s', de: '1s',   sz: '18px', bg: '#c9a227' },
+		{ left: '57%', du: '7s',  de: '3.5s', sz: '13px', bg: '#b89020' },
+		{ left: '68%', du: '10s', de: '5.8s', sz: '15px', bg: '#e0c040' },
+		{ left: '79%', du: '12s', de: '1.8s', sz: '11px', bg: '#c9a227' },
+		{ left: '91%', du: '8s',  de: '6.5s', sz: '17px', bg: '#f5d840' },
+	];
 
 	type UcapanItem = { nama: string; msg: string };
 	let ucapanList = $state<UcapanItem[]>([]);
@@ -121,6 +130,13 @@
 <StickyNav theme="malay" sections={navSections} />
 
 <main id="main-content">
+
+	<!-- Falling petals animation (all sections) -->
+	<div class="page-fx" aria-hidden="true">
+		{#each petals as p}
+			<span class="petal-wrap" style="left:{p.left};--du:{p.du};--de:{p.de};--sz:{p.sz};background:{p.bg}"></span>
+		{/each}
+	</div>
 
 	<!-- ══════════════════════════════════ HERO ══ -->
 	<section id="hero" class="hero">
@@ -369,7 +385,7 @@
 					Google Maps
 				</a>
 				<a href={ev.wazeUrl} target="_blank" rel="noopener noreferrer" class="map-btn btn-waze">
-					<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12.003 0C5.532 0 .269 5.236.269 11.673c0 3.83 1.856 7.35 4.959 9.605l-.663 2.312a.485.485 0 0 0 .672.577l2.553-1.213a11.463 11.463 0 0 0 4.213.793c6.47 0 11.733-5.236 11.733-11.674C23.736 5.236 18.473 0 12.003 0zm0 21.24a9.558 9.558 0 0 1-3.744-.759.485.485 0 0 0-.371-.012l-1.758.836.434-1.514a.485.485 0 0 0-.177-.524C3.786 17.587 2.176 14.71 2.176 11.673 2.176 6.286 6.59 1.9 12.003 1.9c5.413 0 9.828 4.386 9.828 9.773 0 5.386-4.415 9.567-9.828 9.567zm5.047-12.03a1.31 1.31 0 1 1-2.619 0 1.31 1.31 0 0 1 2.619 0zm-8.476 0a1.31 1.31 0 1 1-2.619 0 1.31 1.31 0 0 1 2.619 0zm7.573 3.494c-.438 2.18-2.32 3.755-4.478 3.755-2.126 0-3.98-1.534-4.45-3.664a.476.476 0 0 1 .464-.579h7.985a.476.476 0 0 1 .479.488z"/></svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48"><path fill="#37474f" d="M27,38C9.1,38,5.2,33.2,3.6,31.1c-0.4-0.4-0.6-1-0.6-1.6C3,28.1,4.1,27,5.5,27C6.4,27,9,27,9,22.1 v-0.6C9,12.4,17.1,5,27,5s18,7.4,18,16.5S36.9,38,27,38z"/><path fill="#eceff1" d="M27,36c8.8,0,16-6.5,16-14.5S35.8,7,27,7s-16,6.5-16,14.5v0.6c0,6.2-3.8,6.9-5.5,6.9 C5.2,29,5,29.2,5,29.5c0,0.1,0,0.2,0.1,0.3C6.6,31.7,10,36,27,36z"/><path fill="#37474f" d="M32 16A2 2 0 1 0 32 20 2 2 0 1 0 32 16zM22 16A2 2 0 1 0 22 20 2 2 0 1 0 22 16zM27 29c-4.8 0-6.7-3.5-7-5.3-.1-.5.3-1.1.8-1.2.5-.1 1.1.3 1.2.8 0 .1.7 3.7 5 3.7 4.3 0 5-3.5 5-3.7.1-.5.6-.9 1.2-.8.5.1.9.6.8 1.1C33.7 25.5 31.8 29 27 29zM16.5 34A4.5 4.5 0 1 0 16.5 43 4.5 4.5 0 1 0 16.5 34z"/><path fill="#607d8b" d="M16.5 37A1.5 1.5 0 1 0 16.5 40A1.5 1.5 0 1 0 16.5 37Z"/><path fill="#37474f" d="M32.5 34A4.5 4.5 0 1 0 32.5 43A4.5 4.5 0 1 0 32.5 34Z"/><path fill="#607d8b" d="M32.5 37A1.5 1.5 0 1 0 32.5 40A1.5 1.5 0 1 0 32.5 37Z"/></svg>
 					Waze
 				</a>
 			</div>
@@ -571,16 +587,52 @@
 	.hero {
 		min-height: 100dvh;
 		scroll-snap-align: start;
-		background: linear-gradient(160deg, #fef9e4 0%, #fdf4c8 35%, #fdf8ec 70%, #fffdf4 100%);
+		background:
+			linear-gradient(to bottom, rgba(254,249,228,0.6) 0%, rgba(253,244,200,0.5) 60%, rgba(253,248,236,0.7) 100%),
+			url('/bg_munir.jpeg') center top/cover no-repeat;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		position: relative;
 		padding: 5rem 2rem 5rem;
 		text-align: center;
+		overflow: hidden;
 	}
 
+	@media (min-width: 768px) {
+		.hero {
+			background:
+				linear-gradient(to bottom, rgba(254,249,228,0.72) 0%, rgba(253,244,200,0.65) 60%, rgba(253,248,236,0.78) 100%),
+				url('/bg_munir.jpeg') center top/cover no-repeat;
+		}
+	}
 
+	/* ── Falling petals animation ── */
+	.page-fx {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 3;
+		overflow: hidden;
+	}
+
+	.petal-wrap {
+		position: absolute;
+		top: -25px;
+		width: var(--sz, 14px);
+		height: calc(var(--sz, 14px) * 1.6);
+		border-radius: 50% 0 50% 0;
+		opacity: 0;
+		animation: petal-fall var(--du, 9s) var(--de, 0s) linear infinite;
+	}
+
+	@keyframes petal-fall {
+		0%   { transform: translateY(0) rotate(0deg) translateX(0);           opacity: 0; }
+		6%   { opacity: 0.6; }
+		50%  { transform: translateY(50vh) rotate(200deg) translateX(20px); }
+		94%  { opacity: 0.35; }
+		100% { transform: translateY(112vh) rotate(400deg) translateX(-10px); opacity: 0; }
+	}
 
 	.geo-border {
 		position: absolute;
@@ -708,13 +760,15 @@
 	}
 
 	.date-box {
-		border: 1px solid var(--p-rule);
+		border: 1px solid rgba(255,255,255,0.4);
 		padding: 1rem 2rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 0.25rem;
-		background: rgba(255,255,255,0.7);
+		background: rgba(255,255,255,0.15);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
 		border-radius: 4px;
 	}
 
