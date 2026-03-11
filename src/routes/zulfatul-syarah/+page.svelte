@@ -588,7 +588,7 @@
 		align-items: center;
 		justify-content: center;
 		position: relative;
-		padding: 5rem 2rem 5rem;
+		padding: 3rem 1.5rem;
 		text-align: center;
 		overflow: hidden;
 	}
@@ -658,7 +658,11 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.9rem;
+		gap: 0.55rem;
+	}
+
+	@media (min-width: 768px) {
+		.hero-content { gap: 0.9rem; }
 	}
 
 	.bismillah {

@@ -73,8 +73,8 @@
 
 	.countdown-grid {
 		display: flex;
-		gap: 1rem;
-		flex-wrap: wrap;
+		gap: 0.5rem;
+		flex-wrap: nowrap;
 		justify-content: center;
 	}
 
@@ -82,9 +82,9 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		min-width: 70px;
-		padding: 0.75rem 1rem;
-		border-radius: 12px;
+		min-width: 54px;
+		padding: 0.5rem 0.6rem;
+		border-radius: 10px;
 		text-align: center;
 	}
 
@@ -100,7 +100,7 @@
 
 	.number {
 		font-family: var(--font-playfair);
-		font-size: clamp(1.75rem, 5vw, 2.5rem);
+		font-size: clamp(1.3rem, 4vw, 1.9rem);
 		font-weight: 700;
 		line-height: 1;
 	}
