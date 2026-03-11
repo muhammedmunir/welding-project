@@ -641,20 +641,22 @@
 		</div>
 	</section>
 
-	<!-- ════════════════════ FOOTER ══ -->
-	<footer class="page-footer">
+	<!-- ════════════════════ DOA ══ -->
+	<section class="doa-section" aria-label="Doa dan penutup">
 		<p class="footer-aya" lang="ar">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا</p>
 		<p class="footer-aya-ref">Surah Ar-Rum: 21</p>
 		<p class="footer-hashtag">{wedding.hashtag}</p>
-		<div class="footer-credit">
-			<p class="footer-made">Dibuat dengan ❤️ oleh Syarah &amp; Munir</p>
-			<p class="footer-contact">
-				Berminat website jemputan sebegini?
-				<a href="https://wa.me/60135636124" target="_blank" rel="noopener noreferrer" class="footer-wa">
-					Hubungi: +60 13-5636124
-				</a>
-			</p>
-		</div>
+	</section>
+
+	<!-- ════════════════════ FOOTER ══ -->
+	<footer class="page-footer">
+		<p class="footer-made">Dibuat dengan ❤️ oleh Syarah &amp; Munir</p>
+		<p class="footer-contact">
+			Berminat website jemputan sebegini?
+			<a href="https://wa.me/60135636124" target="_blank" rel="noopener noreferrer" class="footer-wa">
+				Hubungi: +60 13-5636124
+			</a>
+		</p>
 	</footer>
 </main>
 
@@ -1549,8 +1551,8 @@
 		.contact-btn svg { width: 14px; height: 14px; }
 	}
 
-	/* ── Footer ── */
-	.page-footer {
+	/* ── Doa section ── */
+	.doa-section {
 		padding: 3.5rem 1.5rem 4rem;
 		background: var(--bg-soft);
 		border-top: 1px solid var(--p-rule);
@@ -1559,6 +1561,18 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 0.5rem;
+	}
+
+	/* ── Footer credit ── */
+	.page-footer {
+		padding: 1.25rem 1.5rem;
+		background: var(--bg);
+		border-top: 1px solid var(--p-rule);
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.3rem;
 	}
 
 	.footer-aya {
@@ -1585,16 +1599,6 @@
 		color: var(--p);
 		font-style: italic;
 		margin: 0.25rem 0;
-	}
-
-	.footer-credit {
-		margin-top: 1.5rem;
-		padding-top: 1rem;
-		border-top: 1px solid rgba(184,127,168,0.2);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.35rem;
 	}
 
 	.footer-made {
