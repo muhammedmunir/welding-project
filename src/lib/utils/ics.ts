@@ -20,6 +20,19 @@ function toIcsDateTime(dateStr: string, timeStr: string): string {
 	return `${year}${pad(month)}${pad(day)}T${pad(hour)}${pad(minute)}00`;
 }
 
+export function googleCalendarUrl(event: IcsEvent): string {
+	const dtStart = toIcsDateTime(event.startDate, event.startTime);
+	const dtEnd = toIcsDateTime(event.startDate, event.endTime);
+	const params = new URLSearchParams({
+		action: 'TEMPLATE',
+		text: event.title,
+		dates: `${dtStart}/${dtEnd}`,
+		details: event.description,
+		location: event.location
+	});
+	return `https://calendar.google.com/calendar/render?${params}`;
+}
+
 export function generateIcs(event: IcsEvent): void {
 	const uid = `${Date.now()}@syarah-munir-2026`;
 	const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';

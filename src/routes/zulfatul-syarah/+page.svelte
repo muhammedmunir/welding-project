@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { wedding } from '$lib/data/wedding';
-	import { generateIcs } from '$lib/utils/ics';
+	import { googleCalendarUrl } from '$lib/utils/ics';
 	import Countdown from '$lib/components/Countdown.svelte';
 	import ShareButtons from '$lib/components/ShareButtons.svelte';
 	import QRCard from '$lib/components/QRCard.svelte';
@@ -93,30 +94,19 @@
 
 	const pageUrl = browser ? window.location.origin + '/zulfatul-syarah' : '';
 	const waMessage = [
-		`🌸 بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ 🌸`,
+		`🌸 Jemputan Perkahwinan 🌸`,
 		``,
-		`Dengan penuh kesyukuran ke hadrat Ilahi,`,
-		`kami menjemput Tuan/Puan hadir ke`,
-		``,
-		`💍 ${ev.type.toUpperCase()} 💍`,
-		``,
-		`🌸 ${wedding.bride.name} binti Zulhamly`,
-		`    bersama`,
-		`🌸 ${wedding.groom.name} bin Mohd Azmi`,
-		``,
+		`${wedding.bride.name} & ${wedding.groom.name}`,
 		`📅 ${ev.dayDisplay}, ${ev.dateDisplay}`,
-		`🕛 Jamuan: ${ev.time.jamuan.display}`,
+		`🕛 ${ev.time.jamuan.display}`,
 		`📍 ${ev.venue}`,
-		`    ${ev.address}`,
-		``,
-		`Kehadiran Tuan/Puan amat kami harapkan 🌺`,
 		``,
 		`${wedding.hashtag}`,
-		`🔗 Jemputan digital:`
+		`🔗`
 	].join('\n');
 
 	function downloadIcs() {
-		generateIcs({
+		const url = googleCalendarUrl({
 			title: `${ev.typeShort} – ${wedding.bride.name} & ${wedding.groom.name}`,
 			description: `${ev.type}\n${ev.venue}\nJamuan: ${ev.time.jamuan.display}`,
 			location: ev.address,
@@ -124,6 +114,7 @@
 			startTime: ev.time.jamuan.start,
 			endTime: ev.time.jamuan.end
 		});
+		window.open(url, '_blank', 'noopener,noreferrer');
 	}
 
 	function waLink(phone: string) {
@@ -181,6 +172,14 @@
 <svelte:head>
 	<title>{wedding.bride.nameDisplay} & {wedding.groom.nameDisplay} — Majlis Perkahwinan</title>
 	<meta name="description" content="Jemputan ke {ev.type} pada {ev.dayDisplay}, {ev.dateDisplay} di {ev.venue}." />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={$page.url.href} />
+	<meta property="og:title" content="Jemputan Perkahwinan: {wedding.bride.name} & {wedding.groom.name}" />
+	<meta property="og:description" content="{ev.type} — {ev.dayDisplay}, {ev.dateDisplay} @ {ev.venue}" />
+	<meta property="og:image" content="{$page.url.origin}/bg_syarah.jpeg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="800" />
+	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <!-- Splash Screen + Audio -->
