@@ -7,6 +7,7 @@
 	import ShareButtons from '$lib/components/ShareButtons.svelte';
 	import QRCard from '$lib/components/QRCard.svelte';
 	import StickyNav from '$lib/components/StickyNav.svelte';
+	import SplashScreen from '$lib/components/SplashScreen.svelte';
 
 	const ev = wedding.events.perempuan;
 
@@ -123,6 +124,15 @@
 	<title>{wedding.bride.nameDisplay} & {wedding.groom.nameDisplay} — Majlis Perkahwinan</title>
 	<meta name="description" content="Jemputan ke {ev.type} pada {ev.dayDisplay}, {ev.dateDisplay} di {ev.venue}." />
 </svelte:head>
+
+<!-- Splash Screen + Audio -->
+<SplashScreen
+	theme="fairy"
+	audioSrc="/lagu-perempuan.mp3"
+	brideName={wedding.bride.nameDisplay}
+	groomName={wedding.groom.nameDisplay}
+	eventLabel="Majlis Perkahwinan"
+/>
 
 <!-- Sticky Navigation -->
 <StickyNav theme="fairy" sections={navSections} />
@@ -757,8 +767,6 @@
 		align-items: center;
 		gap: 0.25rem;
 		background: rgba(255,255,255,0.15);
-		backdrop-filter: blur(2px);
-		-webkit-backdrop-filter: blur(2px);
 		border-radius: 4px;
 	}
 
