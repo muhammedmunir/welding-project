@@ -91,15 +91,15 @@
 	.unit.fairy {
 		background: rgba(255, 255, 255, 0.28);
 		border: 2px solid rgba(255, 255, 255, 0.55);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
 	}
 
 	.unit.malay {
 		background: rgba(255, 255, 255, 0.28);
 		border: 2px solid rgba(255, 255, 255, 0.55);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
 	}
 
 	.number {

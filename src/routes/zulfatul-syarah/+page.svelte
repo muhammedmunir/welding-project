@@ -757,8 +757,8 @@
 		align-items: center;
 		gap: 0.25rem;
 		background: rgba(255,255,255,0.15);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
+		backdrop-filter: blur(2px);
+		-webkit-backdrop-filter: blur(2px);
 		border-radius: 4px;
 	}
 
