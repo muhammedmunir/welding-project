@@ -89,13 +89,17 @@
 	}
 
 	.unit.fairy {
-		background: rgba(192, 132, 190, 0.15);
-		border: 2px solid rgba(192, 132, 190, 0.4);
+		background: rgba(255, 255, 255, 0.28);
+		border: 2px solid rgba(255, 255, 255, 0.55);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
 	}
 
 	.unit.malay {
-		background: rgba(201, 162, 39, 0.12);
-		border: 2px solid rgba(201, 162, 39, 0.4);
+		background: rgba(255, 255, 255, 0.28);
+		border: 2px solid rgba(255, 255, 255, 0.55);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
 	}
 
 	.number {
@@ -106,11 +110,11 @@
 	}
 
 	.fairy .number {
-		color: var(--color-fairy-primary);
+		color: #5a3070;
 	}
 
 	.malay .number {
-		color: var(--color-malay-primary);
+		color: #7a5a10;
 	}
 
 	.label {
@@ -122,10 +126,10 @@
 	}
 
 	.fairy .label {
-		color: var(--color-fairy-muted);
+		color: #6b4a80;
 	}
 
 	.malay .label {
-		color: var(--color-malay-muted);
+		color: #8a6a20;
 	}
 </style>
