@@ -1567,16 +1567,13 @@
 
 	/* ── Footer ── */
 	.page-footer {
-		scroll-snap-align: start;
-		min-height: 100dvh;
-		padding: 3.5rem 1.5rem;
+		padding: 3.5rem 1.5rem 4rem;
 		background: var(--bg-soft);
 		border-top: 1px solid var(--p-rule);
 		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
 		gap: 0.5rem;
 	}
 

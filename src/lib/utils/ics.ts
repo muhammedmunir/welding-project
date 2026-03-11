@@ -47,11 +47,20 @@ export function generateIcs(event: IcsEvent): void {
 
 	const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
 	const url = URL.createObjectURL(blob);
+
+	// iOS Safari: open in new tab so calendar app handles it
+	const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window);
+	if (isIOS) {
+		window.open(url, '_blank');
+		setTimeout(() => URL.revokeObjectURL(url), 3000);
+		return;
+	}
+
 	const a = document.createElement('a');
 	a.href = url;
 	a.download = 'majlis-perkahwinan-syarah-munir.ics';
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);
-	URL.revokeObjectURL(url);
+	setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
