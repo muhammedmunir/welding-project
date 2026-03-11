@@ -131,8 +131,8 @@
 <SplashScreen
 	theme="malay"
 	audioSrc="/lagu-lelaki.mp3"
-	brideName={wedding.bride.nameDisplay}
-	groomName={wedding.groom.nameDisplay}
+	brideName={wedding.groom.nameDisplay}
+	groomName={wedding.bride.nameDisplay}
 	eventLabel="Majlis Bertandang"
 />
 
