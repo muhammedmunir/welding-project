@@ -2,9 +2,9 @@ export const wedding = {
 	bride: {
 		name: 'Zulfatul Syarah',
 		nameDisplay: 'ZULFATUL SYARAH',
-		father: 'Zulhamly bin Hussin',
+		father: 'Zulhamlly bin Hussin',
 		mother: 'Suzana binti Yahaya @ Roni',
-		parentsDisplay: 'ZULHAMLY BIN HUSSIN & SUZANA BINTI YAHAYA @ RONI'
+		parentsDisplay: 'ZULHAMLLY BIN HUSSIN & SUZANA BINTI YAHAYA @ RONI'
 	},
 	groom: {
 		name: 'Muhammed Munir',
