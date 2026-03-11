@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { wedding } from '$lib/data/wedding';
-	import { googleCalendarUrl } from '$lib/utils/ics';
 	import Countdown from '$lib/components/Countdown.svelte';
 	import ShareButtons from '$lib/components/ShareButtons.svelte';
 	import QRCard from '$lib/components/QRCard.svelte';
@@ -106,24 +105,6 @@
 		`${wedding.hashtag}`,
 		`🔗`
 	].join('\n');
-
-	function downloadIcs() {
-		const isAndroid = /Android/i.test(navigator.userAgent);
-		if (isAndroid) {
-			const url = googleCalendarUrl({
-				title: `${ev.typeShort} – ${wedding.groom.name} & ${wedding.bride.name}`,
-				description: `${ev.type}\n${ev.venue}, ${ev.venueShort}\nJamuan: ${ev.time.jamuan.display}`,
-				location: ev.address,
-				startDate: ev.date,
-				startTime: ev.time.jamuan.start,
-				endTime: ev.time.jamuan.end
-			});
-			window.open(url, '_blank', 'noopener,noreferrer');
-		} else {
-			// iOS: auto-prompts "Add to Calendar"; Desktop: downloads .ics
-			window.location.href = '/api/calendar?event=lelaki';
-		}
-	}
 
 	function waLink(phone: string) {
 		return `https://wa.me/60${phone.replace(/[-\s]/g,'').replace(/^0/,'')}`;
@@ -521,10 +502,10 @@
 				</form>
 			{/if}
 
-			<button onclick={downloadIcs} class="btn-ghost">
+			<a href="/api/calendar?event=lelaki" class="btn-ghost">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
 				Tambah ke Kalendar
-			</button>
+			</a>
 		</div>
 	</section>
 

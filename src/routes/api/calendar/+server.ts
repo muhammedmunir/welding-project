@@ -46,8 +46,7 @@ export const GET: RequestHandler = ({ url }) => {
 
 	return new Response(icsContent, {
 		headers: {
-			'Content-Type': 'text/calendar; charset=utf-8',
-			'Content-Disposition': `attachment; filename="majlis-${eventKey}-syarah-munir.ics"`
+			'Content-Type': 'text/calendar; charset=utf-8'
 		}
 	});
 };
