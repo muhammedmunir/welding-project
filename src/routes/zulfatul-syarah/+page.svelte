@@ -8,16 +8,23 @@
 	import QRCard from '$lib/components/QRCard.svelte';
 	import StickyNav from '$lib/components/StickyNav.svelte';
 	import SplashScreen from '$lib/components/SplashScreen.svelte';
+	import ShareCard from '$lib/components/ShareCard.svelte';
 
 	const ev = wedding.events.perempuan;
 
 	const butterflies = [
-		{ left: '6%',  du: '9s',  de: '0s',   sz: '22px', color: '#c471a0' },
-		{ left: '22%', du: '13s', de: '3.5s', sz: '16px', color: '#9b6fc4' },
-		{ left: '40%', du: '8s',  de: '1.8s', sz: '28px', color: '#d4a0c8' },
-		{ left: '58%', du: '11s', de: '5.5s', sz: '19px', color: '#b87fa8' },
-		{ left: '76%', du: '10s', de: '7s',   sz: '24px', color: '#a06dc0' },
-		{ left: '91%', du: '9s',  de: '4s',   sz: '14px', color: '#c88ad8' },
+		{ left: '3%',  du: '9s',  de: '0s',   sz: '22px', color: '#c471a0' },
+		{ left: '11%', du: '14s', de: '6s',   sz: '13px', color: '#e8a0d0' },
+		{ left: '20%', du: '11s', de: '2s',   sz: '18px', color: '#9b6fc4' },
+		{ left: '28%', du: '13s', de: '8.5s', sz: '10px', color: '#c4a0d8' },
+		{ left: '36%', du: '8s',  de: '1s',   sz: '26px', color: '#d4a0c8' },
+		{ left: '45%', du: '15s', de: '4.5s', sz: '14px', color: '#a88cc0' },
+		{ left: '53%', du: '10s', de: '0.5s', sz: '20px', color: '#b87fa8' },
+		{ left: '62%', du: '12s', de: '7s',   sz: '15px', color: '#d090c0' },
+		{ left: '70%', du: '9s',  de: '3s',   sz: '24px', color: '#a06dc0' },
+		{ left: '78%', du: '13s', de: '5s',   sz: '11px', color: '#b8a0d4' },
+		{ left: '86%', du: '11s', de: '9s',   sz: '17px', color: '#c88ad8' },
+		{ left: '94%', du: '8s',  de: '2.5s', sz: '21px', color: '#d47ab8' },
 	];
 
 	// ─── ISI MAKLUMAT INI ────────────────────────────────────────
@@ -27,6 +34,50 @@
 	type UcapanItem = { nama: string; msg: string };
 	let ucapanList = $state<UcapanItem[]>([]);
 	let ucapanLoading = $state(true);
+
+	// ── Reactions ─────────────────────────────────────────────────
+	const EMOJIS = ['❤️', '🎉', '🥹'] as const;
+	type Emoji = typeof EMOJIS[number];
+	type ReactionMap = Record<string, Record<Emoji, number>>;
+	let reactions = $state<ReactionMap>({});
+	let myReactions = $state<Record<string, Emoji>>({});
+
+	function ucapanKey(u: UcapanItem) { return `${u.nama}:${u.msg.slice(0,20)}`; }
+
+	function toggleReaction(u: UcapanItem, emoji: Emoji) {
+		const key = ucapanKey(u);
+		const r: ReactionMap = JSON.parse(JSON.stringify(reactions));
+		const my: Record<string, Emoji> = { ...myReactions };
+		if (!r[key]) r[key] = { '❤️': 0, '🎉': 0, '🥹': 0 };
+		if (my[key] === emoji) {
+			r[key][emoji] = Math.max(0, r[key][emoji] - 1);
+			delete my[key];
+		} else {
+			if (my[key]) r[key][my[key]] = Math.max(0, r[key][my[key]] - 1);
+			r[key][emoji] = (r[key][emoji] || 0) + 1;
+			my[key] = emoji;
+		}
+		reactions = r; myReactions = my;
+		localStorage.setItem('rx_p', JSON.stringify(r));
+		localStorage.setItem('myrx_p', JSON.stringify(my));
+	}
+
+	// ── Tinggal countdown ──────────────────────────────────────────
+	let tinggalText = $state('');
+	$effect(() => {
+		function update() {
+			const target = new Date(`${ev.date}T12:00:00+08:00`);
+			const diff = target.getTime() - Date.now();
+			if (diff <= 0) { tinggalText = '🎉 Hari yang dinantikan sudah tiba!'; return; }
+			const d = Math.floor(diff / 86400000);
+			const h = Math.floor((diff % 86400000) / 3600000);
+			const m = Math.floor((diff % 3600000) / 60000);
+			tinggalText = `Tinggal ${d} hari ${h} jam ${m} minit lagi`;
+		}
+		update();
+		const iv = setInterval(update, 30000);
+		return () => clearInterval(iv);
+	});
 
 	async function fetchUcapan() {
 		try {
@@ -41,6 +92,8 @@
 	}
 
 	onMount(() => {
+		reactions = JSON.parse(localStorage.getItem('rx_p') || '{}');
+		myReactions = JSON.parse(localStorage.getItem('myrx_p') || '{}');
 		fetchUcapan();
 		const interval = setInterval(fetchUcapan, 30000);
 		return () => clearInterval(interval);
@@ -236,6 +289,11 @@
 			<div class="hero-countdown">
 				<Countdown targetDate={ev.date} theme="fairy" />
 			</div>
+
+			<!-- Tinggal text -->
+			{#if tinggalText}
+				<p class="tinggal-text">{tinggalText}</p>
+			{/if}
 
 			<!-- Scroll hint -->
 			<div class="scroll-hint" aria-hidden="true">
@@ -495,7 +553,7 @@
 				<p class="ucapan-note">Belum ada ucapan lagi. Jadilah yang pertama!</p>
 			{:else}
 				<div class="ucapan-grid">
-					{#each ucapanList as u}
+					{#each ucapanList as u (ucapanKey(u))}
 						<div class="ucapan-card">
 							<div class="ucapan-avatar" aria-hidden="true">
 								{u.nama.charAt(0).toUpperCase()}
@@ -503,6 +561,21 @@
 							<div class="ucapan-body">
 								<p class="ucapan-name">{u.nama}</p>
 								<p class="ucapan-msg">"{u.msg}"</p>
+								<div class="ucapan-reactions">
+									{#each EMOJIS as emoji (emoji)}
+										<button
+											class="reaction-btn"
+											class:reacted={myReactions[ucapanKey(u)] === emoji}
+											onclick={() => toggleReaction(u, emoji)}
+											aria-label="Reaksi {emoji}"
+										>
+											{emoji}
+											{#if reactions[ucapanKey(u)]?.[emoji]}
+												<span class="reaction-count">{reactions[ucapanKey(u)][emoji]}</span>
+											{/if}
+										</button>
+									{/each}
+								</div>
 							</div>
 						</div>
 					{/each}
@@ -554,6 +627,18 @@
 					<a href="/cetak?event=perempuan" target="_blank" rel="noopener" class="btn-ghost" style="margin-top:0.5rem">
 						Cetak / Simpan PDF
 					</a>
+					<ShareCard
+						brideName={wedding.bride.nameDisplay}
+						groomName={wedding.groom.nameDisplay}
+						eventLabel={ev.type}
+						dayDisplay={ev.dayDisplay}
+						dateDisplay={ev.dateDisplay}
+						hijriDisplay={ev.hijriDisplay}
+						venue={ev.venue}
+						timeDisplay={ev.time.jamuan.display}
+						hashtag={wedding.hashtag}
+						theme="fairy"
+					/>
 				</div>
 			</div>
 		</div>
@@ -813,6 +898,26 @@
 
 	.hero-countdown {
 		width: 100%;
+	}
+
+	.tinggal-text {
+		font-family: var(--font-lato);
+		font-size: 0.82rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: rgba(74, 48, 96, 0.75);
+		background: rgba(255,255,255,0.45);
+		border: 1px solid rgba(184,127,168,0.3);
+		border-radius: 50px;
+		padding: 0.35rem 1.1rem;
+		margin: 0.6rem auto 0;
+		display: inline-block;
+		animation: tinggal-pulse 3s ease-in-out infinite;
+	}
+
+	@keyframes tinggal-pulse {
+		0%, 100% { opacity: 0.85; }
+		50% { opacity: 1; }
 	}
 
 	.scroll-hint {
@@ -1304,8 +1409,46 @@
 		font-size: 0.83rem;
 		color: var(--muted);
 		line-height: 1.6;
-		margin: 0;
+		margin: 0 0 0.5rem;
 		font-style: italic;
+	}
+
+	.ucapan-reactions {
+		display: flex;
+		gap: 0.4rem;
+		flex-wrap: wrap;
+	}
+
+	.reaction-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		background: rgba(0,0,0,0.04);
+		border: 1.5px solid transparent;
+		border-radius: 50px;
+		padding: 0.2rem 0.55rem;
+		font-size: 0.8rem;
+		cursor: pointer;
+		transition: all 0.15s;
+		color: var(--text);
+		line-height: 1;
+	}
+
+	.reaction-btn:hover {
+		background: rgba(184,127,168,0.12);
+		border-color: rgba(184,127,168,0.3);
+		transform: scale(1.08);
+	}
+
+	.reaction-btn.reacted {
+		background: rgba(184,127,168,0.15);
+		border-color: var(--p);
+	}
+
+	.reaction-count {
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: var(--p);
 	}
 
 	.ucapan-note {

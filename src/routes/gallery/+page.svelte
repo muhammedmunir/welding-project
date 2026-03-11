@@ -33,6 +33,20 @@
 		if (e.key === 'ArrowLeft') prev();
 		if (e.key === 'ArrowRight') next();
 	}
+
+	let touchStartX = 0;
+	let touchStartY = 0;
+	function handleTouchStart(e: TouchEvent) {
+		touchStartX = e.touches[0].clientX;
+		touchStartY = e.touches[0].clientY;
+	}
+	function handleTouchEnd(e: TouchEvent) {
+		const dx = e.changedTouches[0].clientX - touchStartX;
+		const dy = e.changedTouches[0].clientY - touchStartY;
+		if (Math.abs(dx) < Math.abs(dy) * 1.5) return; // vertical scroll, ignore
+		if (dx > 50) prev();
+		else if (dx < -50) next();
+	}
 </script>
 
 <svelte:head>
@@ -48,6 +62,8 @@
 	<div
 		class="lightbox-overlay"
 		onclick={(e) => e.target === e.currentTarget && closeLightbox()}
+		ontouchstart={handleTouchStart}
+		ontouchend={handleTouchEnd}
 		role="dialog"
 		aria-modal="true"
 		aria-label="Paparan foto"
