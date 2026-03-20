@@ -5,7 +5,7 @@ const BASE = {
 	short_name: 'S×M 2026',
 	description: 'Jemputan digital majlis perkahwinan Zulfatul Syarah & Muhammed Munir',
 	display: 'standalone',
-	background_color: '#6b21a8',
+	background_color: '#ffffff',
 	theme_color: '#c084be',
 	orientation: 'portrait',
 	lang: 'ms',
