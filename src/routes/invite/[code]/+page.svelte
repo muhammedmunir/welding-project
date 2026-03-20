@@ -6,14 +6,24 @@
 
 	const code = $derived($page.params.code);
 
-	// Simple guest lookup - in production, fetch from a backend or CSV
-	const guestMap: Record<string, { name: string; event: 'perempuan' | 'lelaki' | 'both' }> = {
-		'jemputan001': { name: 'Keluarga Ahmad', event: 'both' },
-		'jemputan002': { name: 'Encik Razak', event: 'perempuan' },
-		'jemputan003': { name: 'Puan Halimah', event: 'lelaki' }
-	};
+	// Decode kod base64 yang dijana dari admin panel
+	// Format: btoa("Nama Tetamu|majlis") dengan '=' dibuang
+	function decodeInviteCode(raw: string): { name: string; event: 'perempuan' | 'lelaki' | 'both' } | null {
+		try {
+			const padded = raw + '='.repeat((4 - raw.length % 4) % 4);
+			const decoded = atob(padded);
+			const parts = decoded.split('|');
+			if (parts.length !== 2) return null;
+			const [name, event] = parts;
+			if (!name.trim()) return null;
+			const ev = (event === 'perempuan' || event === 'lelaki' || event === 'both') ? event as 'perempuan' | 'lelaki' | 'both' : 'both';
+			return { name: name.trim(), event: ev };
+		} catch {
+			return null;
+		}
+	}
 
-	const guest = $derived(code ? (guestMap[code] ?? null) : null);
+	const guest = $derived(code ? decodeInviteCode(code) : null);
 	const eventLabel = $derived(
 		guest?.event === 'both' ? 'kedua-dua majlis' :
 		guest?.event === 'perempuan' ? 'Majlis Perkahwinan (pihak perempuan)' :

@@ -73,6 +73,50 @@
 		}
 	}
 
+	// ─── Jana Pautan Jemputan ────────────────────────────────────
+	type GeneratedInvite = { name: string; event: string; code: string; url: string; copied: boolean };
+	let inviteForm = $state({ name: '', event: 'both' });
+	let generatedInvites = $state<GeneratedInvite[]>([]);
+
+	function generateInviteLink() {
+		const name = inviteForm.name.trim();
+		if (!name) return;
+		const code = btoa(`${name}|${inviteForm.event}`).replace(/=/g, '');
+		const url = browser ? `${window.location.origin}/invite/${code}` : `/invite/${code}`;
+		// Elak duplikasi
+		if (generatedInvites.some(i => i.name.toLowerCase() === name.toLowerCase() && i.event === inviteForm.event)) return;
+		generatedInvites = [{ name, event: inviteForm.event, code, url, copied: false }, ...generatedInvites];
+		inviteForm.name = '';
+	}
+
+	async function copyInvite(idx: number) {
+		if (!browser) return;
+		await navigator.clipboard.writeText(generatedInvites[idx].url);
+		generatedInvites = generatedInvites.map((item, i) =>
+			i === idx ? { ...item, copied: true } : item
+		);
+		setTimeout(() => {
+			generatedInvites = generatedInvites.map((item, i) =>
+				i === idx ? { ...item, copied: false } : item
+			);
+		}, 2000);
+	}
+
+	function removeInvite(idx: number) {
+		generatedInvites = generatedInvites.filter((_, i) => i !== idx);
+	}
+
+	function copyAllInvites() {
+		if (!browser || generatedInvites.length === 0) return;
+		const text = generatedInvites.map(i => `${i.name} (${i.event}): ${i.url}`).join('\n');
+		navigator.clipboard.writeText(text);
+	}
+
+	const eventLabel = (ev: string) =>
+		ev === 'both' ? 'Kedua-dua Majlis' :
+		ev === 'perempuan' ? 'Majlis Perkahwinan' :
+		'Majlis Bertandang';
+
 	function exportCsv() {
 		const headers = ['Nama', 'Bil. Tetamu', 'Majlis', 'Makanan Khas', 'Disahkan', 'No. Telefon', 'Masa'];
 		const rows = rsvpData.map(r => [
@@ -267,29 +311,57 @@
 			<!-- Invite links -->
 			<div class="invite-gen" aria-labelledby="invite-gen-title">
 				<h2 id="invite-gen-title">Jana Pautan Jemputan</h2>
-				<p>Hantar pautan peribadi kepada tetamu:</p>
-				<div class="invite-examples">
-					{#each ['jemputan001', 'jemputan002', 'jemputan003'] as code}
-						<div class="invite-row">
-							<code class="invite-code">/invite/{code}</code>
-							<button
-								onclick={() => {
-									if (browser) {
-										navigator.clipboard.writeText(window.location.origin + '/invite/' + code);
-									}
-								}}
-								class="copy-btn"
-								aria-label="Salin pautan {code}"
-							>
-								Salin
-							</button>
-						</div>
-					{/each}
+				<p>Jana pautan peribadi untuk setiap tetamu. Pautan mengandungi nama & majlis secara automatik.</p>
+
+				<div class="invite-form-row">
+					<input
+						type="text"
+						bind:value={inviteForm.name}
+						placeholder="Nama tetamu (cth: Keluarga Ahmad)"
+						class="invite-input"
+						onkeydown={(e) => e.key === 'Enter' && generateInviteLink()}
+						aria-label="Nama tetamu"
+					/>
+					<select bind:value={inviteForm.event} class="invite-select" aria-label="Pilih majlis">
+						<option value="both">Kedua-dua Majlis</option>
+						<option value="perempuan">Majlis Perkahwinan (Perempuan)</option>
+						<option value="lelaki">Majlis Bertandang (Lelaki)</option>
+					</select>
+					<button onclick={generateInviteLink} class="gen-btn" disabled={!inviteForm.name.trim()}>
+						+ Jana
+					</button>
 				</div>
-				<p class="invite-note">
-					Edit <code>guestMap</code> dalam fail <code>/invite/[code]/+page.svelte</code>
-					untuk menambah tetamu baharu.
-				</p>
+
+				{#if generatedInvites.length > 0}
+					<div class="invite-list-header">
+						<span class="invite-count">{generatedInvites.length} pautan dijana</span>
+						<button onclick={copyAllInvites} class="copy-all-btn" aria-label="Salin semua pautan">
+							Salin Semua
+						</button>
+					</div>
+					<div class="invite-list">
+						{#each generatedInvites as inv, idx}
+							<div class="invite-row">
+								<div class="invite-info">
+									<span class="invite-name">{inv.name}</span>
+									<span class="invite-ev-badge" class:fairy-badge={inv.event !== 'lelaki'} class:malay-badge={inv.event === 'lelaki'}>
+										{eventLabel(inv.event)}
+									</span>
+								</div>
+								<code class="invite-code">{inv.url}</code>
+								<div class="invite-actions">
+									<button onclick={() => copyInvite(idx)} class="copy-btn" class:copied={inv.copied} aria-label="Salin pautan {inv.name}">
+										{inv.copied ? '✓ Disalin' : 'Salin'}
+									</button>
+									<a href={inv.url} target="_blank" rel="noopener" class="preview-btn" aria-label="Pratonton jemputan {inv.name}">Lihat</a>
+									<button onclick={() => removeInvite(idx)} class="remove-btn" aria-label="Buang pautan {inv.name}">✕</button>
+								</div>
+							</div>
+						{/each}
+					</div>
+				{:else}
+					<p class="invite-empty">Belum ada pautan dijana. Masukkan nama tetamu di atas.</p>
+				{/if}
 			</div>
 		</main>
 	</div>
@@ -672,41 +744,145 @@
 		border-radius: 14px;
 		padding: 1.25rem 1.5rem;
 		box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
 	}
 
 	.invite-gen h2 {
 		font-family: var(--font-playfair);
 		font-size: 1.1rem;
 		color: #333;
-		margin: 0 0 0.5rem;
+		margin: 0;
 	}
 
-	.invite-gen p {
+	.invite-gen > p {
 		font-size: 0.875rem;
 		color: #777;
-		margin: 0 0 0.75rem;
+		margin: 0;
 	}
 
-	.invite-examples {
+	.invite-form-row {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.invite-input {
+		flex: 1;
+		min-width: 180px;
+		padding: 0.55rem 0.85rem;
+		border: 1.5px solid #ddd;
+		border-radius: 8px;
+		font-family: var(--font-lato);
+		font-size: 0.875rem;
+		outline: none;
+		transition: border-color 0.15s;
+	}
+	.invite-input:focus { border-color: var(--color-fairy-primary); }
+
+	.invite-select {
+		padding: 0.55rem 0.75rem;
+		border: 1.5px solid #ddd;
+		border-radius: 8px;
+		font-family: var(--font-lato);
+		font-size: 0.85rem;
+		background: #fff;
+		color: #333;
+		outline: none;
+	}
+
+	.gen-btn {
+		padding: 0.55rem 1.1rem;
+		background: linear-gradient(135deg, #c084be, #7eb8d6);
+		color: #fff;
+		border: none;
+		border-radius: 8px;
+		font-family: var(--font-lato);
+		font-size: 0.875rem;
+		font-weight: 700;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: opacity 0.15s;
+	}
+	.gen-btn:hover:not(:disabled) { opacity: 0.85; }
+	.gen-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+	.invite-list-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.invite-count { font-size: 0.8rem; color: #888; font-weight: 600; }
+
+	.copy-all-btn {
+		padding: 4px 12px;
+		background: #eef4fb;
+		border: 1px solid #c084be;
+		border-radius: 6px;
+		font-size: 0.78rem;
+		color: var(--color-fairy-text);
+		cursor: pointer;
+		transition: background 0.15s;
+	}
+	.copy-all-btn:hover { background: #dce8f6; }
+
+	.invite-list {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
-		margin-bottom: 0.75rem;
 	}
 
 	.invite-row {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: 0.6rem;
+		padding: 0.6rem 0.75rem;
+		background: #fafafa;
+		border: 1px solid #eee;
+		border-radius: 10px;
+		flex-wrap: wrap;
+	}
+
+	.invite-info {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-width: 180px;
+	}
+
+	.invite-name {
+		font-weight: 600;
+		font-size: 0.875rem;
+		color: #333;
+	}
+
+	.invite-ev-badge {
+		font-size: 0.68rem;
+		padding: 2px 7px;
+		border-radius: 8px;
+		font-weight: 600;
+		white-space: nowrap;
 	}
 
 	.invite-code {
+		flex: 1;
 		font-family: monospace;
-		font-size: 0.85rem;
-		background: #f5f5f5;
-		padding: 4px 10px;
+		font-size: 0.78rem;
+		background: #f0f0f0;
+		padding: 4px 8px;
 		border-radius: 6px;
 		color: #555;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 300px;
+	}
+
+	.invite-actions {
+		display: flex;
+		gap: 0.35rem;
+		align-items: center;
 	}
 
 	.copy-btn {
@@ -716,20 +892,41 @@
 		border-radius: 6px;
 		font-size: 0.78rem;
 		cursor: pointer;
+		transition: background 0.15s, color 0.15s;
+		white-space: nowrap;
+	}
+	.copy-btn:hover { background: #e0e0e0; }
+	.copy-btn.copied { background: #d4edda; color: #2d6a4f; }
+
+	.preview-btn {
+		padding: 4px 10px;
+		background: #eef4fb;
+		border-radius: 6px;
+		font-size: 0.78rem;
+		color: #4a6fa5;
+		text-decoration: none;
+		white-space: nowrap;
 		transition: background 0.15s;
 	}
+	.preview-btn:hover { background: #dce8f6; }
 
-	.copy-btn:hover { background: #e0e0e0; }
-
-	.invite-note {
-		font-size: 0.78rem !important;
-		color: #aaa !important;
+	.remove-btn {
+		padding: 4px 8px;
+		background: none;
+		border: none;
+		border-radius: 6px;
+		font-size: 0.8rem;
+		color: #bbb;
+		cursor: pointer;
+		transition: color 0.15s;
 	}
+	.remove-btn:hover { color: #e53e3e; }
 
-	.invite-note code {
-		background: #f5f5f5;
-		padding: 1px 6px;
-		border-radius: 4px;
+	.invite-empty {
 		font-size: 0.82rem;
+		color: #bbb;
+		text-align: center;
+		padding: 1rem;
+		margin: 0;
 	}
 </style>
