@@ -40,11 +40,11 @@
 
 <svelte:head>
 	<title>Jemputan Khas - {wedding.bride.name} & {wedding.groom.name}</title>
+	<meta name="description" content="Jemputan peribadi ke majlis perkahwinan {wedding.bride.name} & {wedding.groom.name}. {wedding.hashtag}" />
+	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
 <main id="main-content" class="invite-wrap">
-	<a href="/" class="back-home" aria-label="Kembali ke halaman utama">← Halaman Utama</a>
-
 	<div class="card">
 		{#if guest}
 			<div class="bismillah-wrap">
@@ -134,16 +134,6 @@
 		padding: 2rem 1rem;
 		flex-direction: column;
 		gap: 1rem;
-	}
-
-	.back-home {
-		font-family: var(--font-lato);
-		font-size: 0.85rem;
-		color: rgba(74, 48, 96, 0.6);
-		text-decoration: none;
-		align-self: flex-start;
-		max-width: 480px;
-		width: 100%;
 	}
 
 	.card {

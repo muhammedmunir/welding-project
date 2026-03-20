@@ -16,7 +16,8 @@
       "Bash(ls -lh /c/Project/welding-project/*.png /c/Project/welding-project/*.jpeg)",
       "Bash(npm audit:*)",
       "Bash(du -sh /c/Project/welding-project/static/*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(git log:*)"
     ]
   }
 }

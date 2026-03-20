@@ -46,6 +46,7 @@
 
 <svelte:head>
 	<title>Ucapan — {wedding.bride.nameDisplay} & {wedding.groom.nameDisplay}</title>
+	<meta name="description" content="Ucapan dan doa restu dari tetamu ke majlis perkahwinan {wedding.bride.name} & {wedding.groom.name}. {wedding.hashtag}" />
 </svelte:head>
 
 <main>

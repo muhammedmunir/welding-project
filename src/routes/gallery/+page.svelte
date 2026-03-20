@@ -51,6 +51,7 @@
 
 <svelte:head>
 	<title>Galeri Foto - {wedding.bride.name} & {wedding.groom.name}</title>
+	<meta name="description" content="Galeri foto majlis perkahwinan {wedding.bride.name} & {wedding.groom.name}. {wedding.hashtag}" />
 </svelte:head>
 
 <svelte:window onkeydown={handleKey} />

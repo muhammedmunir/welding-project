@@ -13,6 +13,8 @@
 
 <svelte:head>
 	<title>Cetak Jemputan - {wedding.bride.name} & {wedding.groom.name}</title>
+	<meta name="description" content="Cetak kad jemputan majlis perkahwinan {wedding.bride.name} & {wedding.groom.name}." />
+	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
 <!-- Kawalan cetak (screen only) -->

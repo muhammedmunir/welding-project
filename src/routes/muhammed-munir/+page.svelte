@@ -670,18 +670,18 @@
 					Hubungi: +60 13-5636124
 				</a>
 			</p>
-		</div>
 
-		<div class="footer-sponsor">
-			<span class="sponsor-label">Domain ditaja oleh</span>
-			<a href="https://www.jomcloud.com" target="_blank" rel="noopener noreferrer" class="sponsor-badge">
-				<svg viewBox="0 0 20 14" fill="currentColor" width="18" height="13" aria-hidden="true">
-					<path d="M16 6.5a3.5 3.5 0 00-3.27-3.49A5 5 0 002 6a3 3 0 000 6h13a3 3 0 001-5.5z"/>
-				</svg>
-				<span>JOMCLOUD</span>
-				<span class="sponsor-dot">·</span>
-				<span class="sponsor-url">www.jomcloud.com</span>
-			</a>
+			<div class="footer-sponsor">
+				<span class="sponsor-label">Domain ditaja oleh</span>
+				<a href="https://www.jomcloud.com" target="_blank" rel="noopener noreferrer" class="sponsor-badge">
+					<svg viewBox="0 0 20 14" fill="currentColor" width="18" height="13" aria-hidden="true">
+						<path d="M16 6.5a3.5 3.5 0 00-3.27-3.49A5 5 0 002 6a3 3 0 000 6h13a3 3 0 001-5.5z"/>
+					</svg>
+					<span>JOMCLOUD</span>
+					<span class="sponsor-dot">·</span>
+					<span class="sponsor-url">www.jomcloud.com</span>
+				</a>
+			</div>
 		</div>
 	</footer>
 </main>
