@@ -329,6 +329,12 @@
 }
 .envelope:hover  { filter: drop-shadow(0 12px 36px rgba(0,0,0,0.2)); }
 .envelope:active { transform: scale(0.98); }
+/* Sampul turun bila kad keluar — rasa kad ditolak dari dalam */
+.envelope.opening {
+	transform: translateY(28px);
+	transition: transform 0.9s 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+	            filter 0.2s;
+}
 
 /* Badan */
 .env-body {
@@ -414,10 +420,9 @@
 	transform-origin: top center;
 	transition: transform 0.7s 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 	z-index: 4;
-	backface-visibility: hidden;
 }
 .flap-wrap.open {
-	transform: perspective(800px) rotateX(-178deg);
+	transform: perspective(800px) rotateX(-165deg);
 }
 
 .env-flap {
