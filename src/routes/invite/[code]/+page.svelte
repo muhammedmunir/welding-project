@@ -13,7 +13,7 @@
 		'jemputan003': { name: 'Puan Halimah', event: 'lelaki' }
 	};
 
-	const guest = $derived(guestMap[code] || null);
+	const guest = $derived(code ? (guestMap[code] ?? null) : null);
 	const eventLabel = $derived(
 		guest?.event === 'both' ? 'kedua-dua majlis' :
 		guest?.event === 'perempuan' ? 'Majlis Perkahwinan (pihak perempuan)' :

@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { wedding } from '$lib/data/wedding';
+	import { wedding, SCRIPT_URL } from '$lib/data/wedding';
 	import Countdown from '$lib/components/Countdown.svelte';
 	import ShareButtons from '$lib/components/ShareButtons.svelte';
 	import QRCard from '$lib/components/QRCard.svelte';
@@ -79,7 +79,7 @@
 		reactions = JSON.parse(localStorage.getItem('rx_p') || '{}');
 		myReactions = JSON.parse(localStorage.getItem('myrx_p') || '{}');
 		fetchUcapan();
-		const interval = setInterval(fetchUcapan, 30000);
+		const interval = setInterval(fetchUcapan, 60000);
 		return () => clearInterval(interval);
 	});
 
@@ -132,7 +132,7 @@
 	}
 
 	// ─── Custom Forms → Google Sheets ────────────────────────────
-	const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw63LbFxa30ujG2oMUjjrQbYf65EtjyPd6mKe54QBJPiMohYsV9aCStHvzluGpBA583/exec';
+	// SCRIPT_URL diimport dari $lib/data/wedding
 
 	let rsvp = $state({ nama: '', bil: '2', telefon: '', catatan: '' });
 	let rsvpStatus = $state<'idle'|'loading'|'ok'|'err'>('idle');
@@ -190,6 +190,7 @@
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<meta name="twitter:card" content="summary_large_image" />
+	<link rel="preload" as="image" href="/bg_syarah.jpeg" fetchpriority="high" />
 </svelte:head>
 
 <!-- Splash Screen + Audio -->
@@ -727,6 +728,12 @@
 		width: var(--sz, 22px);
 		height: var(--sz, 22px);
 		animation: bf-rise var(--du, 9s) var(--de, 0s) ease-in-out infinite;
+		will-change: transform, opacity;
+	}
+
+	/* Kurangkan partikel pada mobile untuk jimat kuasa GPU */
+	@media (max-width: 480px) {
+		.bf-wrap:nth-child(n+7) { display: none; }
 	}
 
 	.bf-wing {
@@ -734,6 +741,7 @@
 		width: 100%;
 		height: 100%;
 		animation: bf-flap 0.42s ease-in-out infinite alternate;
+		will-change: transform;
 	}
 
 	@keyframes bf-rise {

@@ -12,7 +12,11 @@
       "Bash(node -e \"require\\(''sharp''\\)\")",
       "Bash(node scripts/gen-icons.mjs)",
       "Bash(ls -lh static/*.png)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(ls -lh /c/Project/welding-project/*.png /c/Project/welding-project/*.jpeg)",
+      "Bash(npm audit:*)",
+      "Bash(du -sh /c/Project/welding-project/static/*)",
+      "Bash(npm run:*)"
     ]
   }
 }

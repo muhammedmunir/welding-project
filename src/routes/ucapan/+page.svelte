@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { wedding } from '$lib/data/wedding';
-
-	const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw63LbFxa30ujG2oMUjjrQbYf65EtjyPd6mKe54QBJPiMohYsV9aCStHvzluGpBA583/exec';
+	import { wedding, SCRIPT_URL } from '$lib/data/wedding';
 
 	type UcapanItem = { nama: string; msg: string; pihak: 'Perempuan' | 'Lelaki' };
 

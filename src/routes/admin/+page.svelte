@@ -1,19 +1,16 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { wedding } from '$lib/data/wedding';
-
-	const ADMIN_PASS = 'admin123'; // In production, use environment variable
+	import { wedding, SCRIPT_URL } from '$lib/data/wedding';
 
 	let authenticated = $state(false);
 	let passwordInput = $state('');
 	let error = $state('');
+	let loginLoading = $state(false);
 
-	// Simulated RSVP data - in production, fetch from Google Sheets or backend
-	const rsvpData = [
-		{ id: 1, name: 'Ahmad bin Ali', guests: 4, event: 'perempuan', dietary: 'Tiada', confirmed: true, phone: '013-111 2222', timestamp: '2026-05-01 10:30' },
-		{ id: 2, name: 'Siti binti Hassan', guests: 2, event: 'both', dietary: 'Vegetarian', confirmed: false, phone: '019-333 4444', timestamp: '2026-05-02 14:15' },
-		{ id: 3, name: 'Razali bin Osman', guests: 6, event: 'lelaki', dietary: 'Tiada', confirmed: true, phone: '011-555 6666', timestamp: '2026-05-03 09:00' },
-	];
+	type RsvpItem = { id: number; name: string; guests: number; event: string; dietary: string; confirmed: boolean; phone: string; timestamp: string };
+	let rsvpData = $state<RsvpItem[]>([]);
+	let rsvpLoading = $state(false);
+	let rsvpError = $state('');
 
 	let filterEvent = $state('all');
 	let filterConfirmed = $state('all');
@@ -27,17 +24,53 @@
 
 	const totalGuests = $derived(filtered.reduce((sum, r) => sum + r.guests, 0));
 
-	function login() {
-		if (passwordInput === ADMIN_PASS) {
-			authenticated = true;
-			error = '';
-		} else {
-			error = 'Kata laluan salah. Cuba lagi.';
+	async function login() {
+		loginLoading = true;
+		error = '';
+		try {
+			const res = await fetch('/api/admin', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ password: passwordInput })
+			});
+			const { ok, error: serverError } = await res.json();
+			if (ok) {
+				authenticated = true;
+				fetchRsvp();
+			} else {
+				error = serverError || 'Kata laluan salah. Cuba lagi.';
+			}
+		} catch {
+			error = 'Ralat sambungan. Cuba semula.';
+		} finally {
+			loginLoading = false;
 		}
 	}
 
 	function handleLoginKey(e: KeyboardEvent) {
 		if (e.key === 'Enter') login();
+	}
+
+	async function fetchRsvp() {
+		rsvpLoading = true;
+		rsvpError = '';
+		try {
+			const res = await fetch(`${SCRIPT_URL}?action=getRsvp&t=${Date.now()}`);
+			const data = await res.json();
+			if (Array.isArray(data)) {
+				rsvpData = data;
+			}
+		} catch {
+			rsvpError = 'Gagal memuatkan data RSVP. Data di bawah adalah contoh.';
+			// Fallback kepada data contoh jika gagal
+			rsvpData = [
+				{ id: 1, name: 'Ahmad bin Ali', guests: 4, event: 'perempuan', dietary: 'Tiada', confirmed: true, phone: '013-111 2222', timestamp: '2026-05-01 10:30' },
+				{ id: 2, name: 'Siti binti Hassan', guests: 2, event: 'both', dietary: 'Vegetarian', confirmed: false, phone: '019-333 4444', timestamp: '2026-05-02 14:15' },
+				{ id: 3, name: 'Razali bin Osman', guests: 6, event: 'lelaki', dietary: 'Tiada', confirmed: true, phone: '011-555 6666', timestamp: '2026-05-03 09:00' },
+			];
+		} finally {
+			rsvpLoading = false;
+		}
 	}
 
 	function exportCsv() {
@@ -81,11 +114,14 @@
 					placeholder="Masukkan kata laluan"
 					class="password-input"
 					autocomplete="current-password"
+					disabled={loginLoading}
 				/>
 				{#if error}
 					<p class="login-error" role="alert">{error}</p>
 				{/if}
-				<button onclick={login} class="login-btn">Log Masuk</button>
+				<button onclick={login} class="login-btn" disabled={loginLoading}>
+					{loginLoading ? 'Mengesahkan…' : 'Log Masuk'}
+				</button>
 			</div>
 
 			<a href="/" class="back-link">← Kembali ke halaman utama</a>
@@ -110,6 +146,10 @@
 		</header>
 
 		<main id="main-content" class="admin-main">
+			{#if rsvpError}
+				<div class="rsvp-notice" role="alert">{rsvpError}</div>
+			{/if}
+
 			<!-- Stats cards -->
 			<div class="stats-grid" role="region" aria-label="Ringkasan RSVP">
 				<div class="stat-card">
@@ -148,14 +188,19 @@
 						<option value="no">Belum Disahkan</option>
 					</select>
 				</div>
-				<button onclick={exportCsv} class="export-btn" aria-label="Eksport senarai RSVP sebagai CSV">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
-						<polyline points="8 17 12 21 16 17"></polyline>
-						<line x1="12" y1="12" x2="12" y2="21"></line>
-						<path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"></path>
-					</svg>
-					Eksport CSV
-				</button>
+				<div class="action-btns">
+					<button onclick={fetchRsvp} class="refresh-btn" disabled={rsvpLoading} aria-label="Muat semula data RSVP">
+						{rsvpLoading ? '⟳ Memuatkan…' : '⟳ Muat Semula'}
+					</button>
+					<button onclick={exportCsv} class="export-btn" aria-label="Eksport senarai RSVP sebagai CSV">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
+							<polyline points="8 17 12 21 16 17"></polyline>
+							<line x1="12" y1="12" x2="12" y2="21"></line>
+							<path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"></path>
+						</svg>
+						Eksport CSV
+					</button>
+				</div>
 			</div>
 
 			<!-- Table -->
@@ -488,6 +533,31 @@
 		background: #fff;
 	}
 
+	.action-btns {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.refresh-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.5rem 1rem;
+		background: #f0f0f0;
+		color: #444;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		font-family: var(--font-lato);
+		font-size: 0.85rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.15s;
+	}
+
+	.refresh-btn:hover:not(:disabled) { background: #e0e0e0; }
+	.refresh-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
 	.export-btn {
 		display: flex;
 		align-items: center;
@@ -505,6 +575,15 @@
 	}
 
 	.export-btn:hover { opacity: 0.85; }
+
+	.rsvp-notice {
+		background: #fff8e1;
+		border: 1px solid #ffe082;
+		border-radius: 8px;
+		padding: 0.75rem 1rem;
+		font-size: 0.82rem;
+		color: #7a5800;
+	}
 
 	/* Table */
 	.table-wrap {

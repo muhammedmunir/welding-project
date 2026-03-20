@@ -65,3 +65,6 @@ export const wedding = {
 } as const;
 
 export type WeddingEvent = typeof wedding.events.perempuan | typeof wedding.events.lelaki;
+
+// URL Google Apps Script — tukar di sini sahaja jika perlu dikemaskini
+export const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw63LbFxa30ujG2oMUjjrQbYf65EtjyPd6mKe54QBJPiMohYsV9aCStHvzluGpBA583/exec';

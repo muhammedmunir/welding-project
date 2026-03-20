@@ -59,7 +59,7 @@
 	onDestroy(() => { if (audio) audio.pause(); });
 </script>
 
-<audio bind:this={audio} src={audioSrc} loop preload="auto"></audio>
+<audio bind:this={audio} src={audioSrc} loop preload="none"></audio>
 
 {#if show}
 <div class="splash" class:fairy={isFairy} class:malay={!isFairy} class:leaving={phase === 'leaving'}>
@@ -216,10 +216,12 @@
 	position: absolute; bottom: -60px;
 	width: var(--sz); height: var(--sz);
 	animation: bf-rise var(--du) ease-in infinite var(--de);
+	will-change: transform, opacity;
 }
 .bf-wing {
 	display: block; width: 100%; height: 100%;
 	animation: bf-flap 0.45s ease-in-out infinite alternate;
+	will-change: transform;
 }
 @keyframes bf-rise {
 	0%   { transform: translateY(0) translateX(0); opacity: 0; }
@@ -237,6 +239,7 @@
 	border-radius: 50% 0 50% 0;
 	animation: petal-fall var(--du) linear infinite var(--de);
 	opacity: 0.7;
+	will-change: transform, opacity;
 }
 @keyframes petal-fall {
 	0%   { transform: translateY(-30px) rotate(0deg) translateX(0); opacity: 0; }
@@ -508,6 +511,15 @@
 @keyframes sparkleFly {
 	0%   { transform: rotate(var(--deg)) translateX(0)    scale(1.2); opacity: 1; }
 	100% { transform: rotate(var(--deg)) translateX(40px) scale(0);   opacity: 0; }
+}
+
+/* ══ Prefers reduced motion ══════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+	.bf-wrap, .petal-wrap { animation: none; opacity: 0; }
+	.bf-wing { animation: none; }
+	.env-body::after { animation: none; }
+	.seal { animation: none; }
+	.hint { animation: none; }
 }
 
 /* ══ Floating mute ═══════════════════════════════════════ */
