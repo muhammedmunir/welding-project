@@ -420,9 +420,10 @@
 	transform-origin: top center;
 	transition: transform 0.7s 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 	z-index: 4;
+	backface-visibility: hidden;
 }
 .flap-wrap.open {
-	transform: perspective(800px) rotateX(-165deg);
+	transform: perspective(800px) rotateX(-178deg);
 }
 
 .env-flap {
