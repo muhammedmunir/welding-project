@@ -20,12 +20,22 @@
       <stop offset="45%"  stop-color="#f43f5e"/>
       <stop offset="100%" stop-color="#881337"/>
     </radialGradient>
+    <!-- Latar bulat -->
+    <radialGradient id="bg" cx="40%" cy="35%" r="70%">
+      <stop offset="0%"   stop-color="#f8f0fc"/>
+      <stop offset="60%"  stop-color="#ede0f5"/>
+      <stop offset="100%" stop-color="#e0cef0"/>
+    </radialGradient>
     <!-- Interlock clip -->
     <clipPath id="top"><rect x="0" y="0" width="100" height="65"/></clipPath>
     <clipPath id="bot"><rect x="0" y="65" width="100" height="35"/></clipPath>
   </defs>
 
-  <!-- ── Dua cincin berkait ── -->
+  <!-- Latar bulat lavender — supaya icon nampak bulat dan bukan petak hitam -->
+  <circle cx="50" cy="50" r="50" fill="url(#bg)"/>
+  <!-- Border nipis -->
+  <circle cx="50" cy="50" r="48.5" fill="none" stroke="rgba(196,113,160,0.25)" stroke-width="1"/>
+
   <!-- Cincin lelaki bawah → di belakang cincin perempuan -->
   <ellipse cx="60" cy="65" rx="19" ry="13" fill="none" stroke="url(#yg)" stroke-width="10.5" clip-path="url(#bot)"/>
   <!-- Cincin perempuan penuh → lapisan tengah -->
@@ -33,16 +43,6 @@
   <!-- Cincin lelaki atas → di hadapan cincin perempuan -->
   <ellipse cx="60" cy="65" rx="19" ry="13" fill="none" stroke="url(#yg)" stroke-width="10.5" clip-path="url(#top)"/>
 
-  <!-- Kilat tipis atas-kiri cincin perempuan -->
-  <ellipse cx="40" cy="65" rx="19" ry="13" fill="none"
-    stroke="rgba(255,255,255,0.32)" stroke-width="3"
-    stroke-dasharray="20 104" stroke-dashoffset="34"/>
-  <!-- Kilat tipis atas-kiri cincin lelaki -->
-  <ellipse cx="60" cy="65" rx="19" ry="13" fill="none"
-    stroke="rgba(255,255,255,0.22)" stroke-width="3"
-    stroke-dasharray="17 104" stroke-dashoffset="33"/>
-
-  <!-- ── Permata hati di atas cincin perempuan ── -->
   <!-- Prong/setting emas -->
   <rect x="37" y="47" width="2.5" height="4" rx="0.6" fill="url(#yg)"/>
   <rect x="40.5" y="47" width="2.5" height="4" rx="0.6" fill="url(#yg)"/>
@@ -59,11 +59,10 @@
     fill="none" stroke="rgba(255,255,255,0.58)"
     stroke-width="1.6" stroke-linecap="round"/>
 
-  <!-- Bintang berkilat di atas permata -->
-  <line x1="40" y1="31" x2="40" y2="35"   stroke="white" stroke-width="1.3" stroke-linecap="round" opacity="0.88"/>
-  <line x1="40" y1="31" x2="40" y2="35"   stroke="white" stroke-width="1.3" stroke-linecap="round" opacity="0.88"/>
-  <line x1="33" y1="37" x2="31" y2="35"   stroke="white" stroke-width="1.1" stroke-linecap="round" opacity="0.7"/>
-  <line x1="47" y1="37" x2="49" y2="35"   stroke="white" stroke-width="1.1" stroke-linecap="round" opacity="0.7"/>
-  <line x1="36" y1="33" x2="34.5" y2="31" stroke="white" stroke-width="0.9" stroke-linecap="round" opacity="0.5"/>
-  <line x1="44" y1="33" x2="45.5" y2="31" stroke="white" stroke-width="0.9" stroke-linecap="round" opacity="0.5"/>
+  <!-- Bintang berkilat -->
+  <line x1="40" y1="31" x2="40" y2="35"   stroke="#c471a0" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+  <line x1="33" y1="37" x2="31" y2="35"   stroke="#c471a0" stroke-width="1.1" stroke-linecap="round" opacity="0.65"/>
+  <line x1="47" y1="37" x2="49" y2="35"   stroke="#c471a0" stroke-width="1.1" stroke-linecap="round" opacity="0.65"/>
+  <line x1="36" y1="33" x2="34.5" y2="31" stroke="#c471a0" stroke-width="0.9" stroke-linecap="round" opacity="0.45"/>
+  <line x1="44" y1="33" x2="45.5" y2="31" stroke="#c471a0" stroke-width="0.9" stroke-linecap="round" opacity="0.45"/>
 </svg>
