@@ -350,7 +350,11 @@
 
 							{#if filtered.length === 0}
 								<tr>
-									<td colspan="8" class="empty-row">Tiada rekod dijumpai</td>
+									<td colspan="8" class="empty-row">
+									{rsvpData.length === 0
+										? 'Belum ada RSVP diterima lagi.'
+										: 'Tiada rekod berdasarkan tapisan yang dipilih.'}
+								</td>
 								</tr>
 							{/if}
 						</tbody>
