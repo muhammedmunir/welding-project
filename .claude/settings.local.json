@@ -20,7 +20,8 @@
       "Bash(git log:*)",
       "Bash(node -e \":*)",
       "Bash(grep -r \"cetak\\\\|gallery\" src/ --include=*.svelte --include=*.ts -n)",
-      "Bash(grep -n \"svelte:head\\\\|<title\" src/routes/invite/[code]/+page.svelte)"
+      "Bash(grep -n \"svelte:head\\\\|<title\" src/routes/invite/[code]/+page.svelte)",
+      "Bash(identify static/icon-192.png static/icon-512.png)"
     ]
   }
 }
