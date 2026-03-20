@@ -3,6 +3,7 @@
 </script>
 
 <svelte:head>
+	<link rel="manifest" href="/manifest.webmanifest" />
 	<title>{wedding.bride.name} & {wedding.groom.name} — Majlis Perkahwinan 2026</title>
 	<meta name="description" content="Jemputan digital majlis perkahwinan Zulfatul Syarah & Muhammed Munir — 29 & 31 Mei 2026, Kota Bharu, Kelantan." />
 	<meta property="og:title" content="{wedding.bride.name} & {wedding.groom.name}" />

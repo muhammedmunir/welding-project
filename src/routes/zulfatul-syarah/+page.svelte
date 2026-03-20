@@ -180,6 +180,7 @@
 </script>
 
 <svelte:head>
+	<link rel="manifest" href="/api/manifest?start=/zulfatul-syarah" />
 	<title>{wedding.bride.nameDisplay} & {wedding.groom.nameDisplay} — Majlis Perkahwinan</title>
 	<meta name="description" content="Jemputan ke {ev.type} pada {ev.dayDisplay}, {ev.dateDisplay} di {ev.venue}." />
 	<meta property="og:type" content="website" />

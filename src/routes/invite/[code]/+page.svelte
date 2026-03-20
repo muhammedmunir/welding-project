@@ -39,6 +39,7 @@
 </script>
 
 <svelte:head>
+	<link rel="manifest" href="/api/manifest?start=/invite/{code}" />
 	<title>Jemputan Khas - {wedding.bride.name} & {wedding.groom.name}</title>
 	<meta name="description" content="Jemputan peribadi ke majlis perkahwinan {wedding.bride.name} & {wedding.groom.name}. {wedding.hashtag}" />
 	<meta name="robots" content="noindex, nofollow" />

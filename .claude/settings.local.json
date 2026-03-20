@@ -18,7 +18,9 @@
       "Bash(du -sh /c/Project/welding-project/static/*)",
       "Bash(npm run:*)",
       "Bash(git log:*)",
-      "Bash(node -e \":*)"
+      "Bash(node -e \":*)",
+      "Bash(grep -r \"cetak\\\\|gallery\" src/ --include=*.svelte --include=*.ts -n)",
+      "Bash(grep -n \"svelte:head\\\\|<title\" src/routes/invite/[code]/+page.svelte)"
     ]
   }
 }

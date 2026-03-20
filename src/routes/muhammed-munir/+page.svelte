@@ -180,6 +180,7 @@
 </script>
 
 <svelte:head>
+	<link rel="manifest" href="/api/manifest?start=/muhammed-munir" />
 	<title>{wedding.groom.nameDisplay} & {wedding.bride.nameDisplay} — Majlis Bertandang</title>
 	<meta name="description" content="Jemputan ke {ev.type} pada {ev.dayDisplay}, {ev.dateDisplay} di {ev.venue}, {ev.venueShort}." />
 	<meta property="og:type" content="website" />
