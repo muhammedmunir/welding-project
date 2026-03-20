@@ -674,12 +674,7 @@
 			<div class="footer-sponsor">
 				<span class="sponsor-label">Domain ditaja oleh</span>
 				<a href="https://www.jomcloud.com" target="_blank" rel="noopener noreferrer" class="sponsor-badge">
-					<svg viewBox="0 0 20 14" fill="currentColor" width="18" height="13" aria-hidden="true">
-						<path d="M16 6.5a3.5 3.5 0 00-3.27-3.49A5 5 0 002 6a3 3 0 000 6h13a3 3 0 001-5.5z"/>
-					</svg>
-					<span>JOMCLOUD</span>
-					<span class="sponsor-dot">·</span>
-					<span class="sponsor-url">www.jomcloud.com</span>
+					<img src="/logo_jomcloud.png" alt="JOMCLOUD" class="sponsor-logo" />
 				</a>
 			</div>
 		</div>
@@ -1677,49 +1672,42 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.35rem;
+		gap: 0.3rem;
 		margin-top: 0.5rem;
-		padding-top: 0.85rem;
+		padding-top: 0.75rem;
 		border-top: 1px solid rgba(201,162,39,0.15);
 	}
 
 	.sponsor-label {
 		font-family: var(--font-lato);
-		font-size: 0.68rem;
+		font-size: 0.6rem;
 		color: var(--muted);
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		opacity: 0.7;
+		opacity: 0.6;
 	}
 
 	.sponsor-badge {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.4rem;
-		padding: 0.35rem 0.9rem;
-		border: 1px solid rgba(201,162,39,0.3);
-		border-radius: 20px;
-		background: rgba(201,162,39,0.06);
-		color: #8a6a20;
+		padding: 0.25rem 0.6rem;
+		border: 1px solid rgba(201,162,39,0.25);
+		border-radius: 16px;
+		background: rgba(201,162,39,0.05);
 		text-decoration: none;
-		font-family: var(--font-lato);
-		font-size: 0.78rem;
-		font-weight: 700;
-		letter-spacing: 0.04em;
 		transition: background 0.2s, border-color 0.2s;
 	}
 
 	.sponsor-badge:hover {
-		background: rgba(201,162,39,0.14);
-		border-color: rgba(201,162,39,0.5);
+		background: rgba(201,162,39,0.12);
+		border-color: rgba(201,162,39,0.45);
 	}
 
-	.sponsor-dot { opacity: 0.4; font-weight: 400; }
-
-	.sponsor-url {
-		font-weight: 400;
-		font-size: 0.72rem;
-		opacity: 0.75;
+	.sponsor-logo {
+		height: 22px;
+		width: auto;
+		display: block;
+		opacity: 0.85;
 	}
 
 </style>

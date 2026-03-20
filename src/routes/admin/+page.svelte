@@ -1,11 +1,20 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 	import { wedding, SCRIPT_URL } from '$lib/data/wedding';
 
 	let authenticated = $state(false);
 	let passwordInput = $state('');
 	let error = $state('');
 	let loginLoading = $state(false);
+
+	onMount(() => {
+		if (sessionStorage.getItem('admin_auth') === '1') {
+			authenticated = true;
+			fetchRsvp();
+			fetchInvites();
+		}
+	});
 
 	type RsvpItem = { id: number; name: string; guests: number; event: string; dietary: string; confirmed: boolean; phone: string; timestamp: string };
 	let rsvpData = $state<RsvpItem[]>([]);
@@ -36,7 +45,9 @@
 			const { ok, error: serverError } = await res.json();
 			if (ok) {
 				authenticated = true;
+				sessionStorage.setItem('admin_auth', '1');
 				fetchRsvp();
+				fetchInvites();
 			} else {
 				error = serverError || 'Kata laluan salah. Cuba lagi.';
 			}
@@ -74,18 +85,51 @@
 	}
 
 	// ─── Jana Pautan Jemputan ────────────────────────────────────
-	type GeneratedInvite = { name: string; event: string; code: string; url: string; copied: boolean };
+	type GeneratedInvite = { rowIndex: number; name: string; event: string; code: string; url: string; copied: boolean; timestamp: string };
 	let inviteForm = $state({ name: '', event: 'both' });
 	let generatedInvites = $state<GeneratedInvite[]>([]);
+	let inviteLoading = $state(false);
 
-	function generateInviteLink() {
+	function makeInviteEntry(name: string, event: string, rowIndex = 0, timestamp = ''): GeneratedInvite {
+		const code = btoa(`${name}|${event}`).replace(/=/g, '');
+		const url  = browser ? `${window.location.origin}/invite/${code}` : `/invite/${code}`;
+		return { rowIndex, name, event, code, url, copied: false, timestamp };
+	}
+
+	async function fetchInvites() {
+		inviteLoading = true;
+		try {
+			const res  = await fetch(`${SCRIPT_URL}?action=getJemputan&t=${Date.now()}`);
+			const data = await res.json();
+			if (Array.isArray(data)) {
+				generatedInvites = data.map((d: { rowIndex: number; name: string; event: string; timestamp: string }) =>
+					makeInviteEntry(d.name, d.event, d.rowIndex, d.timestamp)
+				);
+			}
+		} catch {
+			generatedInvites = [];
+		} finally {
+			inviteLoading = false;
+		}
+	}
+
+	async function generateInviteLink() {
 		const name = inviteForm.name.trim();
 		if (!name) return;
-		const code = btoa(`${name}|${inviteForm.event}`).replace(/=/g, '');
-		const url = browser ? `${window.location.origin}/invite/${code}` : `/invite/${code}`;
 		// Elak duplikasi
 		if (generatedInvites.some(i => i.name.toLowerCase() === name.toLowerCase() && i.event === inviteForm.event)) return;
-		generatedInvites = [{ name, event: inviteForm.event, code, url, copied: false }, ...generatedInvites];
+		inviteLoading = true;
+		try {
+			const params = new URLSearchParams({ jenis: 'Jemputan', nama: name, majlis: inviteForm.event });
+			await fetch(`${SCRIPT_URL}?${params}`, { mode: 'no-cors' });
+			// Reload dari sheet supaya dapat rowIndex yang betul
+			await fetchInvites();
+		} catch {
+			// Jika gagal, tambah secara tempatan sahaja
+			generatedInvites = [makeInviteEntry(name, inviteForm.event), ...generatedInvites];
+		} finally {
+			inviteLoading = false;
+		}
 		inviteForm.name = '';
 	}
 
@@ -102,8 +146,14 @@
 		}, 2000);
 	}
 
-	function removeInvite(idx: number) {
+	async function removeInvite(idx: number) {
+		const inv = generatedInvites[idx];
 		generatedInvites = generatedInvites.filter((_, i) => i !== idx);
+		if (inv.rowIndex) {
+			try {
+				await fetch(`${SCRIPT_URL}?action=deleteJemputan&row=${inv.rowIndex}&t=${Date.now()}`);
+			} catch { /* senyap — baris masih ada dalam sheet, boleh padam manual */ }
+		}
 	}
 
 	function copyAllInvites() {
@@ -185,7 +235,7 @@
 			<nav class="admin-nav" aria-label="Admin navigation">
 				<a href="/zulfatul-syarah" target="_blank" rel="noopener" class="nav-link">Lihat /zulfatul-syarah ↗</a>
 				<a href="/muhammed-munir" target="_blank" rel="noopener" class="nav-link">Lihat /muhammed-munir ↗</a>
-				<button onclick={() => authenticated = false} class="logout-btn">Log Keluar</button>
+				<button onclick={() => { authenticated = false; sessionStorage.removeItem('admin_auth'); }} class="logout-btn">Log Keluar</button>
 			</nav>
 		</header>
 
@@ -332,7 +382,9 @@
 					</button>
 				</div>
 
-				{#if generatedInvites.length > 0}
+				{#if inviteLoading && generatedInvites.length === 0}
+				<p class="invite-empty">⟳ Memuatkan senarai jemputan…</p>
+				{:else if generatedInvites.length > 0}
 					<div class="invite-list-header">
 						<span class="invite-count">{generatedInvites.length} pautan dijana</span>
 						<button onclick={copyAllInvites} class="copy-all-btn" aria-label="Salin semua pautan">
@@ -347,6 +399,9 @@
 									<span class="invite-ev-badge" class:fairy-badge={inv.event !== 'lelaki'} class:malay-badge={inv.event === 'lelaki'}>
 										{eventLabel(inv.event)}
 									</span>
+									{#if inv.timestamp}
+										<span class="invite-ts">{inv.timestamp}</span>
+									{/if}
 								</div>
 								<code class="invite-code">{inv.url}</code>
 								<div class="invite-actions">
@@ -855,6 +910,11 @@
 		font-weight: 600;
 		font-size: 0.875rem;
 		color: #333;
+	}
+
+	.invite-ts {
+		font-size: 0.68rem;
+		color: #bbb;
 	}
 
 	.invite-ev-badge {

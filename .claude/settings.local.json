@@ -17,7 +17,8 @@
       "Bash(npm audit:*)",
       "Bash(du -sh /c/Project/welding-project/static/*)",
       "Bash(npm run:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(node -e \":*)"
     ]
   }
 }
