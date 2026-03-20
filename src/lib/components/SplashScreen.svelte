@@ -46,8 +46,8 @@
 			audio.volume = 0.45;
 			audio.play().then(() => { playing = true; }).catch(() => {});
 		}
-		setTimeout(() => { phase = 'leaving'; }, 1600);
-		setTimeout(() => { show = false; }, 2200);
+		setTimeout(() => { phase = 'leaving'; }, 1800);
+		setTimeout(() => { show = false; }, 2400);
 	}
 
 	function toggleMute() {
@@ -90,63 +90,66 @@
 	<!-- Kandungan utama -->
 	<div class="stage" class:opening={phase === 'opening' || phase === 'leaving'}>
 
-		<!-- Sampul surat -->
-		<div
-			class="envelope"
-			class:opening={phase === 'opening' || phase === 'leaving'}
-			onclick={open}
-			role="button"
-			tabindex="0"
-			onkeydown={(e) => e.key === 'Enter' && open()}
-			aria-label="Ketuk untuk buka jemputan"
-		>
-			<!-- Badan sampul -->
-			<div class="env-body">
-				<!-- Garis lipatan dalam (dekoratif) -->
-				<svg class="fold-lines" viewBox="0 0 300 190" preserveAspectRatio="none" aria-hidden="true">
-					<line x1="0"   y1="0"   x2="150" y2="105" stroke-width="0.8" opacity="0.25"/>
-					<line x1="300" y1="0"   x2="150" y2="105" stroke-width="0.8" opacity="0.25"/>
-					<line x1="0"   y1="190" x2="150" y2="105" stroke-width="0.8" opacity="0.2"/>
-					<line x1="300" y1="190" x2="150" y2="105" stroke-width="0.8" opacity="0.2"/>
-				</svg>
+		<!-- Wrapper sampul + kad -->
+		<div class="envelope-wrap">
 
-				<!-- Kandungan dalam sampul — muncul selepas flap buka -->
-				<div class="env-content" class:visible={phase === 'opening' || phase === 'leaving'}>
-					<p class="content-bismillah" lang="ar">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-					<div class="content-divider" aria-hidden="true">
-						<span class="cdline"></span><span class="cdstar">✦</span><span class="cdline"></span>
-					</div>
-					<p class="content-event">{eventLabel}</p>
-					<p class="content-name">{brideName}</p>
-					<p class="content-amp">&amp;</p>
-					<p class="content-name">{groomName}</p>
+			<!-- Kad yang naik dari sampul -->
+			<div class="env-card" class:visible={phase === 'opening' || phase === 'leaving'}>
+				<p class="content-bismillah" lang="ar">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+				<div class="content-divider" aria-hidden="true">
+					<span class="cdline"></span><span class="cdstar">✦</span><span class="cdline"></span>
 				</div>
+				<p class="content-event">{eventLabel}</p>
+				<p class="content-name">{brideName}</p>
+				<p class="content-amp">&amp;</p>
+				<p class="content-name">{groomName}</p>
 			</div>
 
-			<!-- Flap atas — buka ke belakang -->
-			<div class="flap-wrap" class:open={phase === 'opening' || phase === 'leaving'}>
-				<div class="env-flap">
-					<!-- Garis lipatan dalam flap -->
-					<svg class="flap-lines" viewBox="0 0 300 165" preserveAspectRatio="none" aria-hidden="true">
-						<line x1="0"   y1="0" x2="150" y2="105" stroke-width="0.8" opacity="0.2"/>
-						<line x1="300" y1="0" x2="150" y2="105" stroke-width="0.8" opacity="0.2"/>
+			<!-- Sampul surat -->
+			<div
+				class="envelope"
+				class:opening={phase === 'opening' || phase === 'leaving'}
+				onclick={open}
+				role="button"
+				tabindex="0"
+				onkeydown={(e) => e.key === 'Enter' && open()}
+				aria-label="Ketuk untuk buka jemputan"
+			>
+				<!-- Badan sampul -->
+				<div class="env-body">
+					<!-- Garis lipatan dalam (dekoratif) -->
+					<svg class="fold-lines" viewBox="0 0 300 190" preserveAspectRatio="none" aria-hidden="true">
+						<line x1="0"   y1="0"   x2="150" y2="105" stroke-width="0.8" opacity="0.25"/>
+						<line x1="300" y1="0"   x2="150" y2="105" stroke-width="0.8" opacity="0.25"/>
+						<line x1="0"   y1="190" x2="150" y2="105" stroke-width="0.8" opacity="0.2"/>
+						<line x1="300" y1="190" x2="150" y2="105" stroke-width="0.8" opacity="0.2"/>
 					</svg>
 				</div>
-			</div>
 
-			<!-- Mohor lilin -->
-			<div class="seal" class:cracked={phase !== 'idle'} aria-hidden="true">
-				<span class="seal-text">{isFairy ? 'S×M' : 'M×S'}</span>
-			</div>
-
-			<!-- Sparkles bila seal pecah -->
-			{#if phase !== 'idle'}
-				<div class="sparkle-ring" aria-hidden="true">
-					{#each [0,45,90,135,180,225,270,315] as deg, i (deg)}
-						<span class="sparkle" style="--deg:{deg}deg;--i:{i}"></span>
-					{/each}
+				<!-- Flap atas — buka ke belakang -->
+				<div class="flap-wrap" class:open={phase === 'opening' || phase === 'leaving'}>
+					<div class="env-flap">
+						<svg class="flap-lines" viewBox="0 0 300 165" preserveAspectRatio="none" aria-hidden="true">
+							<line x1="0"   y1="0" x2="150" y2="105" stroke-width="0.8" opacity="0.2"/>
+							<line x1="300" y1="0" x2="150" y2="105" stroke-width="0.8" opacity="0.2"/>
+						</svg>
+					</div>
 				</div>
-			{/if}
+
+				<!-- Mohor lilin -->
+				<div class="seal" class:cracked={phase !== 'idle'} aria-hidden="true">
+					<span class="seal-text">{isFairy ? 'S×M' : 'M×S'}</span>
+				</div>
+
+				<!-- Sparkles bila seal pecah -->
+				{#if phase !== 'idle'}
+					<div class="sparkle-ring" aria-hidden="true">
+						{#each [0,45,90,135,180,225,270,315] as deg, i (deg)}
+							<span class="sparkle" style="--deg:{deg}deg;--i:{i}"></span>
+						{/each}
+					</div>
+				{/if}
+			</div>
 		</div>
 
 		<!-- Teks hint -->
@@ -263,21 +266,66 @@
 	to   { opacity: 1; transform: translateY(0); }
 }
 .stage.opening {
-	animation: stageUp 0.5s 1.4s ease both;
+	animation: stageUp 0.5s 1.6s ease both;
 }
 @keyframes stageUp {
 	to { transform: scale(1.03); opacity: 0.8; }
 }
 
+/* ══ Envelope wrap ═══════════════════════════════════════ */
+.envelope-wrap {
+	position: relative;
+	width: clamp(280px, 82vw, 340px);
+	/* Bagi ruang di atas untuk kad yang naik */
+	padding-top: 160px;
+}
+
+/* ══ Kad yang naik dari sampul ═══════════════════════════ */
+.env-card {
+	position: absolute;
+	top: 0;
+	left: 5%; right: 5%;
+	border-radius: 10px;
+	padding: 1rem 1.25rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.18rem;
+	text-align: center;
+	z-index: 2;
+	pointer-events: none;
+
+	/* Mula dalam sampul — bawah dan tersembunyi */
+	opacity: 0;
+	transform: translateY(160px);
+	transition:
+		transform 0.9s 0.3s cubic-bezier(0.34, 1.15, 0.64, 1),
+		opacity   0.4s 0.3s ease;
+}
+.fairy .env-card {
+	background: #fff;
+	border: 1px solid rgba(196,113,160,0.2);
+	box-shadow: 0 6px 28px rgba(155,111,196,0.18);
+}
+.malay .env-card {
+	background: #fff;
+	border: 1px solid rgba(201,162,39,0.25);
+	box-shadow: 0 6px 28px rgba(138,96,16,0.15);
+}
+.env-card.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
 /* ══ Sampul ══════════════════════════════════════════════ */
 .envelope {
 	position: relative;
-	width: clamp(280px, 82vw, 340px);
-	/* tinggi = lebar × 0.63 nisbah sampul standard */
+	width: 100%;
 	aspect-ratio: 340 / 214;
 	cursor: pointer;
 	filter: drop-shadow(0 8px 28px rgba(0,0,0,0.15));
 	transition: filter 0.2s, transform 0.15s;
+	z-index: 3;
 }
 .envelope:hover  { filter: drop-shadow(0 12px 36px rgba(0,0,0,0.2)); }
 .envelope:active { transform: scale(0.98); }
@@ -307,26 +355,7 @@
 .fairy .fold-lines line { stroke: #9b6fc4; }
 .malay .fold-lines line { stroke: #c9a227; }
 
-/* Kandungan dalam */
-.env-content {
-	position: absolute;
-	inset: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 0.18rem;
-	padding: 1rem 1.5rem;
-	opacity: 0;
-	transform: translateY(6px);
-	transition: opacity 0.5s 0.55s ease, transform 0.5s 0.55s ease;
-	pointer-events: none;
-}
-.env-content.visible {
-	opacity: 1;
-	transform: translateY(0);
-}
-
+/* ══ Kandungan kad ═══════════════════════════════════════ */
 .content-bismillah {
 	font-family: var(--font-amiri);
 	font-size: clamp(0.95rem, 3vw, 1.15rem);
@@ -381,12 +410,10 @@
 .flap-wrap {
 	position: absolute;
 	top: 0; left: 0; right: 0;
-	/* tinggi flap = 55% daripada tinggi sampul */
 	height: 55%;
 	transform-origin: top center;
 	transition: transform 0.7s 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 	z-index: 4;
-	/* pastikan bahagian belakang tak nampak */
 	backface-visibility: hidden;
 }
 .flap-wrap.open {
@@ -397,7 +424,6 @@
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
-	/* Bentuk segitiga menghala ke bawah = flap sampul */
 	clip-path: polygon(0 0, 100% 0, 50% 82%);
 }
 .fairy .env-flap {
@@ -417,7 +443,6 @@
 /* ══ Mohor lilin ═════════════════════════════════════════ */
 .seal {
 	position: absolute;
-	/* letakkan di tengah bawah flap — ~55% dari atas */
 	top: 48%; left: 50%;
 	transform: translate(-50%, -50%);
 	width: 46px; height: 46px;
@@ -520,12 +545,12 @@
 	.env-body::after { animation: none; }
 	.seal { animation: none; }
 	.hint { animation: none; }
+	.env-card { transition: none; }
 }
 
 /* ══ Floating mute ═══════════════════════════════════════ */
 .music-fab {
 	position: fixed;
-	/* biar atas sticky nav (~58px) */
 	bottom: calc(58px + 0.85rem); right: 1.2rem;
 	z-index: 50;
 	width: 40px; height: 40px;
