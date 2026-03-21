@@ -2,6 +2,45 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+/* ===== Reveal on scroll ===== */
+.reveal-init {
+	opacity: 0;
+	transform: translateY(36px);
+	transition:
+		opacity 0.7s ease,
+		transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal-init.reveal-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+/* Stagger untuk timeline items */
+.reveal-init .tl-item { opacity: 0; transform: translateX(-18px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.reveal-init.reveal-visible .tl-item:nth-child(1) { opacity:1; transform:none; transition-delay:0.15s; }
+.reveal-init.reveal-visible .tl-item:nth-child(2) { opacity:1; transform:none; transition-delay:0.3s; }
+.reveal-init.reveal-visible .tl-item:nth-child(3) { opacity:1; transform:none; transition-delay:0.45s; }
+/* Stagger untuk contact cards */
+.reveal-init .contact-card { opacity:0; transform:translateY(20px); transition:opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.reveal-init.reveal-visible .contact-card:nth-child(1) { opacity:1; transform:none; transition-delay:0.1s; }
+.reveal-init.reveal-visible .contact-card:nth-child(2) { opacity:1; transform:none; transition-delay:0.2s; }
+.reveal-init.reveal-visible .contact-card:nth-child(3) { opacity:1; transform:none; transition-delay:0.3s; }
+.reveal-init.reveal-visible .contact-card:nth-child(4) { opacity:1; transform:none; transition-delay:0.4s; }
+/* Stagger untuk parents blocks */
+.reveal-init .parents-block { opacity:0; transform:translateY(16px); transition:opacity 0.55s ease, transform 0.55s ease; }
+.reveal-init.reveal-visible .parents-block:nth-child(1) { opacity:1; transform:none; transition-delay:0.2s; }
+.reveal-init.reveal-visible .parents-block:nth-child(2) { opacity:1; transform:none; transition-delay:0.4s; }
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.reveal-init,
+	.reveal-init .tl-item,
+	.reveal-init .contact-card,
+	.reveal-init .parents-block {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
 /* ===== Design Tokens ===== */
 @theme {
 	/* Fairytale theme (perempuan) */

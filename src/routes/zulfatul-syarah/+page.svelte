@@ -9,6 +9,7 @@
 	import StickyNav from '$lib/components/StickyNav.svelte';
 	import SplashScreen from '$lib/components/SplashScreen.svelte';
 	import ShareCard from '$lib/components/ShareCard.svelte';
+	import { reveal } from '$lib/utils/reveal';
 
 	const ev = wedding.events.perempuan;
 
@@ -317,7 +318,7 @@
 
 	<!-- ════════════════════════ IBU BAPA ══ -->
 	<section class="section bg-soft" aria-label="Ibu bapa pengantin">
-		<div class="inner center-text">
+		<div class="inner center-text" use:reveal>
 
 			<div class="wave-rule" aria-hidden="true">
 				<svg viewBox="0 0 300 14" xmlns="http://www.w3.org/2000/svg">
@@ -369,7 +370,7 @@
 
 	<!-- ════════════════════════ ATURCARA ══ -->
 	<section id="aturcara" class="section" aria-labelledby="aturcara-title">
-		<div class="inner">
+		<div class="inner" use:reveal>
 			<p class="section-tag" id="aturcara-title">Aturcara Majlis</p>
 			<div class="section-rule" aria-hidden="true"></div>
 
@@ -430,7 +431,7 @@
 
 	<!-- ════════════════════════ LOKASI ══ -->
 	<section id="lokasi" class="section bg-soft" aria-labelledby="lokasi-title">
-		<div class="inner">
+		<div class="inner" use:reveal>
 			<p class="section-tag" id="lokasi-title">Lokasi Majlis</p>
 			<div class="section-rule" aria-hidden="true"></div>
 
@@ -478,7 +479,7 @@
 
 	<!-- ════════════════════════ RSVP ══ -->
 	<section id="rsvp" class="section" aria-labelledby="rsvp-title">
-		<div class="inner center-text">
+		<div class="inner center-text" use:reveal>
 			<p class="section-tag" id="rsvp-title">Pengesahan Kehadiran</p>
 			<div class="section-rule" aria-hidden="true"></div>
 
@@ -530,7 +531,7 @@
 
 	<!-- ════════════════════════ UCAPAN ══ -->
 	<section id="ucapan" class="section bg-soft" aria-labelledby="ucapan-title">
-		<div class="inner">
+		<div class="inner" use:reveal>
 			<p class="section-tag" id="ucapan-title">Ucapan &amp; Doa</p>
 			<div class="section-rule" aria-hidden="true"></div>
 
@@ -597,7 +598,7 @@
 
 	<!-- ════════════════════ HUBUNGI ══ -->
 	<section id="hubungi" class="section" aria-labelledby="hubungi-title">
-		<div class="inner">
+		<div class="inner" use:reveal>
 			<p class="section-tag" id="hubungi-title">Untuk Dihubungi</p>
 			<div class="section-rule" aria-hidden="true"></div>
 
@@ -626,7 +627,7 @@
 
 	<!-- ════════════════════ KONGSI ══ -->
 	<section id="kongsi" class="section bg-soft" aria-labelledby="kongsi-title">
-		<div class="inner center-text">
+		<div class="inner center-text" use:reveal>
 			<p class="section-tag" id="kongsi-title">Kongsi Jemputan</p>
 			<div class="section-rule" aria-hidden="true"></div>
 
