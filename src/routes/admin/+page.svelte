@@ -16,18 +16,15 @@
 		}
 	});
 
-	type RsvpItem = { id: number; name: string; guests: number; event: string; dietary: string; confirmed: boolean; phone: string; timestamp: string };
+	type RsvpItem = { id: number; name: string; guests: number; event: string; dietary: string; phone: string; timestamp: string };
 	let rsvpData = $state<RsvpItem[]>([]);
 	let rsvpLoading = $state(false);
 	let rsvpError = $state('');
 
 	let filterEvent = $state('all');
-	let filterConfirmed = $state('all');
 
 	const filtered = $derived(rsvpData.filter(r => {
 		if (filterEvent !== 'all' && r.event !== filterEvent && r.event !== 'both') return false;
-		if (filterConfirmed === 'yes' && !r.confirmed) return false;
-		if (filterConfirmed === 'no' && r.confirmed) return false;
 		return true;
 	}));
 
@@ -75,9 +72,9 @@
 			rsvpError = 'Gagal memuatkan data RSVP. Data di bawah adalah contoh.';
 			// Fallback kepada data contoh jika gagal
 			rsvpData = [
-				{ id: 1, name: 'Ahmad bin Ali', guests: 4, event: 'perempuan', dietary: 'Tiada', confirmed: true, phone: '013-111 2222', timestamp: '2026-05-01 10:30' },
-				{ id: 2, name: 'Siti binti Hassan', guests: 2, event: 'both', dietary: 'Vegetarian', confirmed: false, phone: '019-333 4444', timestamp: '2026-05-02 14:15' },
-				{ id: 3, name: 'Razali bin Osman', guests: 6, event: 'lelaki', dietary: 'Tiada', confirmed: true, phone: '011-555 6666', timestamp: '2026-05-03 09:00' },
+				{ id: 1, name: 'Ahmad bin Ali', guests: 4, event: 'perempuan', dietary: 'Tiada', phone: '013-111 2222', timestamp: '2026-05-01 10:30' },
+				{ id: 2, name: 'Siti binti Hassan', guests: 2, event: 'both', dietary: 'Vegetarian', phone: '019-333 4444', timestamp: '2026-05-02 14:15' },
+				{ id: 3, name: 'Razali bin Osman', guests: 6, event: 'lelaki', dietary: 'Tiada', phone: '011-555 6666', timestamp: '2026-05-03 09:00' },
 			];
 		} finally {
 			rsvpLoading = false;
@@ -168,10 +165,9 @@
 		'Majlis Bertandang';
 
 	function exportCsv() {
-		const headers = ['Nama', 'Bil. Tetamu', 'Majlis', 'Makanan Khas', 'Disahkan', 'No. Telefon', 'Masa'];
+		const headers = ['Nama', 'Bil. Tetamu', 'Majlis', 'Makanan Khas', 'No. Telefon', 'Masa'];
 		const rows = rsvpData.map(r => [
-			r.name, r.guests, r.event, r.dietary,
-			r.confirmed ? 'Ya' : 'Tidak', r.phone, r.timestamp
+			r.name, r.guests, r.event, r.dietary, r.phone, r.timestamp
 		]);
 		const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
 		const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -247,16 +243,8 @@
 			<!-- Stats cards -->
 			<div class="stats-grid" role="region" aria-label="Ringkasan RSVP">
 				<div class="stat-card">
-					<span class="stat-num">{rsvpData.length}</span>
-					<span class="stat-label">Respons Diterima</span>
-				</div>
-				<div class="stat-card">
 					<span class="stat-num">{rsvpData.reduce((s, r) => s + r.guests, 0)}</span>
 					<span class="stat-label">Jumlah Tetamu</span>
-				</div>
-				<div class="stat-card">
-					<span class="stat-num">{rsvpData.filter(r => r.confirmed).length}</span>
-					<span class="stat-label">Pengesahan Diterima</span>
 				</div>
 				<div class="stat-card">
 					<span class="stat-num">{rsvpData.filter(r => r.event === 'both' || r.event === 'perempuan').length}</span>
@@ -275,11 +263,6 @@
 						<option value="all">Semua Majlis</option>
 						<option value="perempuan">Perempuan</option>
 						<option value="lelaki">Lelaki</option>
-					</select>
-					<select bind:value={filterConfirmed} class="filter-select" aria-label="Tapis mengikut pengesahan">
-						<option value="all">Semua Status</option>
-						<option value="yes">Disahkan</option>
-						<option value="no">Belum Disahkan</option>
 					</select>
 				</div>
 				<div class="action-btns">
@@ -309,14 +292,13 @@
 								<th scope="col">Bil.</th>
 								<th scope="col">Majlis</th>
 								<th scope="col">Makanan</th>
-								<th scope="col">Status</th>
 								<th scope="col">Telefon</th>
 								<th scope="col">Tindakan</th>
 							</tr>
 						</thead>
 						<tbody>
 							{#each filtered as rsvp, i}
-								<tr class:confirmed={rsvp.confirmed}>
+								<tr>
 									<td>{i + 1}</td>
 									<td class="name-cell">{rsvp.name}</td>
 									<td class="center">{rsvp.guests}</td>
@@ -326,11 +308,6 @@
 										</span>
 									</td>
 									<td>{rsvp.dietary}</td>
-									<td>
-										<span class="status-badge" class:status-ok={rsvp.confirmed} class:status-pending={!rsvp.confirmed}>
-											{rsvp.confirmed ? '✓ Disahkan' : '⏳ Belum'}
-										</span>
-									</td>
 									<td>
 										<a href="tel:{rsvp.phone.replace(/\s/g,'')}" class="phone-link">{rsvp.phone}</a>
 									</td>
@@ -350,7 +327,7 @@
 
 							{#if filtered.length === 0}
 								<tr>
-									<td colspan="8" class="empty-row">
+									<td colspan="7" class="empty-row">
 									{rsvpData.length === 0
 										? 'Belum ada RSVP diterima lagi.'
 										: 'Tiada rekod berdasarkan tapisan yang dipilih.'}
@@ -759,8 +736,6 @@
 	}
 
 	.rsvp-table tr:last-child td { border-bottom: none; }
-	.rsvp-table tr.confirmed { background: rgba(76, 175, 80, 0.03); }
-
 	.name-cell { font-weight: 600; color: #333; }
 	.center { text-align: center; }
 
@@ -775,17 +750,6 @@
 
 	.fairy-badge { background: rgba(192, 132, 190, 0.15); color: var(--color-fairy-text); }
 	.malay-badge { background: rgba(201, 162, 39, 0.15); color: var(--color-malay-secondary); }
-
-	.status-badge {
-		display: inline-block;
-		padding: 2px 8px;
-		border-radius: 10px;
-		font-size: 0.72rem;
-		font-weight: 600;
-	}
-
-	.status-ok { background: rgba(76, 175, 80, 0.12); color: #2d6a4f; }
-	.status-pending { background: rgba(255, 152, 0, 0.12); color: #b76e00; }
 
 	.phone-link {
 		color: #555;
