@@ -393,15 +393,15 @@
 			<ol class="timeline">
 				<li class="tl-item">
 					<div class="tl-left">
-						<span class="tl-time">11.00 pg</span>
+						<span class="tl-time">10.30 pg</span>
 					</div>
 					<div class="tl-mid">
 						<span class="tl-dot"></span>
 						<span class="tl-bar"></span>
 					</div>
 					<div class="tl-right">
-						<strong>Jamuan Makan Dibuka</strong>
-						<span>Tetamu dijemput hadir · {ev.time.jamuan.display}</span>
+						<strong>Majlis Bersanding</strong>
+						<span>Ketibaan &amp; persandingan pengantin</span>
 					</div>
 				</li>
 				<li class="tl-item">
@@ -413,8 +413,8 @@
 						<span class="tl-bar"></span>
 					</div>
 					<div class="tl-right">
-						<strong>Ketibaan Pengantin</strong>
-						<span>Majlis bersanding</span>
+						<strong>Jamuan Makan Dibuka</strong>
+						<span>Tetamu dijemput hadir</span>
 					</div>
 				</li>
 				<li class="tl-item">
