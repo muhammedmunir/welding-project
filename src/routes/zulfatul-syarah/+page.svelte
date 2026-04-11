@@ -397,7 +397,7 @@
 					</div>
 					<div class="tl-right">
 						<strong>Jamuan Makan Dibuka</strong>
-						<span>Tetamu dijemput hadir · {ev.time.jamuan.display}</span>
+						<span>Tetamu dijemput hadir</span>
 					</div>
 				</li>
 				<li class="tl-item">
