@@ -1,3 +1,18 @@
+User-agent: facebookexternalhit
+Disallow: /admin
+
+User-agent: Twitterbot
+Disallow: /admin
+
+User-agent: WhatsApp
+Disallow: /admin
+
+User-agent: Slurp
+Disallow: /admin
+
 User-agent: *
 Disallow: /admin
 Disallow: /api/
+Allow: /api/og
+Allow: /api/manifest
+Allow: /api/calendar
