@@ -77,6 +77,18 @@
 		transform: translateY(0);
 	}
 
+	@media (min-width: 700px) {
+		.sticky-nav {
+			left: 50%;
+			right: auto;
+			width: 430px;
+			margin-left: -215px;
+			border-radius: 0;
+			border-left: 1px solid rgba(0, 0, 0, 0.07);
+			border-right: 1px solid rgba(0, 0, 0, 0.07);
+		}
+	}
+
 	ul {
 		display: flex;
 		align-items: stretch;
