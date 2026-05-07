@@ -96,13 +96,31 @@
 	const waMessage = [
 		`🌸 Jemputan Perkahwinan 🌸`,
 		``,
-		`${wedding.bride.name} & ${wedding.groom.name}`,
-		`📅 ${ev.dayDisplay}, ${ev.dateDisplay}`,
-		`🕛 ${ev.time.jamuan.display}`,
-		`📍 ${ev.venue}`,
+		`Assalamualaikum w.b.t & Salam Sejahtera`,
 		``,
-		`${wedding.hashtag}`,
-		`🔗`
+		`بِسۡـــــــــمِ اللَّهِ ٱلرَّحۡـمَـٰنِ ٱلرَّحِـــــــيم`,
+		`"Dan segala sesuatu Kami ciptakan berpasangan, supaya kamu mengingati (kebesaran Allah)." [51:49]`,
+		``,
+		`Dengan penuh kesyukuran dan rendah hati, kami`,
+		`${wedding.bride.father}`,
+		`&`,
+		`${wedding.bride.mother}`,
+		`menjemput Tuan | Puan | Encik | Cik ke Majlis Kesyukuran puteri kami`,
+		``,
+		`${wedding.bride.name} Binti Zulhamlly`,
+		`& pasangannya`,
+		`${wedding.groom.name} Bin Mohd Azmi`,
+		``,
+		`🗓️ : ${ev.dayDisplay}, ${ev.dateDisplay}`,
+		`⏰ : ${ev.time.jamuan.display}`,
+		`📍 : ${ev.venue}`,
+		``,
+		`Maklumat lanjut & Pengesahan kehadiran (RSVP):`,
+		`(Sila klik pautan di bawah)`,
+		``,
+		`Semoga dengan kehadiran semua dapat memeriahkan dan menyerikan lagi majlis ini dan mendoakan agar perkahwinan yang dibina ini dilimpahi sakinah, mawaddah dan rahmat Allah SWT.`,
+		``,
+		`${wedding.hashtag}`
 	].join('\n');
 
 	function handleCalendar() {

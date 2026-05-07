@@ -27,7 +27,7 @@
 	const eventLabel = $derived(
 		guest?.event === 'both' ? 'kedua-dua majlis' :
 		guest?.event === 'perempuan' ? 'Majlis Perkahwinan (pihak perempuan)' :
-		'Majlis Bertandang (pihak lelaki)'
+		'Walimatulurus (pihak lelaki)'
 	);
 
 	const perempuanUrl = $derived(browser ? `${window.location.origin}/zulfatul-syarah` : '/zulfatul-syarah');
@@ -86,10 +86,10 @@
 				{/if}
 
 				{#if guest.event === 'lelaki' || guest.event === 'both'}
-					<a href="/muhammed-munir" class="event-card malay-card" aria-label="Lihat jemputan Majlis Bertandang">
+					<a href="/muhammed-munir" class="event-card malay-card" aria-label="Lihat jemputan Walimatulurus">
 						<span class="event-emoji" aria-hidden="true">🕌</span>
 						<div class="event-info">
-							<strong>Majlis Bertandang</strong>
+							<strong>Walimatulurus</strong>
 							<span>31 Mei 2026 · {wedding.events.lelaki.venueShort}</span>
 						</div>
 						<span class="arrow" aria-hidden="true">→</span>
@@ -118,7 +118,7 @@
 				<p>Sila semak semula kod yang diterima atau hubungi kami untuk mendapatkan bantuan.</p>
 				<div class="nf-links">
 					<a href="/zulfatul-syarah" class="nf-btn fairy-nf">Majlis Perkahwinan</a>
-					<a href="/muhammed-munir" class="nf-btn malay-nf">Majlis Bertandang</a>
+					<a href="/muhammed-munir" class="nf-btn malay-nf">Walimatulurus</a>
 				</div>
 			</div>
 		{/if}

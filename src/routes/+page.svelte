@@ -108,7 +108,7 @@
 			</a>
 
 			<!-- Lelaki -->
-			<a href="/muhammed-munir" class="card card-malay" aria-label="Buka jemputan Majlis Bertandang — pihak lelaki">
+			<a href="/muhammed-munir" class="card card-malay" aria-label="Buka jemputan Walimatulurus — pihak lelaki">
 				<div class="card-top card-top-malay">
 					<svg class="card-arch" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 						<path d="M10 60 L10 30 Q10 5 100 5 Q190 5 190 30 L190 60" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>

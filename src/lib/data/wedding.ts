@@ -38,8 +38,8 @@ export const wedding = {
 			wazeUrl: 'https://waze.com/ul?q=Dewan+Jubli+Perak+Kota+Bharu'
 		},
 		lelaki: {
-			type: 'Majlis Bertandang',
-			typeShort: 'Majlis Bertandang',
+			type: 'Walimatulurus',
+			typeShort: 'Walimatulurus',
 			date: '2026-05-31',
 			dateDisplay: '31 Mei 2026',
 			dayDisplay: 'Ahad',
@@ -48,7 +48,7 @@ export const wedding = {
 			venueShort: 'Chekok',
 			address: 'Chekok, Kelantan',
 			time: {
-				jamuan: { start: '11:00', end: '17:00', display: '11.00pg - 5.00ptg' },
+				jamuan: { start: '12:00', end: '17:00', display: '12.00pg - 5.00ptg' },
 				ketibaan: { time: '12:00', display: '12.00tgh' }
 			},
 			contacts: [

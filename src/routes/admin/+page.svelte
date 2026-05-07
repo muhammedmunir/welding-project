@@ -162,7 +162,7 @@
 	const eventLabel = (ev: string) =>
 		ev === 'both' ? 'Kedua-dua Majlis' :
 		ev === 'perempuan' ? 'Majlis Perkahwinan' :
-		'Majlis Bertandang';
+		'Walimatulurus';
 
 	function exportCsv() {
 		const headers = ['Nama', 'Bil. Tetamu', 'Majlis', 'Makanan Khas', 'No. Telefon', 'Masa'];
@@ -356,7 +356,7 @@
 					<select bind:value={inviteForm.event} class="invite-select" aria-label="Pilih majlis">
 						<option value="both">Kedua-dua Majlis</option>
 						<option value="perempuan">Majlis Perkahwinan (Perempuan)</option>
-						<option value="lelaki">Majlis Bertandang (Lelaki)</option>
+						<option value="lelaki">Walimatulurus (Lelaki)</option>
 					</select>
 					<button onclick={generateInviteLink} class="gen-btn" disabled={!inviteForm.name.trim()}>
 						+ Jana

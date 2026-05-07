@@ -96,15 +96,33 @@
 
 	const pageUrl = browser ? window.location.origin + '/muhammed-munir' : '';
 	const waMessage = [
-		`🕌 Jemputan Majlis Bertandang 🕌`,
+		`🕊️ WALIMATULURUS 🕊️`,
 		``,
-		`${wedding.groom.name} & ${wedding.bride.name}`,
-		`📅 ${ev.dayDisplay}, ${ev.dateDisplay}`,
-		`🕚 ${ev.time.jamuan.display}`,
-		`📍 ${ev.venue}, ${ev.venueShort}`,
+		`Assalamualaikum w.b.t & Salam Sejahtera`,
 		``,
-		`${wedding.hashtag}`,
-		`🔗`
+		`بِسۡـــــــــمِ اللَّهِ ٱلرَّحۡـمَـٰنِ ٱلرَّحِـــــــيم`,
+		`"Dan segala sesuatu Kami ciptakan berpasangan, supaya kamu mengingati (kebesaran Allah)." [51:49]`,
+		``,
+		`Dengan penuh kesyukuran dan rendah hati, kami`,
+		`${wedding.groom.father}`,
+		`&`,
+		`${wedding.groom.mother}`,
+		`menjemput Tuan | Puan | Encik | Cik ke Majlis Kesyukuran putera kami`,
+		``,
+		`${wedding.groom.name} Bin Mohd Azmi`,
+		`& pasangannya`,
+		`${wedding.bride.name} Binti Zulhamlly`,
+		``,
+		`🗓️ : ${ev.dayDisplay}, ${ev.dateDisplay}`,
+		`⏰ : ${ev.time.jamuan.display}`,
+		`📍 : ${ev.venue}, ${ev.venueShort}`,
+		``,
+		`Maklumat lanjut & Pengesahan kehadiran (RSVP):`,
+		`(Sila klik pautan di bawah)`,
+		``,
+		`Semoga dengan kehadiran semua dapat memeriahkan dan menyerikan lagi majlis ini dan mendoakan agar perkahwinan yang dibina ini dilimpahi sakinah, mawaddah dan rahmat Allah SWT.`,
+		``,
+		`${wedding.hashtag}`
 	].join('\n');
 
 	function handleCalendar() {
@@ -182,11 +200,11 @@
 
 <svelte:head>
 	<link rel="manifest" href="/api/manifest?start=/muhammed-munir" />
-	<title>{wedding.groom.nameDisplay} & {wedding.bride.nameDisplay} — Majlis Bertandang</title>
+	<title>{wedding.groom.nameDisplay} & {wedding.bride.nameDisplay} — Walimatulurus</title>
 	<meta name="description" content="Jemputan ke {ev.type} pada {ev.dayDisplay}, {ev.dateDisplay} di {ev.venue}, {ev.venueShort}." />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content={$page.url.href} />
-	<meta property="og:title" content="Jemputan Majlis Bertandang: {wedding.groom.name} & {wedding.bride.name}" />
+	<meta property="og:title" content="Jemputan Walimatulurus: {wedding.groom.name} & {wedding.bride.name}" />
 	<meta property="og:description" content="{ev.type} — {ev.dayDisplay}, {ev.dateDisplay} @ {ev.venue}, {ev.venueShort}" />
 	<meta property="og:image" content="{$page.url.origin}/api/og?event=lelaki" />
 	<meta property="og:image:width" content="1200" />
@@ -201,7 +219,7 @@
 	audioSrc="/lagu-lelaki.mp3"
 	brideName={wedding.groom.nameDisplay}
 	groomName={wedding.bride.nameDisplay}
-	eventLabel="Majlis Bertandang"
+	eventLabel="Walimatulurus"
 />
 
 <!-- Sticky Navigation -->
