@@ -10,8 +10,8 @@ let fontBold: ArrayBuffer | null = null;
 async function getFonts(): Promise<{ regular: ArrayBuffer; bold: ArrayBuffer }> {
 	if (!fontRegular || !fontBold) {
 		const [r1, r2] = await Promise.all([
-			fetch('https://cdn.jsdelivr.net/npm/@fontsource/noto-sans@5/files/noto-sans-latin-400-normal.woff2'),
-			fetch('https://cdn.jsdelivr.net/npm/@fontsource/noto-sans@5/files/noto-sans-latin-700-normal.woff2')
+			fetch('https://cdn.jsdelivr.net/npm/@fontsource/noto-sans@5/files/noto-sans-latin-400-normal.woff'),
+			fetch('https://cdn.jsdelivr.net/npm/@fontsource/noto-sans@5/files/noto-sans-latin-700-normal.woff')
 		]);
 		[fontRegular, fontBold] = await Promise.all([r1.arrayBuffer(), r2.arrayBuffer()]);
 	}
